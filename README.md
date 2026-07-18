@@ -32,21 +32,23 @@ Este proyecto no es solo un listado de temas, sino una **herramienta de seguimie
 
 | Fase | Tema |
 |------|------|
-| `0` | Preparación del entorno (VS Code, Git, Python, Docker, etc.) |
+| `0` | Introducción a la Ingeniería de Datos (entorno, herramientas, fundamentos) |
 | `1` | Linux para datos (comandos básicos, scripting, permisos) |
 | `2` | Git (control de versiones y colaboración) |
-| `3` | Python (fundamentos, colecciones, APIs, logging) |
+| `3` | Python (fundamentos, colecciones, APIs, logging, POO) |
 | `4` | SQL (consultas avanzadas, CTE, ventanas, optimización) |
 | `5` | Modelado de datos (normalización, estrella, copo de nieve, SCD) |
-| `6` | Pandas (limpieza, transformación y análisis) |
-| `7` | ETL y ELT (pipelines, calidad, idempotencia) |
-| `8` | Docker (imágenes, contenedores, compose) |
-| `9` | Airflow (DAGs, operadores, orquestación) |
-| `10` | Spark (procesamiento distribuido, DataFrames, optimización) |
-| `11` | Cloud (AWS: S3, EC2, RDS, Glue, Athena, EMR) |
-| `12` | dbt (transformaciones, tests, documentación) |
-| `13` | Kafka (streaming, productores, consumidores) |
-| `14` | Data Lakehouse (Medallion, Delta Lake / Iceberg) |
+| `6` | ⭐ Ingeniería de Software para Data Engineers (estructura, testing, calidad) |
+| `7` | Pandas (limpieza, transformación y análisis) |
+| `8` | ETL y ELT (pipelines, calidad, idempotencia) |
+| `9` | Docker (imágenes, contenedores, compose) |
+| `10` | Airflow (DAGs, operadores, orquestación) |
+| `11` | Spark (procesamiento distribuido, DataFrames, optimización) |
+| `12` | Cloud (AWS: S3, EC2, RDS, Glue, Athena, EMR) |
+| `13` | dbt (transformaciones, tests, documentación) |
+| `14` | Kafka (streaming, productores, consumidores) |
+| `15` | Data Lakehouse (Medallion, Delta Lake / Iceberg) |
+| `16` | ⭐ CI/CD para Ingeniería de Datos (GitHub Actions, automatización) |
 
 Cada fase incluye su objetivo, los módulos con sus ítems y un proyecto práctico asociado.
 

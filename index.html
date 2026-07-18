@@ -1624,335 +1624,386 @@
 
     <script>
         // ============================================================
-        // 1. DATOS DEL ROADMAP
+        // 1. DATOS DEL ROADMAP (ACTUALIZADO)
         // ============================================================
-        const roadmapData = [{
-            id: 0,
-            name: "Fase 0 — Preparación del entorno",
-            objective: "Tener un entorno de trabajo profesional.",
-            modules: [{
-                title: "Módulo 0.1 — ¿Qué es la Ingeniería de Datos?",
-                items: [
-                    "¿Qué es un dato?",
-                    "Tipos de datos.",
-                    "Ciclo de vida de un dato.",
-                    "¿Qué hace un Data Engineer?",
-                    "Diferencia con Data Analyst.",
-                    "Diferencia con Data Scientist.",
-                    "Diferencia con Machine Learning Engineer.",
-                    "¿Qué es un pipeline de datos?",
-                    "Arquitectura general de un sistema de datos.",
-                    "¿Qué es ETL y qué es ELT? (introducción de 5 minutos)",
-                    "¿Qué es un Data Warehouse y un Data Lake? (conceptual)",
-                    "Roadmap del curso."
-                ]
-            }, {
-                title: "Módulo 0.2 — Herramientas",
-                items: [
-                    "Instalar VS Code.",
-                    "Instalar Git.",
-                    "Instalar Python.",
-                    "Instalar Docker Desktop.",
-                    "Instalar PostgreSQL.",
-                    "Instalar DBeaver.",
-                    "Crear cuenta en GitHub.",
-                    "Configurar Git (user.name y user.email).",
-                    "Crear el primer repositorio y hacer el primer commit."
-                ]
-            }],
-            project: "Proyecto: dejar el entorno listo."
-        }, {
-            id: 1,
-            name: "Fase 1 — Linux para Ingeniería de Datos",
-            objective: "Poder trabajar cómodamente en servidores Linux.",
-            modules: [{
-                title: "Módulo 1.1",
-                items: ["¿Qué es Linux?", "Distribuciones.", "WSL.", "Terminal.", "Shell.", "Bash."]
-            }, {
-                title: "Módulo 1.2",
-                items: ["pwd", "ls", "cd", "mkdir", "touch", "cp", "mv", "rm"]
-            }, {
-                title: "Módulo 1.3",
-                items: ["cat", "less", "head", "tail", "wc"]
-            }, {
-                title: "Módulo 1.4",
-                items: ["grep", "find", "locate", "which"]
-            }, {
-                title: "Módulo 1.5",
-                items: ["cut", "sort", "uniq", "tr", "sed", "awk"]
-            }, {
-                title: "Módulo 1.6",
-                items: ["usuarios", "grupos", "chmod", "chown"]
-            }, {
-                title: "Módulo 1.7",
-                items: ["ps", "top", "kill", "jobs", "bg", "fg"]
-            }, {
-                title: "Módulo 1.8",
-                items: ["PATH", "export", "alias", ".bashrc"]
-            }, {
-                title: "Módulo 1.9",
-                items: ["variables", "if", "while", "for", "funciones", "parámetros"]
-            }],
-            project: "Proyecto: Automatizar la descarga y procesamiento de archivos CSV."
-        }, {
-            id: 2,
-            name: "Fase 2 — Git",
-            objective: "Control de versiones para tus proyectos.",
-            modules: [{
-                title: "Módulo 2.1 — Fundamentos",
-                items: ["¿Qué es Git?", "Repositorio.", "Commit.", "Branch.", "Merge."]
-            }, {
-                title: "Módulo 2.2 — Trabajo diario",
-                items: ["init", "clone", "add", "commit", "push", "pull", "fetch"]
-            }, {
-                title: "Módulo 2.3 — Trabajo colaborativo",
-                items: ["branch", "merge", "rebase", "stash", "tags"]
-            }],
-            project: "Proyecto: gestionar todos los proyectos del curso con Git."
-        }, {
-            id: 3,
-            name: "Fase 3 — Python",
-            objective: "Dominar Python para ingeniería de datos.",
-            modules: [{
-                title: "Módulo 3.1 — Fundamentos",
-                items: ["variables", "tipos", "operadores", "condicionales", "loops", "funciones"]
-            }, {
-                title: "Módulo 3.2 — Colecciones",
-                items: ["listas", "tuplas", "diccionarios", "conjuntos"]
-            }, {
-                title: "Módulo 3.3 — Archivos",
-                items: ["txt", "csv", "json", "excel"]
-            }, {
-                title: "Módulo 3.4 — Módulos",
-                items: ["import", "virtualenv", "pip", "requirements.txt"]
-            }, {
-                title: "Módulo 3.5 — Excepciones",
-                items: ["try", "except", "finally"]
-            }, {
-                title: "Módulo 3.6 — POO (solo lo necesario)",
-                items: ["clases", "objetos", "métodos"]
-            }, {
-                title: "Módulo 3.7 — Logging",
-                items: ["logging"]
-            }, {
-                title: "Módulo 3.8 — Requests",
-                items: ["HTTP", "APIs", "autenticación", "paginación"]
-            }],
-            project: "Proyecto: consumir una API y guardar datos en PostgreSQL."
-        }, {
-            id: 4,
-            name: "Fase 4 — SQL",
-            objective: "Consultas avanzadas y optimización.",
-            modules: [{
-                title: "Módulo 4.1 — Bases de datos",
-                items: ["tablas", "filas", "columnas", "claves"]
-            }, {
-                title: "Módulo 4.2 — Consultas",
-                items: ["SELECT", "WHERE", "ORDER BY", "LIMIT"]
-            }, {
-                title: "Módulo 4.3 — Funciones",
-                items: ["COUNT", "SUM", "AVG", "MIN", "MAX"]
-            }, {
-                title: "Módulo 4.4 — Agrupaciones",
-                items: ["GROUP BY", "HAVING"]
-            }, {
-                title: "Módulo 4.5 — JOIN",
-                items: ["INNER", "LEFT", "RIGHT", "FULL"]
-            }, {
-                title: "Módulo 4.6 — Subconsultas",
-                items: ["subconsultas"]
-            }, {
-                title: "Módulo 4.7 — CTE",
-                items: ["CTE"]
-            }, {
-                title: "Módulo 4.8 — Funciones ventana",
-                items: ["funciones ventana"]
-            }, {
-                title: "Módulo 4.9 — Optimización",
-                items: ["índices", "EXPLAIN", "planes de ejecución"]
-            }],
-            project: "Proyecto: construir un sistema de consultas para una base de ventas."
-        }, {
-            id: 5,
-            name: "Fase 5 — Modelado de Datos",
-            objective: "Diseñar esquemas eficientes.",
-            modules: [{
-                title: "Modelado de Datos",
-                items: [
-                    "Normalización.",
-                    "Desnormalización.",
-                    "Claves primarias.",
-                    "Claves foráneas.",
-                    "Modelo entidad-relación.",
-                    "Modelo dimensional.",
-                    "Star Schema.",
-                    "Snowflake.",
-                    "Fact Tables.",
-                    "Dimension Tables.",
-                    "Slowly Changing Dimensions."
-                ]
-            }],
-            project: "Proyecto: diseñar un Data Warehouse."
-        }, {
-            id: 6,
-            name: "Fase 6 — Pandas",
-            objective: "Manipulación y limpieza de datos.",
-            modules: [{
-                title: "Pandas",
-                items: [
-                    "Series.",
-                    "DataFrames.",
-                    "Lectura de archivos.",
-                    "Limpieza.",
-                    "Joins.",
-                    "GroupBy.",
-                    "Fechas.",
-                    "Valores nulos.",
-                    "Exportación."
-                ]
-            }],
-            project: "Proyecto: limpiar un conjunto de datos real."
-        }, {
-            id: 7,
-            name: "Fase 7 — ETL y ELT",
-            objective: "Construir pipelines robustos.",
-            modules: [{
-                title: "ETL y ELT",
-                items: [
-                    "¿Qué es ETL?",
-                    "¿Qué es ELT?",
-                    "Extracción.",
-                    "Transformación.",
-                    "Carga.",
-                    "Calidad de datos.",
-                    "Validaciones.",
-                    "Idempotencia.",
-                    "Incrementales."
-                ]
-            }],
-            project: "Proyecto: primer pipeline completo."
-        }, {
-            id: 8,
-            name: "Fase 8 — Docker",
-            objective: "Contenerización para reproducibilidad.",
-            modules: [{
-                title: "Docker",
-                items: [
-                    "Imágenes.",
-                    "Contenedores.",
-                    "Dockerfile.",
-                    "Volúmenes.",
-                    "Redes.",
-                    "Docker Compose."
-                ]
-            }],
-            project: "Proyecto: levantar PostgreSQL + Airflow + MinIO."
-        }, {
-            id: 9,
-            name: "Fase 9 — Airflow",
-            objective: "Orquestación de pipelines.",
-            modules: [{
-                title: "Airflow",
-                items: [
-                    "DAG.",
-                    "Operators.",
-                    "Scheduling.",
-                    "Variables.",
-                    "XCom.",
-                    "Connections.",
-                    "Sensores."
-                ]
-            }],
-            project: "Proyecto: automatizar el ETL."
-        }, {
-            id: 10,
-            name: "Fase 10 — Spark",
-            objective: "Procesamiento distribuido masivo.",
-            modules: [{
-                title: "Spark",
-                items: [
-                    "Arquitectura.",
-                    "SparkSession.",
-                    "DataFrames.",
-                    "Lectura.",
-                    "Escritura.",
-                    "Transformaciones.",
-                    "Acciones.",
-                    "Spark SQL.",
-                    "Particiones.",
-                    "Optimización."
-                ]
-            }],
-            project: "Proyecto: procesar datos masivos."
-        }, {
-            id: 11,
-            name: "Fase 11 — Cloud (AWS)",
-            objective: "Desplegar en la nube.",
-            modules: [{
-                title: "AWS",
-                items: [
-                    "IAM.",
-                    "S3.",
-                    "EC2.",
-                    "RDS.",
-                    "Glue.",
-                    "Athena.",
-                    "EMR."
-                ]
-            }],
-            project: "Proyecto: migrar el pipeline a la nube."
-        }, {
-            id: 12,
-            name: "Fase 12 — dbt",
-            objective: "Transformaciones en el almacén.",
-            modules: [{
-                title: "dbt",
-                items: [
-                    "Models.",
-                    "Sources.",
-                    "Seeds.",
-                    "Tests.",
-                    "Snapshots.",
-                    "Macros.",
-                    "Documentation."
-                ]
-            }],
-            project: "Proyecto: transformar la capa analítica."
-        }, {
-            id: 13,
-            name: "Fase 13 — Kafka",
-            objective: "Streaming y mensajería en tiempo real.",
-            modules: [{
-                title: "Kafka",
-                items: [
-                    "Brokers.",
-                    "Topics.",
-                    "Producers.",
-                    "Consumers.",
-                    "Particiones.",
-                    "Consumer Groups."
-                ]
-            }],
-            project: "Proyecto: pipeline en tiempo real."
-        }, {
-            id: 14,
-            name: "Fase 14 — Data Lakehouse",
-            objective: "Arquitectura unificada de datos.",
-            modules: [{
-                title: "Data Lakehouse",
-                items: [
-                    "Data Lake.",
-                    "Data Warehouse.",
-                    "Lakehouse.",
-                    "Arquitectura Medallion.",
-                    "Bronze.",
-                    "Silver.",
-                    "Gold.",
-                    "Delta Lake o Apache Iceberg."
-                ]
-            }],
-            project: "Proyecto: construir un Lakehouse completo."
-        }];
+        const roadmapData = [
+            {
+                id: 0,
+                name: "Módulo 0 — Introducción a la Ingeniería de Datos",
+                objective: "Comprender el ecosistema de la Ingeniería de Datos y preparar el entorno de trabajo.",
+                modules: [
+                    {
+                        title: "Módulo 0.1 — ¿Qué es la Ingeniería de Datos?",
+                        items: [
+                            "¿Qué es un dato?",
+                            "Tipos de datos.",
+                            "Ciclo de vida de un dato.",
+                            "¿Qué hace un Data Engineer?",
+                            "Data Engineer vs Data Analyst.",
+                            "Data Engineer vs Data Scientist.",
+                            "Data Engineer vs Machine Learning Engineer.",
+                            "¿Qué es un pipeline de datos?",
+                            "Arquitectura general de un sistema de datos.",
+                            "Introducción a ETL y ELT.",
+                            "Introducción a Data Warehouse y Data Lake.",
+                            "Roadmap del curso."
+                        ]
+                    },
+                    {
+                        title: "Módulo 0.2 — Herramientas",
+                        items: [
+                            "VS Code",
+                            "Git",
+                            "Python",
+                            "Docker Desktop",
+                            "PostgreSQL",
+                            "DBeaver",
+                            "GitHub",
+                            "Configurar Git",
+                            "Primer repositorio",
+                            "Primer commit"
+                        ]
+                    }
+                ],
+                project: "Preparar completamente el entorno de desarrollo."
+            },
+            {
+                id: 1,
+                name: "Módulo 1 — Linux",
+                objective: "Poder trabajar en servidores Linux.",
+                modules: [
+                    {
+                        title: "1.1 Introducción",
+                        items: ["Linux", "Distribuciones", "WSL", "Terminal", "Shell", "Bash"]
+                    },
+                    {
+                        title: "1.2 Navegación",
+                        items: ["pwd", "ls", "cd", "mkdir", "touch", "cp", "mv", "rm"]
+                    },
+                    {
+                        title: "1.3 Archivos",
+                        items: ["cat", "less", "head", "tail", "wc"]
+                    },
+                    {
+                        title: "1.4 Búsquedas",
+                        items: ["grep", "find", "locate", "which"]
+                    },
+                    {
+                        title: "1.5 Procesamiento de texto",
+                        items: ["cut", "sort", "uniq", "tr", "sed", "awk"]
+                    },
+                    {
+                        title: "1.6 Usuarios y permisos",
+                        items: ["usuarios", "grupos", "chmod", "chown"]
+                    },
+                    {
+                        title: "1.7 Procesos",
+                        items: ["ps", "top", "kill", "jobs", "bg", "fg"]
+                    },
+                    {
+                        title: "1.8 Entorno",
+                        items: ["PATH", "export", "alias", ".bashrc"]
+                    },
+                    {
+                        title: "1.9 Bash Scripting",
+                        items: ["variables", "if", "while", "for", "funciones", "parámetros"]
+                    }
+                ],
+                project: "Automatizar la descarga y organización de archivos CSV."
+            },
+            {
+                id: 2,
+                name: "Módulo 2 — Git",
+                objective: "Controlar versiones de todos los proyectos.",
+                modules: [
+                    {
+                        title: "2.1 Fundamentos",
+                        items: ["Git", "Repositorio", "Commit", "Branch", "Merge"]
+                    },
+                    {
+                        title: "2.2 Flujo diario",
+                        items: ["init", "clone", "add", "commit", "push", "pull", "fetch"]
+                    },
+                    {
+                        title: "2.3 Trabajo colaborativo",
+                        items: ["branch", "merge", "rebase", "stash", "tags"]
+                    }
+                ],
+                project: "Gestionar todos los proyectos del curso con Git."
+            },
+            {
+                id: 3,
+                name: "Módulo 3 — Python",
+                objective: "Programar pipelines y herramientas.",
+                modules: [
+                    {
+                        title: "3.1 Fundamentos",
+                        items: ["variables", "tipos", "operadores", "condicionales", "loops", "funciones"]
+                    },
+                    {
+                        title: "3.2 Colecciones",
+                        items: ["listas", "tuplas", "diccionarios", "conjuntos"]
+                    },
+                    {
+                        title: "3.3 Archivos",
+                        items: ["txt", "csv", "json", "excel"]
+                    },
+                    {
+                        title: "3.4 Módulos",
+                        items: ["import", "pip", "virtualenv", "requirements.txt"]
+                    },
+                    {
+                        title: "3.5 Excepciones",
+                        items: ["try", "except", "finally", "raise"]
+                    },
+                    {
+                        title: "3.6 Programación Orientada a Objetos",
+                        items: ["clases", "objetos", "atributos", "métodos"]
+                    },
+                    {
+                        title: "3.7 Logging",
+                        items: ["logging", "niveles", "handlers", "formato"]
+                    },
+                    {
+                        title: "3.8 APIs",
+                        items: ["HTTP", "REST", "requests", "autenticación", "paginación", "rate limit"]
+                    }
+                ],
+                project: "Consumir una API y almacenar los datos en PostgreSQL."
+            },
+            {
+                id: 4,
+                name: "Módulo 4 — SQL",
+                objective: "Dominar SQL para análisis y transformación.",
+                modules: [
+                    {
+                        title: "4.1 Bases de datos",
+                        items: ["tablas", "filas", "columnas", "claves"]
+                    },
+                    {
+                        title: "4.2 Consultas",
+                        items: ["SELECT", "WHERE", "ORDER BY", "LIMIT"]
+                    },
+                    {
+                        title: "4.3 Funciones",
+                        items: ["COUNT", "SUM", "AVG", "MIN", "MAX"]
+                    },
+                    {
+                        title: "4.4 Agrupaciones",
+                        items: ["GROUP BY", "HAVING"]
+                    },
+                    {
+                        title: "4.5 JOIN",
+                        items: ["INNER", "LEFT", "RIGHT", "FULL"]
+                    },
+                    {
+                        title: "4.6 Subconsultas",
+                        items: ["subqueries"]
+                    },
+                    {
+                        title: "4.7 CTE",
+                        items: ["WITH"]
+                    },
+                    {
+                        title: "4.8 Funciones ventana",
+                        items: ["ROW_NUMBER", "RANK", "LAG", "LEAD"]
+                    },
+                    {
+                        title: "4.9 Optimización",
+                        items: ["índices", "EXPLAIN", "planes de ejecución"]
+                    }
+                ],
+                project: "Sistema de consultas para una base de ventas."
+            },
+            {
+                id: 5,
+                name: "Módulo 5 — Modelado de Datos",
+                objective: "Diseñar modelos eficientes.",
+                modules: [
+                    {
+                        title: "Modelado de Datos",
+                        items: [
+                            "Normalización",
+                            "Desnormalización",
+                            "Claves primarias",
+                            "Claves foráneas",
+                            "Modelo Entidad-Relación",
+                            "Modelo dimensional",
+                            "Star Schema",
+                            "Snowflake",
+                            "Fact Tables",
+                            "Dimension Tables",
+                            "Slowly Changing Dimensions"
+                        ]
+                    }
+                ],
+                project: "Diseñar un Data Warehouse."
+            },
+            {
+                id: 6,
+                name: "Módulo 6 — Ingeniería de Software para Data Engineers ⭐",
+                objective: "Aprender a construir proyectos mantenibles y profesionales.",
+                modules: [
+                    {
+                        title: "6.1 Estructura profesional",
+                        items: ["estructura src/", "estructura tests/", "estructura docs/", "estructura config/", "scripts/", "assets/"]
+                    },
+                    {
+                        title: "6.2 Configuración",
+                        items: ["variables de entorno", "archivo .env", "config.py", "config.yaml", "archivo .gitignore"]
+                    },
+                    {
+                        title: "6.3 Gestión de dependencias",
+                        items: ["requirements.txt", "pyproject.toml", "pip freeze", "entornos virtuales"]
+                    },
+                    {
+                        title: "6.4 Calidad de código",
+                        items: ["PEP8", "Black", "Ruff", "isort", "Docstrings", "Type Hints"]
+                    },
+                    {
+                        title: "6.5 Logging profesional",
+                        items: ["configuración", "archivos de log", "rotación", "niveles"]
+                    },
+                    {
+                        title: "6.6 Testing",
+                        items: ["pytest", "assert", "fixtures", "mocks", "unit testing", "integration testing", "cobertura (coverage)"]
+                    }
+                ],
+                project: "Refactorizar el proyecto de Python con una estructura profesional, configuración externa, logging y tests automatizados."
+            },
+            {
+                id: 7,
+                name: "Módulo 7 — Pandas",
+                objective: "Manipular y limpiar datos.",
+                modules: [
+                    {
+                        title: "Pandas",
+                        items: ["Series", "DataFrames", "Lectura", "Limpieza", "Joins", "GroupBy", "Fechas", "Valores nulos", "Exportación"]
+                    }
+                ],
+                project: "Limpiar un dataset real."
+            },
+            {
+                id: 8,
+                name: "Módulo 8 — ETL y ELT",
+                objective: "Construir pipelines.",
+                modules: [
+                    {
+                        title: "ETL y ELT",
+                        items: ["ETL", "ELT", "Extracción", "Transformación", "Carga", "Calidad de datos", "Validaciones", "Idempotencia", "Incrementales"]
+                    }
+                ],
+                project: "Primer pipeline completo."
+            },
+            {
+                id: 9,
+                name: "Módulo 9 — Docker",
+                objective: "Contenerizar aplicaciones.",
+                modules: [
+                    {
+                        title: "Docker",
+                        items: ["imágenes", "contenedores", "Dockerfile", "volúmenes", "redes", "Docker Compose"]
+                    }
+                ],
+                project: "Levantar PostgreSQL + Airflow + MinIO."
+            },
+            {
+                id: 10,
+                name: "Módulo 10 — Airflow",
+                objective: "Orquestar pipelines.",
+                modules: [
+                    {
+                        title: "Airflow",
+                        items: ["DAG", "Operators", "Scheduling", "Variables", "XCom", "Connections", "Sensors"]
+                    }
+                ],
+                project: "Automatizar el ETL."
+            },
+            {
+                id: 11,
+                name: "Módulo 11 — Spark",
+                objective: "Procesamiento distribuido.",
+                modules: [
+                    {
+                        title: "Spark",
+                        items: ["Arquitectura", "SparkSession", "DataFrames", "Lectura", "Escritura", "Transformaciones", "Acciones", "Spark SQL", "Particiones", "Optimización"]
+                    }
+                ],
+                project: "Procesar datos masivos."
+            },
+            {
+                id: 12,
+                name: "Módulo 12 — AWS",
+                objective: "Desplegar soluciones de datos.",
+                modules: [
+                    {
+                        title: "AWS",
+                        items: ["IAM", "S3", "EC2", "RDS", "Glue", "Athena", "EMR"]
+                    }
+                ],
+                project: "Migrar el pipeline a AWS."
+            },
+            {
+                id: 13,
+                name: "Módulo 13 — dbt",
+                objective: "Gestionar transformaciones analíticas.",
+                modules: [
+                    {
+                        title: "dbt",
+                        items: ["Models", "Sources", "Seeds", "Tests", "Snapshots", "Macros", "Documentation"]
+                    }
+                ],
+                project: "Construir la capa analítica."
+            },
+            {
+                id: 14,
+                name: "Módulo 14 — Kafka",
+                objective: "Procesar datos en tiempo real.",
+                modules: [
+                    {
+                        title: "Kafka",
+                        items: ["Brokers", "Topics", "Producers", "Consumers", "Particiones", "Consumer Groups"]
+                    }
+                ],
+                project: "Pipeline en streaming."
+            },
+            {
+                id: 15,
+                name: "Módulo 15 — Data Lakehouse",
+                objective: "Construir una arquitectura moderna de datos.",
+                modules: [
+                    {
+                        title: "Data Lakehouse",
+                        items: ["Data Lake", "Data Warehouse", "Lakehouse", "Arquitectura Medallion", "Bronze", "Silver", "Gold", "Delta Lake", "Apache Iceberg"]
+                    }
+                ],
+                project: "Construir un Lakehouse completo."
+            },
+            {
+                id: 16,
+                name: "Módulo 16 — CI/CD para Ingeniería de Datos ⭐",
+                objective: "Automatizar la calidad y el despliegue de proyectos.",
+                modules: [
+                    {
+                        title: "16.1 Integración continua",
+                        items: ["¿Qué es CI/CD?", "GitHub Actions", "Workflows", "Runners", "Secrets"]
+                    },
+                    {
+                        title: "16.2 Automatización de calidad",
+                        items: ["Ejecutar tests automáticamente", "Ejecutar Ruff", "Ejecutar Black", "Ejecutar isort", "Coverage"]
+                    },
+                    {
+                        title: "16.3 Automatización de documentación",
+                        items: ["Build de MKDocs", "Deploy automático a GitHub Pages", "Versionado de documentación"]
+                    },
+                    {
+                        title: "16.4 Automatización de Docker",
+                        items: ["Build de imágenes", "Publicación en Docker Hub o GitHub Container Registry"]
+                    }
+                ],
+                project: "Crear un pipeline de CI/CD que, en cada push: ejecute tests, verifique la calidad del código, construya la documentación, genere la imagen Docker, publique automáticamente la documentación."
+            }
+        ];
 
         // ============================================================
         // 2. LOCALSTORAGE
@@ -2245,6 +2296,7 @@
                 else if (t.includes('modelado')) icon.className = 'fas fa-project-diagram';
                 else if (t.includes('etl')) icon.className = 'fas fa-exchange-alt';
                 else if (t.includes('lakehouse')) icon.className = 'fas fa-warehouse';
+                else if (t.includes('ci/cd')) icon.className = 'fas fa-sync-alt';
                 else icon.className = 'fas fa-cog';
                 modTitle.appendChild(icon);
                 modTitle.appendChild(document.createTextNode(mod.title));
