@@ -1,6 +1,6 @@
 # 📊 DataPath · Roadmap interactivo de Ingeniería de Datos
 
-**DataPath** es una guía visual e interactiva para convertirte en Ingeniero de Datos desde cero. Está estructurada en **15 fases** que cubren desde los fundamentos de Linux y Python hasta arquitecturas modernas como Data Lakehouse, pasando por SQL, Spark, Airflow, Docker y Cloud.
+**DataPath** es una guía visual e interactiva para convertirte en Ingeniero de Datos desde cero. Está estructurada en **fases** que cubren desde los fundamentos de Linux y Python hasta arquitecturas modernas como Data Lakehouse, pasando por SQL, Spark, Airflow, Docker y Cloud.
 
 Este proyecto no es solo un listado de temas, sino una **herramienta de seguimiento activo** que te permite marcar tu progreso, guardar tus dudas y mantener la motivación con un sistema de logros y un temporizador Pomodoro integrado.
 
@@ -10,8 +10,7 @@ Este proyecto no es solo un listado de temas, sino una **herramienta de seguimie
 
 ## 🚀 Demo en vivo
 
-👉 [**DataPath - Roadmap Ingeniería de Datos**](https://tincho535.github.io/DataPath/)  
-*(Reemplaza este enlace con la URL real de tu GitHub Pages o despliegue)*
+👉 [**DataPath - Roadmap Ingeniería de Datos**](https://tinchoz8426.github.io/DataPath/)  
 
 ---
 
