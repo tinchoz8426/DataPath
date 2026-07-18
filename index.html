@@ -1,0 +1,2978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataPath · Roadmap Ingeniería de Datos</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="roadmap.png">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <style>
+        /* ===== RESET Y BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a2e;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #e0e0ff;
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-left: 80px;
+            position: relative;
+        }
+
+        /* ===== CONTENEDOR PRINCIPAL ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 20px 40px;
+        }
+
+        /* ===== BARRA LATERAL ===== */
+        .phase-nav-side {
+            position: fixed;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            z-index: 100;
+            background: rgba(10, 10, 30, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 10px 6px 8px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .phase-nav-side .brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.5rem;
+            color: rgba(0, 240, 255, 0.4);
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            text-align: center;
+            line-height: 1.2;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+            padding-bottom: 6px;
+            width: 100%;
+        }
+
+        .phase-nav-side a {
+            color: #506080;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 4px 2px;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            width: 36px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            border: 1px solid transparent;
+        }
+
+        .phase-nav-side a:hover {
+            color: #00f0ff;
+            background: rgba(0, 240, 255, 0.08);
+            border-color: rgba(0, 240, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        .phase-nav-side a.active {
+            color: #fff;
+            background: rgba(0, 240, 255, 0.15);
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            text-align: center;
+            padding: 30px 0 25px;
+            border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, #00f0ff, #a855f7, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        header h1 .title-icon {
+            height: 2.6rem;
+            width: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));
+        }
+
+        header .subtitle {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: #c8d8ff;
+            margin-top: 6px;
+            letter-spacing: 3px;
+        }
+
+        header .subtitle i {
+            color: #00f0ff;
+            margin: 0 8px;
+        }
+
+        /* ===== HERRAMIENTAS ===== */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px 24px;
+            margin: 16px 0 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 240, 255, 0.08);
+        }
+
+        .tools-row .action-tool {
+            background: rgba(0, 240, 255, 0.06);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            color: #c0d0ff;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tools-row .action-tool:hover {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+            transform: scale(1.05);
+            color: #fff;
+        }
+
+        .tools-row .action-tool i {
+            color: #a855f7;
+        }
+
+        .tools-row .action-tool.active-filter {
+            background: rgba(255, 200, 0, 0.15);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .tools-row .action-tool.active-filter i {
+            color: #ffd700;
+        }
+
+        /* Switch modo lectura */
+        .switch-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #b0c0e0;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .switch-label input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 40px;
+            height: 22px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .switch-label input[type="checkbox"]::after {
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: #506080;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .switch-label input[type="checkbox"]:checked {
+            background: rgba(0, 240, 255, 0.3);
+            border-color: #00f0ff;
+        }
+
+        .switch-label input[type="checkbox"]:checked::after {
+            left: 20px;
+            background: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+
+        /* Contadores de dudas y logros */
+        .badge-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 200, 0, 0.1);
+            border: 1px solid rgba(255, 200, 0, 0.2);
+            border-radius: 30px;
+            padding: 2px 14px;
+            font-size: 0.8rem;
+            color: #ffd700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .badge-counter:hover {
+            background: rgba(255, 200, 0, 0.2);
+            transform: scale(1.05);
+        }
+
+        .badge-counter.doubt {
+            background: rgba(255, 100, 100, 0.1);
+            border-color: rgba(255, 100, 100, 0.3);
+            color: #ff6b6b;
+        }
+
+        .badge-counter.doubt:hover {
+            background: rgba(255, 100, 100, 0.2);
+        }
+
+        .counters-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 8px 0 4px;
+        }
+
+        /* ===== PROGRESO Y TIMELINE ===== */
+        .progress-wrapper {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 40px;
+            padding: 6px;
+            margin: 16px auto 8px;
+            max-width: 600px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .progress-bar {
+            height: 12px;
+            border-radius: 40px;
+            background: linear-gradient(90deg, #00f0ff, #a855f7, #ff00ff);
+            width: 0%;
+            transition: width 0.6s ease;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #b0c0e0;
+            margin-top: 4px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline-container {
+            max-width: 700px;
+            margin: 16px auto 25px;
+            padding: 10px 10px 5px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.08);
+            overflow-x: auto;
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 600px;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            right: 30px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .timeline-line-progress {
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, #00f0ff, #a855f7);
+            transform: translateY(-50%);
+            z-index: 1;
+            transition: width 0.8s ease;
+            width: 0%;
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .timeline-point {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            z-index: 2;
+            transition: transform 0.3s ease;
+            position: relative;
+            flex: 1;
+        }
+
+        .timeline-point:hover {
+            transform: scale(1.15);
+        }
+
+        .timeline-point .dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2a2a4a;
+            border: 2px solid #4a4a6a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.5rem;
+            color: #6a6a8a;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-point .dot.completed {
+            background: linear-gradient(135deg, #00f0ff, #a855f7);
+            border-color: #00f0ff;
+            color: #0a0a1a;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+        }
+
+        .timeline-point .dot.partial {
+            border-color: #a855f7;
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+
+        .timeline-point .label {
+            font-size: 0.55rem;
+            color: #506080;
+            margin-top: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .timeline-point .dot.completed+.label {
+            color: #00f0ff;
+        }
+
+        /* ===== NAV HORIZONTAL (móviles) ===== */
+        .phase-nav-horizontal {
+            display: none;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 16px;
+            margin: 20px 0 25px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .phase-nav-horizontal a {
+            color: #8090b0;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .phase-nav-horizontal a:hover {
+            color: #00f0ff;
+            border-color: rgba(0, 240, 255, 0.3);
+            background: rgba(0, 240, 255, 0.05);
+            transform: scale(1.05);
+        }
+
+        .phase-nav-horizontal a.active {
+            color: #fff;
+            background: rgba(0, 240, 255, 0.15);
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+        }
+
+        /* ===== TARJETAS ===== */
+        .phase-card {
+            background: rgba(20, 20, 40, 0.85);
+            backdrop-filter: blur(4px);
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .phase-card:hover {
+            border-color: rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.1);
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            cursor: pointer;
+            background: rgba(0, 240, 255, 0.03);
+            transition: background 0.3s;
+            user-select: none;
+        }
+
+        .phase-header:hover {
+            background: rgba(0, 240, 255, 0.06);
+        }
+
+        .phase-header .phase-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #d0d8ff;
+        }
+
+        .phase-header .phase-title .phase-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00f0ff, #a855f7);
+            color: #0a0a1a;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .phase-header .phase-toggle {
+            font-size: 1.3rem;
+            color: #00f0ff;
+            transition: transform 0.4s ease;
+        }
+
+        .phase-header .phase-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .phase-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 0 24px;
+        }
+
+        .phase-body.open {
+            grid-template-rows: 1fr;
+            padding: 8px 24px 24px;
+        }
+
+        .phase-body-inner {
+            overflow: hidden;
+        }
+
+        .phase-body .phase-description {
+            color: #8090b0;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 1px dashed rgba(0, 240, 255, 0.1);
+            font-weight: 300;
+        }
+
+        .phase-body .phase-description strong {
+            color: #00f0ff;
+            font-weight: 600;
+        }
+
+        .phase-progress-mini {
+            font-size: 0.7rem;
+            color: #8090b0;
+            margin-left: 10px;
+            padding: 2px 10px;
+            border-radius: 20px;
+            background: rgba(0, 240, 255, 0.06);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .module-container {
+            margin: 10px 0 6px;
+        }
+
+        .module-title {
+            font-weight: 600;
+            color: #c0ccff;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+
+        .module-title i {
+            color: #a855f7;
+            width: 18px;
+            text-align: center;
+        }
+
+        .module-items {
+            list-style: none;
+            padding-left: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2px 16px;
+            margin: 2px 0 6px;
+        }
+
+        .module-items li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 2px 0;
+            font-weight: 300;
+            color: #b0c0e0;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: color 0.2s;
+            cursor: default;
+        }
+
+        .module-items li:hover {
+            color: #ffffff;
+        }
+
+        .module-items li input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 17px;
+            height: 17px;
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .module-items li input[type="checkbox"]:checked {
+            background: #00f0ff;
+            border-color: #00f0ff;
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        .module-items li input[type="checkbox"]:checked::after {
+            content: "✓";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #0a0a1a;
+            font-weight: 900;
+            font-size: 13px;
+        }
+
+        .module-items li input[type="checkbox"]:hover {
+            border-color: #00f0ff;
+        }
+
+        .module-items li .item-text {
+            flex: 1;
+        }
+
+        .module-items li.completed .item-text {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        /* ===== BOTÓN DE DUDA ===== */
+        .doubt-btn {
+            background: transparent;
+            border: none;
+            color: #506080;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0 2px;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            width: 22px;
+            text-align: center;
+        }
+
+        .doubt-btn:hover {
+            color: #a0b0d0;
+            transform: scale(1.2);
+        }
+
+        .doubt-btn.active {
+            color: #ff6b6b;
+            /* Sin sombra para no intensificar */
+            text-shadow: none;
+        }
+
+        .doubt-btn.active:hover {
+            color: #ff4444;
+        }
+
+        /* ===== RESALTADO DE DUDAS (NUEVO) ===== */
+        .module-items li.has-doubt {
+            background: rgba(255, 60, 60, 0.12);
+            border-left: 4px solid #ff6b6b;
+            padding-left: 6px;
+            border-radius: 4px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .module-items li.has-doubt .item-text {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        /* El botón de duda mantiene el mismo color que el texto, sin fondo extra */
+        .module-items li.has-doubt .doubt-btn.active {
+            color: #ff6b6b;
+            background: transparent;
+            /* Sin fondo adicional */
+            text-shadow: none;
+        }
+
+        /* ===== FILTRO DE DUDAS ===== */
+        body.show-doubts-only .module-items li:not(.has-doubt) {
+            display: none;
+        }
+
+        body.show-doubts-only .module-items li.has-doubt {
+            display: flex;
+        }
+
+        body.show-doubts-only .module-container:empty,
+        body.show-doubts-only .phase-body-inner:has(.module-container:empty) {
+            display: none;
+        }
+
+        /* ===== PROYECTO ===== */
+        .project-tag {
+            display: inline-block;
+            background: rgba(255, 0, 255, 0.15);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 20px;
+            padding: 2px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #ff66ff;
+            letter-spacing: 0.5px;
+            margin-top: 14px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+        }
+
+        .project-tag i {
+            margin-right: 6px;
+        }
+
+        /* ===== MODO LECTURA ===== */
+        body.read-mode .module-items li input[type="checkbox"] {
+            display: none;
+        }
+
+        body.read-mode .module-items li.completed .item-text {
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        body.read-mode .module-items li .item-text {
+            cursor: default;
+        }
+
+        body.read-mode .phase-progress-mini {
+            display: none;
+        }
+
+        body.read-mode .progress-wrapper,
+        body.read-mode .progress-text,
+        body.read-mode .achievement-counter {
+            display: none;
+        }
+
+        body.read-mode .timeline-container {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        body.read-mode .project-tag {
+            display: none;
+        }
+
+        body.read-mode .phase-header .phase-toggle {
+            display: none;
+        }
+
+        body.read-mode .phase-body {
+            padding: 0 24px 24px;
+            grid-template-rows: 1fr;
+        }
+
+        body.read-mode .phase-header {
+            cursor: default;
+        }
+
+        body.read-mode .phase-header:hover {
+            background: transparent;
+        }
+
+        body.read-mode .doubt-btn {
+            display: none;
+        }
+
+        /* ===== FOOTER Y BOTONES DE ACCIÓN ===== */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            color: #506080;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        footer .heart {
+            color: #ff00ff;
+        }
+
+        footer .brand-footer {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #00f0ff;
+            letter-spacing: 1px;
+        }
+
+        .footer-text-light {
+            color: #b0c0e0;
+        }
+
+        .footer-text-ai {
+            color: #8090b0;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #8090b0;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-links a:hover {
+            color: #00f0ff;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 16px 0 8px;
+        }
+
+        .action-btn {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            color: #c0d0ff;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 240, 255, 0.18);
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+            transform: scale(1.03);
+            color: #fff;
+        }
+
+        .action-btn i {
+            color: #00f0ff;
+        }
+
+        .action-btn-reset {
+            background: rgba(255, 60, 60, 0.1);
+            border-color: rgba(255, 60, 60, 0.3);
+        }
+
+        .action-btn-reset i {
+            color: #ff6b6b;
+        }
+
+        .action-btn-reset:hover {
+            background: rgba(255, 60, 60, 0.25);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 25px rgba(255, 60, 60, 0.2);
+        }
+
+        .action-btn-reset:hover i {
+            color: #fff;
+        }
+
+        .action-btn-discord {
+            background: rgba(88, 101, 242, 0.2);
+            border-color: #5865F2;
+        }
+
+        .action-btn-discord i {
+            color: #5865F2;
+        }
+
+        .action-btn-discord:hover {
+            background: rgba(88, 101, 242, 0.35);
+            border-color: #5865F2;
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.3);
+        }
+
+        .action-btn-discord:hover i {
+            color: #fff;
+        }
+
+        /* ===== MODALES ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 20px;
+            padding: 35px;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.2);
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #00f0ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .modal-content .modal-message {
+            color: #b0c0e0;
+            font-size: 1.05rem;
+            margin-bottom: 14px;
+            padding: 12px;
+            background: rgba(0, 240, 255, 0.05);
+            border-radius: 12px;
+            word-break: break-word;
+            user-select: all;
+            cursor: text;
+        }
+
+        .modal-content .modal-note {
+            color: #8090b0;
+            font-size: 0.8rem;
+            margin: -6px 0 14px;
+            padding: 6px 12px;
+            background: rgba(255, 200, 0, 0.06);
+            border-left: 2px solid rgba(255, 200, 0, 0.3);
+            border-radius: 6px;
+            text-align: left;
+        }
+
+        .modal-content .modal-note i {
+            color: #ffcc00;
+            margin-right: 6px;
+        }
+
+        .modal-content .modal-message-copy {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .modal-content .copy-btn {
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #c0d0ff;
+            padding: 5px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .modal-content .copy-btn:hover {
+            background: rgba(0, 240, 255, 0.25);
+            border-color: #00f0ff;
+        }
+
+        .modal-content .modal-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .modal-content .modal-btn {
+            padding: 8px 24px;
+            border-radius: 40px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .modal-content .modal-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .modal-content .modal-btn-twitter {
+            background: #1DA1F2;
+            color: #fff;
+        }
+
+        .modal-content .modal-btn-linkedin {
+            background: #0A66C2;
+            color: #fff;
+        }
+
+        .modal-content .modal-close {
+            margin-top: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #506080;
+            padding: 5px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .modal-content .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #a0b0d0;
+        }
+
+        .reset-modal .modal-content {
+            border-color: rgba(255, 60, 60, 0.4);
+            box-shadow: 0 0 60px rgba(255, 60, 60, 0.15);
+        }
+
+        .reset-modal .modal-content h2 {
+            background: linear-gradient(135deg, #ff6b6b, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reset-modal .reset-warning {
+            color: #ff6b6b;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-btn-danger {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        .modal-btn-danger:hover {
+            background: #ff2222;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #e0e0ff;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            font-family: 'Rajdhani', sans-serif;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00f0ff, #a855f7);
+            border-radius: 10px;
+        }
+
+        /* ===== LOGROS / ACHIEVEMENTS ===== */
+        .achievement-badge {
+            display: inline-block;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 30px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            color: #ffd700;
+            margin: 2px 4px;
+            white-space: nowrap;
+        }
+
+        .achievement-badge i {
+            margin-right: 4px;
+        }
+
+        .achievement-badge.locked {
+            opacity: 0.3;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #506080;
+            filter: grayscale(1);
+        }
+
+        .achievement-counter {
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 30px;
+            padding: 2px 14px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .achievement-counter:hover {
+            background: rgba(255, 215, 0, 0.25);
+            transform: scale(1.05);
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 14px;
+            margin: 14px 0;
+            text-align: center;
+        }
+
+        .achievement-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 12px 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .achievement-item.unlocked {
+            border-color: rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .achievement-item.locked {
+            opacity: 0.4;
+        }
+
+        .achievement-item .icon {
+            font-size: 2.2rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .achievement-item .name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #d0d8ff;
+        }
+
+        .achievement-item .desc {
+            font-size: 0.65rem;
+            color: #8090b0;
+        }
+
+        .roadmap-notice {
+            font-size: 0.75rem;
+            color: #a0b8e0;
+            margin-top: 8px;
+        }
+
+        /* ===== POMODORO FLOTANTE ===== */
+        .pomodoro-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pomodoro-float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00f0ff, #a855f7);
+            border: 2px solid rgba(0, 240, 255, 0.4);
+            color: #0a0a1a;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .pomodoro-float-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.5);
+        }
+
+        .pomodoro-float-badge {
+            background: #ff6b6b;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 2px 10px;
+            min-width: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 60, 60, 0.3);
+        }
+
+        /* ===== MODAL POMODORO ===== */
+        .pomodoro-modal .modal-content {
+            max-width: 400px;
+            border-color: rgba(0, 240, 255, 0.4);
+        }
+
+        .pomodoro-modal .modal-content h2 {
+            background: linear-gradient(135deg, #00f0ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 1.8rem;
+        }
+
+        .pomodoro-mode {
+            font-size: 0.9rem;
+            color: #8090b0;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .pomodoro-mode .mode-name {
+            color: #00f0ff;
+            font-weight: 600;
+        }
+
+        .pomodoro-timer {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: #e0e0ff;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+            margin: 10px 0 16px;
+            letter-spacing: 4px;
+        }
+
+        .pomodoro-controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .pomodoro-controls button {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            color: #c0d0ff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pomodoro-controls button:hover {
+            background: rgba(0, 240, 255, 0.18);
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            transform: scale(1.05);
+            color: #fff;
+        }
+
+        .pomodoro-controls button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .pomodoro-stats {
+            font-size: 0.85rem;
+            color: #8090b0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            padding-top: 12px;
+            margin-top: 4px;
+        }
+
+        .pomodoro-stats span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pomodoro-stats i {
+            color: #ffd700;
+        }
+
+        .pomodoro-close-btn {
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #506080;
+            padding: 5px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .pomodoro-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #a0b0d0;
+        }
+
+        /* ===== RESALTADO DE ÍTEM ALEATORIO (ya no se usa pero mantenemos por si acaso) ===== */
+        .item-highlight {
+            animation: highlightPulse 1.5s ease 3;
+            border-radius: 4px;
+            background: rgba(0, 240, 255, 0.08);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            padding: 2px 0;
+            border-left: 3px solid #00f0ff;
+        }
+
+        @keyframes highlightPulse {
+            0% { background: rgba(0, 240, 255, 0.05); }
+            50% { background: rgba(0, 240, 255, 0.2); }
+            100% { background: rgba(0, 240, 255, 0.05); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            body {
+                padding-left: 0;
+            }
+            .phase-nav-side {
+                display: none;
+            }
+            .phase-nav-horizontal {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 0 18px;
+            }
+            header h1 {
+                font-size: 1.8rem;
+                gap: 10px;
+            }
+            header h1 .title-icon {
+                height: 1.8rem;
+            }
+            header .subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+            .tools-row {
+                gap: 12px;
+                padding: 10px 14px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .phase-header {
+                padding: 12px 16px;
+                flex-wrap: wrap;
+            }
+            .phase-header .phase-title {
+                font-size: 0.95rem;
+                gap: 10px;
+            }
+            .phase-header .phase-title .phase-number {
+                width: 28px;
+                height: 28px;
+                font-size: 0.75rem;
+            }
+            .phase-body.open {
+                padding: 6px 16px 16px;
+            }
+            .module-items {
+                grid-template-columns: 1fr;
+                padding-left: 14px;
+            }
+            .phase-nav-horizontal a {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+            }
+            .progress-wrapper {
+                max-width: 100%;
+            }
+            .roadmap-notice {
+                font-size: 0.6rem;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+            .action-buttons {
+                gap: 10px;
+            }
+            .action-btn {
+                padding: 5px 12px;
+                font-size: 0.75rem;
+            }
+            .modal-content {
+                padding: 20px 16px;
+            }
+            .modal-content .modal-note {
+                font-size: 0.75rem;
+            }
+            .timeline-container {
+                padding: 5px 5px;
+            }
+            .timeline {
+                min-width: 400px;
+                padding: 6px 0;
+            }
+            .timeline-point .dot {
+                width: 22px;
+                height: 22px;
+                font-size: 0.4rem;
+            }
+            .timeline-point .label {
+                font-size: 0.45rem;
+            }
+            .timeline-line {
+                left: 20px;
+                right: 20px;
+            }
+            .timeline-line-progress {
+                left: 20px;
+            }
+            .achievement-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .footer-links {
+                gap: 14px;
+                font-size: 0.7rem;
+            }
+            .pomodoro-float {
+                bottom: 20px;
+                right: 20px;
+            }
+            .pomodoro-float-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.4rem;
+            }
+            .pomodoro-timer {
+                font-size: 3rem;
+            }
+            .counters-row {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+                gap: 8px;
+            }
+            header h1 .title-icon {
+                height: 1.4rem;
+            }
+            header .subtitle {
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+            }
+            .phase-nav-horizontal {
+                gap: 4px 8px;
+            }
+            .tools-row .action-tool {
+                font-size: 0.7rem;
+                padding: 3px 10px;
+            }
+            .timeline {
+                min-width: 300px;
+            }
+            .timeline-point .dot {
+                width: 18px;
+                height: 18px;
+                font-size: 0.35rem;
+            }
+            .timeline-point .label {
+                font-size: 0.4rem;
+            }
+            .achievement-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .pomodoro-float {
+                bottom: 15px;
+                right: 15px;
+            }
+            .pomodoro-float-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.2rem;
+            }
+            .pomodoro-timer {
+                font-size: 2.5rem;
+            }
+            .doubt-btn {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CONTENEDOR PRINCIPAL ===== -->
+    <div class="container">
+        <!-- ===== BARRA LATERAL FIJA ===== -->
+        <nav class="phase-nav-side" id="phase-nav-side">
+            <div class="brand">📌 DataPath</div>
+        </nav>
+
+        <header>
+            <h1>
+                <img src="roadmap.png" alt="DataPath" class="title-icon">
+                DataPath · Roadmap Ingeniería de Datos
+            </h1>
+            <div class="subtitle">
+                <i class="fas fa-code"></i> DataPath · De Cero a Profesional <i class="fas fa-arrow-right"></i> 15 Fases
+            </div>
+
+            <!-- ===== HERRAMIENTAS ===== -->
+            <div class="tools-row">
+                <!-- Filtro de dudas -->
+                <button class="action-tool" id="doubtFilterBtn" title="Mostrar solo ítems con dudas">
+                    <i class="fas fa-filter"></i> Dudas
+                </button>
+
+                <!-- Modo lectura -->
+                <label class="switch-label" title="Ocultar checkboxes y distracciones">
+                    <i class="fas fa-book"></i>
+                    <input type="checkbox" id="readModeToggle">
+                    <span>Modo lectura</span>
+                </label>
+            </div>
+
+            <!-- Contadores -->
+            <div class="counters-row">
+                <span class="achievement-counter" id="achievementCounter" title="Ver logros desbloqueados">
+                    <i class="fas fa-trophy"></i> <span id="achievementCount">0</span> / <span id="achievementTotal">0</span>
+                </span>
+                <span class="badge-counter doubt" id="doubtCounter" title="Ítems con dudas">
+                    <i class="fas fa-question-circle"></i> <span id="doubtCount">0</span> dudas
+                </span>
+            </div>
+
+            <div class="progress-wrapper">
+                <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
+            </div>
+            <div class="progress-text" id="progress-text">0% completado</div>
+
+            <div class="timeline-container">
+                <div class="timeline" id="timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-line-progress" id="timelineProgress"></div>
+                </div>
+            </div>
+
+            <div class="roadmap-notice">
+                <i class="fas fa-sync-alt fa-fw"></i> Este roadmap es una guía viva y en evolución. Los contenidos, el orden y las herramientas pueden ajustarse según las necesidades del mercado y la retroalimentación de los estudiantes.
+            </div>
+        </header>
+
+        <nav class="phase-nav-horizontal" id="phase-nav-horizontal"></nav>
+
+        <div id="phases-container"></div>
+
+        <footer>
+            <div class="action-buttons">
+                <button class="action-btn" id="shareBtn">
+                    <i class="fas fa-share-alt"></i> Compartir progreso
+                </button>
+                <button class="action-btn" id="achievementsBtn">
+                    <i class="fas fa-trophy"></i> Logros
+                </button>
+                <button class="action-btn action-btn-reset" id="resetBtn">
+                    <i class="fas fa-undo-alt"></i> Reiniciar progreso
+                </button>
+                <a href="https://discord.gg/SsaZqNxdyK" target="_blank" class="action-btn action-btn-discord">
+                    <i class="fab fa-discord"></i> Unirse a Discord
+                </a>
+            </div>
+            <div style="margin-top: 14px;" class="footer-text-light">
+                <span class="brand-footer">DataPath</span> · Roadmap Ingeniería de Datos · Marca tu progreso · Guardado automático · Hecho con <span class="heart">❤️</span> por Tincho
+            </div>
+            <div style="margin-top: 4px; font-size: 0.65rem; letter-spacing: 0.5px;" class="footer-text-ai">
+                🤖 Potenciado con inteligencia artificial · En constante evolución
+            </div>
+            <div class="footer-links">
+                <a href="https://discord.gg/SsaZqNxdyK" target="_blank">
+                    <i class="fab fa-discord"></i> Comunidad Discord
+                </a>
+                <span style="color: #405060;">·</span>
+                <a href="#" style="cursor: default;">© 2026 DataPath</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== BOTÓN FLOTANTE POMODORO ===== -->
+    <div class="pomodoro-float">
+        <button class="pomodoro-float-btn" id="pomodoroFloatBtn" title="Abrir Pomodoro">
+            <i class="fas fa-clock"></i>
+        </button>
+        <span class="pomodoro-float-badge" id="pomodoroBadge">0</span>
+    </div>
+
+    <!-- ===== MODAL POMODORO ===== -->
+    <div class="modal-overlay pomodoro-modal" id="pomodoroModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-clock"></i> Pomodoro</h2>
+            <div class="pomodoro-mode">
+                Modo: <span class="mode-name" id="pomodoroModeLabel">Enfoque</span>
+            </div>
+            <div class="pomodoro-timer" id="pomodoroTimer">25:00</div>
+            <div class="pomodoro-controls">
+                <button id="pomodoroStartBtn"><i class="fas fa-play"></i> Iniciar</button>
+                <button id="pomodoroPauseBtn" disabled><i class="fas fa-pause"></i> Pausar</button>
+                <button id="pomodoroResetBtn"><i class="fas fa-redo-alt"></i> Reiniciar</button>
+            </div>
+            <div class="pomodoro-stats">
+                <span><i class="fas fa-check-circle"></i> Pomodoros hoy: <strong id="pomodoroCount">0</strong></span>
+                <span><i class="fas fa-hourglass-half"></i> Ciclos: <strong id="pomodoroCycle">0</strong></span>
+            </div>
+            <button class="pomodoro-close-btn" id="pomodoroCloseBtn">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- MODAL PARA COMPARTIR -->
+    <div class="modal-overlay" id="shareModal">
+        <div class="modal-content">
+            <h2>Comparte tu progreso</h2>
+            <div class="modal-message" id="shareMessage">¡He completado el 0% del roadmap de Ingeniería de Datos! 🚀 ¿Y tú?</div>
+            <div class="modal-note">
+                <i class="fas fa-info-circle"></i> LinkedIn no permite prellenar el texto automáticamente. Copia el mensaje y pégalo en tu publicación.
+            </div>
+            <div class="modal-message-copy">
+                <button class="copy-btn" id="copyMessageBtn"><i class="fas fa-copy"></i> Copiar mensaje</button>
+            </div>
+            <div class="modal-buttons">
+                <a href="#" class="modal-btn modal-btn-twitter" id="twitterShare" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="#" class="modal-btn modal-btn-linkedin" id="linkedinShare" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            </div>
+            <button class="modal-close" id="closeShareModal">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- MODAL PARA LOGROS -->
+    <div class="modal-overlay" id="achievementsModal">
+        <div class="modal-content" style="max-width: 700px;">
+            <h2><i class="fas fa-trophy" style="color: #ffd700;"></i> Tus Logros</h2>
+            <div id="achievementsList" class="achievement-grid"></div>
+            <button class="modal-close" id="closeAchievementsModal">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMACIÓN PARA REINICIAR -->
+    <div class="modal-overlay reset-modal" id="resetModal">
+        <div class="modal-content">
+            <div class="reset-warning">⚠️</div>
+            <h2>Reiniciar progreso</h2>
+            <p style="color: #b0c0e0; margin: 10px 0 20px; font-size: 1.05rem;">
+                ¿Estás seguro? Se borrarán <strong>todos</strong> los ítems marcados, tus logros y tus dudas.<br>
+                Esta acción <strong>no se puede deshacer</strong>.
+            </p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-danger" id="confirmResetBtn">
+                    <i class="fas fa-trash-alt"></i> Sí, reiniciar todo
+                </button>
+                <button class="modal-close" id="cancelResetBtn">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================================
+        // 1. DATOS DEL ROADMAP
+        // ============================================================
+        const roadmapData = [{
+            id: 0,
+            name: "Fase 0 — Preparación del entorno",
+            objective: "Tener un entorno de trabajo profesional.",
+            modules: [{
+                title: "Módulo 0.1 — ¿Qué es la Ingeniería de Datos?",
+                items: [
+                    "¿Qué es un dato?",
+                    "Tipos de datos.",
+                    "Ciclo de vida de un dato.",
+                    "¿Qué hace un Data Engineer?",
+                    "Diferencia con Data Analyst.",
+                    "Diferencia con Data Scientist.",
+                    "Diferencia con Machine Learning Engineer.",
+                    "¿Qué es un pipeline de datos?",
+                    "Arquitectura general de un sistema de datos.",
+                    "¿Qué es ETL y qué es ELT? (introducción de 5 minutos)",
+                    "¿Qué es un Data Warehouse y un Data Lake? (conceptual)",
+                    "Roadmap del curso."
+                ]
+            }, {
+                title: "Módulo 0.2 — Herramientas",
+                items: [
+                    "Instalar VS Code.",
+                    "Instalar Git.",
+                    "Instalar Python.",
+                    "Instalar Docker Desktop.",
+                    "Instalar PostgreSQL.",
+                    "Instalar DBeaver.",
+                    "Crear cuenta en GitHub.",
+                    "Configurar Git (user.name y user.email).",
+                    "Crear el primer repositorio y hacer el primer commit."
+                ]
+            }],
+            project: "Proyecto: dejar el entorno listo."
+        }, {
+            id: 1,
+            name: "Fase 1 — Linux para Ingeniería de Datos",
+            objective: "Poder trabajar cómodamente en servidores Linux.",
+            modules: [{
+                title: "Módulo 1.1",
+                items: ["¿Qué es Linux?", "Distribuciones.", "WSL.", "Terminal.", "Shell.", "Bash."]
+            }, {
+                title: "Módulo 1.2",
+                items: ["pwd", "ls", "cd", "mkdir", "touch", "cp", "mv", "rm"]
+            }, {
+                title: "Módulo 1.3",
+                items: ["cat", "less", "head", "tail", "wc"]
+            }, {
+                title: "Módulo 1.4",
+                items: ["grep", "find", "locate", "which"]
+            }, {
+                title: "Módulo 1.5",
+                items: ["cut", "sort", "uniq", "tr", "sed", "awk"]
+            }, {
+                title: "Módulo 1.6",
+                items: ["usuarios", "grupos", "chmod", "chown"]
+            }, {
+                title: "Módulo 1.7",
+                items: ["ps", "top", "kill", "jobs", "bg", "fg"]
+            }, {
+                title: "Módulo 1.8",
+                items: ["PATH", "export", "alias", ".bashrc"]
+            }, {
+                title: "Módulo 1.9",
+                items: ["variables", "if", "while", "for", "funciones", "parámetros"]
+            }],
+            project: "Proyecto: Automatizar la descarga y procesamiento de archivos CSV."
+        }, {
+            id: 2,
+            name: "Fase 2 — Git",
+            objective: "Control de versiones para tus proyectos.",
+            modules: [{
+                title: "Módulo 2.1 — Fundamentos",
+                items: ["¿Qué es Git?", "Repositorio.", "Commit.", "Branch.", "Merge."]
+            }, {
+                title: "Módulo 2.2 — Trabajo diario",
+                items: ["init", "clone", "add", "commit", "push", "pull", "fetch"]
+            }, {
+                title: "Módulo 2.3 — Trabajo colaborativo",
+                items: ["branch", "merge", "rebase", "stash", "tags"]
+            }],
+            project: "Proyecto: gestionar todos los proyectos del curso con Git."
+        }, {
+            id: 3,
+            name: "Fase 3 — Python",
+            objective: "Dominar Python para ingeniería de datos.",
+            modules: [{
+                title: "Módulo 3.1 — Fundamentos",
+                items: ["variables", "tipos", "operadores", "condicionales", "loops", "funciones"]
+            }, {
+                title: "Módulo 3.2 — Colecciones",
+                items: ["listas", "tuplas", "diccionarios", "conjuntos"]
+            }, {
+                title: "Módulo 3.3 — Archivos",
+                items: ["txt", "csv", "json", "excel"]
+            }, {
+                title: "Módulo 3.4 — Módulos",
+                items: ["import", "virtualenv", "pip", "requirements.txt"]
+            }, {
+                title: "Módulo 3.5 — Excepciones",
+                items: ["try", "except", "finally"]
+            }, {
+                title: "Módulo 3.6 — POO (solo lo necesario)",
+                items: ["clases", "objetos", "métodos"]
+            }, {
+                title: "Módulo 3.7 — Logging",
+                items: ["logging"]
+            }, {
+                title: "Módulo 3.8 — Requests",
+                items: ["HTTP", "APIs", "autenticación", "paginación"]
+            }],
+            project: "Proyecto: consumir una API y guardar datos en PostgreSQL."
+        }, {
+            id: 4,
+            name: "Fase 4 — SQL",
+            objective: "Consultas avanzadas y optimización.",
+            modules: [{
+                title: "Módulo 4.1 — Bases de datos",
+                items: ["tablas", "filas", "columnas", "claves"]
+            }, {
+                title: "Módulo 4.2 — Consultas",
+                items: ["SELECT", "WHERE", "ORDER BY", "LIMIT"]
+            }, {
+                title: "Módulo 4.3 — Funciones",
+                items: ["COUNT", "SUM", "AVG", "MIN", "MAX"]
+            }, {
+                title: "Módulo 4.4 — Agrupaciones",
+                items: ["GROUP BY", "HAVING"]
+            }, {
+                title: "Módulo 4.5 — JOIN",
+                items: ["INNER", "LEFT", "RIGHT", "FULL"]
+            }, {
+                title: "Módulo 4.6 — Subconsultas",
+                items: ["subconsultas"]
+            }, {
+                title: "Módulo 4.7 — CTE",
+                items: ["CTE"]
+            }, {
+                title: "Módulo 4.8 — Funciones ventana",
+                items: ["funciones ventana"]
+            }, {
+                title: "Módulo 4.9 — Optimización",
+                items: ["índices", "EXPLAIN", "planes de ejecución"]
+            }],
+            project: "Proyecto: construir un sistema de consultas para una base de ventas."
+        }, {
+            id: 5,
+            name: "Fase 5 — Modelado de Datos",
+            objective: "Diseñar esquemas eficientes.",
+            modules: [{
+                title: "Modelado de Datos",
+                items: [
+                    "Normalización.",
+                    "Desnormalización.",
+                    "Claves primarias.",
+                    "Claves foráneas.",
+                    "Modelo entidad-relación.",
+                    "Modelo dimensional.",
+                    "Star Schema.",
+                    "Snowflake.",
+                    "Fact Tables.",
+                    "Dimension Tables.",
+                    "Slowly Changing Dimensions."
+                ]
+            }],
+            project: "Proyecto: diseñar un Data Warehouse."
+        }, {
+            id: 6,
+            name: "Fase 6 — Pandas",
+            objective: "Manipulación y limpieza de datos.",
+            modules: [{
+                title: "Pandas",
+                items: [
+                    "Series.",
+                    "DataFrames.",
+                    "Lectura de archivos.",
+                    "Limpieza.",
+                    "Joins.",
+                    "GroupBy.",
+                    "Fechas.",
+                    "Valores nulos.",
+                    "Exportación."
+                ]
+            }],
+            project: "Proyecto: limpiar un conjunto de datos real."
+        }, {
+            id: 7,
+            name: "Fase 7 — ETL y ELT",
+            objective: "Construir pipelines robustos.",
+            modules: [{
+                title: "ETL y ELT",
+                items: [
+                    "¿Qué es ETL?",
+                    "¿Qué es ELT?",
+                    "Extracción.",
+                    "Transformación.",
+                    "Carga.",
+                    "Calidad de datos.",
+                    "Validaciones.",
+                    "Idempotencia.",
+                    "Incrementales."
+                ]
+            }],
+            project: "Proyecto: primer pipeline completo."
+        }, {
+            id: 8,
+            name: "Fase 8 — Docker",
+            objective: "Contenerización para reproducibilidad.",
+            modules: [{
+                title: "Docker",
+                items: [
+                    "Imágenes.",
+                    "Contenedores.",
+                    "Dockerfile.",
+                    "Volúmenes.",
+                    "Redes.",
+                    "Docker Compose."
+                ]
+            }],
+            project: "Proyecto: levantar PostgreSQL + Airflow + MinIO."
+        }, {
+            id: 9,
+            name: "Fase 9 — Airflow",
+            objective: "Orquestación de pipelines.",
+            modules: [{
+                title: "Airflow",
+                items: [
+                    "DAG.",
+                    "Operators.",
+                    "Scheduling.",
+                    "Variables.",
+                    "XCom.",
+                    "Connections.",
+                    "Sensores."
+                ]
+            }],
+            project: "Proyecto: automatizar el ETL."
+        }, {
+            id: 10,
+            name: "Fase 10 — Spark",
+            objective: "Procesamiento distribuido masivo.",
+            modules: [{
+                title: "Spark",
+                items: [
+                    "Arquitectura.",
+                    "SparkSession.",
+                    "DataFrames.",
+                    "Lectura.",
+                    "Escritura.",
+                    "Transformaciones.",
+                    "Acciones.",
+                    "Spark SQL.",
+                    "Particiones.",
+                    "Optimización."
+                ]
+            }],
+            project: "Proyecto: procesar datos masivos."
+        }, {
+            id: 11,
+            name: "Fase 11 — Cloud (AWS)",
+            objective: "Desplegar en la nube.",
+            modules: [{
+                title: "AWS",
+                items: [
+                    "IAM.",
+                    "S3.",
+                    "EC2.",
+                    "RDS.",
+                    "Glue.",
+                    "Athena.",
+                    "EMR."
+                ]
+            }],
+            project: "Proyecto: migrar el pipeline a la nube."
+        }, {
+            id: 12,
+            name: "Fase 12 — dbt",
+            objective: "Transformaciones en el almacén.",
+            modules: [{
+                title: "dbt",
+                items: [
+                    "Models.",
+                    "Sources.",
+                    "Seeds.",
+                    "Tests.",
+                    "Snapshots.",
+                    "Macros.",
+                    "Documentation."
+                ]
+            }],
+            project: "Proyecto: transformar la capa analítica."
+        }, {
+            id: 13,
+            name: "Fase 13 — Kafka",
+            objective: "Streaming y mensajería en tiempo real.",
+            modules: [{
+                title: "Kafka",
+                items: [
+                    "Brokers.",
+                    "Topics.",
+                    "Producers.",
+                    "Consumers.",
+                    "Particiones.",
+                    "Consumer Groups."
+                ]
+            }],
+            project: "Proyecto: pipeline en tiempo real."
+        }, {
+            id: 14,
+            name: "Fase 14 — Data Lakehouse",
+            objective: "Arquitectura unificada de datos.",
+            modules: [{
+                title: "Data Lakehouse",
+                items: [
+                    "Data Lake.",
+                    "Data Warehouse.",
+                    "Lakehouse.",
+                    "Arquitectura Medallion.",
+                    "Bronze.",
+                    "Silver.",
+                    "Gold.",
+                    "Delta Lake o Apache Iceberg."
+                ]
+            }],
+            project: "Proyecto: construir un Lakehouse completo."
+        }];
+
+        // ============================================================
+        // 2. LOCALSTORAGE
+        // ============================================================
+        const STORAGE_KEY = 'roadmap_checked_items';
+        const ACHIEVEMENTS_KEY = 'roadmap_achievements';
+        const POMODORO_KEY = 'pomodoro_data';
+        const DOUBTS_KEY = 'roadmap_doubts';
+
+        function loadCheckedItems() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function saveCheckedItems(items) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+        }
+
+        function loadAchievements() {
+            try {
+                const data = localStorage.getItem(ACHIEVEMENTS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function saveAchievements(achievements) {
+            localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(achievements));
+        }
+
+        function loadDoubts() {
+            try {
+                const data = localStorage.getItem(DOUBTS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function saveDoubts(doubts) {
+            localStorage.setItem(DOUBTS_KEY, JSON.stringify(doubts));
+        }
+
+        // ============================================================
+        // 3. POMODORO
+        // ============================================================
+        const POMODORO_DEFAULTS = {
+            count: 0,
+            lastDate: null,
+            cycle: 0
+        };
+
+        function loadPomodoroData() {
+            try {
+                const data = localStorage.getItem(POMODORO_KEY);
+                if (data) {
+                    const parsed = JSON.parse(data);
+                    const today = new Date().toISOString().split('T')[0];
+                    if (parsed.lastDate !== today) {
+                        parsed.count = 0;
+                        parsed.lastDate = today;
+                        savePomodoroData(parsed);
+                    }
+                    return parsed;
+                }
+            } catch {}
+            const defaults = { ...POMODORO_DEFAULTS };
+            defaults.lastDate = new Date().toISOString().split('T')[0];
+            savePomodoroData(defaults);
+            return defaults;
+        }
+
+        function savePomodoroData(data) {
+            localStorage.setItem(POMODORO_KEY, JSON.stringify(data));
+        }
+
+        let pomodoroState = {
+            mode: 'focus',
+            timeLeft: 25 * 60,
+            isRunning: false,
+            timerId: null,
+            focusTime: 25 * 60,
+            shortBreakTime: 5 * 60,
+            longBreakTime: 15 * 60,
+            cyclesBeforeLongBreak: 4,
+        };
+
+        const pomodoroData = loadPomodoroData();
+
+        const pomodoroModal = document.getElementById('pomodoroModal');
+        const pomodoroFloatBtn = document.getElementById('pomodoroFloatBtn');
+        const pomodoroBadge = document.getElementById('pomodoroBadge');
+        const pomodoroTimerEl = document.getElementById('pomodoroTimer');
+        const pomodoroModeLabel = document.getElementById('pomodoroModeLabel');
+        const pomodoroStartBtn = document.getElementById('pomodoroStartBtn');
+        const pomodoroPauseBtn = document.getElementById('pomodoroPauseBtn');
+        const pomodoroResetBtn = document.getElementById('pomodoroResetBtn');
+        const pomodoroCountEl = document.getElementById('pomodoroCount');
+        const pomodoroCycleEl = document.getElementById('pomodoroCycle');
+        const pomodoroCloseBtn = document.getElementById('pomodoroCloseBtn');
+
+        function updatePomodoroUI() {
+            const mins = Math.floor(pomodoroState.timeLeft / 60);
+            const secs = pomodoroState.timeLeft % 60;
+            pomodoroTimerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            const modeNames = { focus: 'Enfoque', shortBreak: 'Descanso corto', longBreak: 'Descanso largo' };
+            pomodoroModeLabel.textContent = modeNames[pomodoroState.mode] || 'Enfoque';
+            pomodoroCountEl.textContent = pomodoroData.count;
+            pomodoroCycleEl.textContent = pomodoroData.cycle;
+            pomodoroBadge.textContent = pomodoroData.count;
+            pomodoroStartBtn.disabled = pomodoroState.isRunning;
+            pomodoroPauseBtn.disabled = !pomodoroState.isRunning;
+        }
+
+        function playNotificationSound() {
+            try {
+                const ctx = new(window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = 880;
+                osc.type = 'sine';
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+                osc.start(ctx.currentTime);
+                osc.stop(ctx.currentTime + 0.5);
+            } catch (e) {}
+        }
+
+        function pomodoroTick() {
+            if (!pomodoroState.isRunning) return;
+            if (pomodoroState.timeLeft <= 0) {
+                pomodoroState.isRunning = false;
+                clearInterval(pomodoroState.timerId);
+                pomodoroState.timerId = null;
+                playNotificationSound();
+                if (pomodoroState.mode === 'focus') {
+                    pomodoroData.count += 1;
+                    pomodoroData.cycle += 1;
+                    const today = new Date().toISOString().split('T')[0];
+                    pomodoroData.lastDate = today;
+                    savePomodoroData(pomodoroData);
+                    if (pomodoroData.cycle % pomodoroState.cyclesBeforeLongBreak === 0) {
+                        pomodoroState.mode = 'longBreak';
+                        pomodoroState.timeLeft = pomodoroState.longBreakTime;
+                    } else {
+                        pomodoroState.mode = 'shortBreak';
+                        pomodoroState.timeLeft = pomodoroState.shortBreakTime;
+                    }
+                    showToast('⏰ ¡Pomodoro completado! Descansa un momento.', 4000);
+                } else {
+                    pomodoroState.mode = 'focus';
+                    pomodoroState.timeLeft = pomodoroState.focusTime;
+                    showToast('⏰ ¡Descanso terminado! Vuelve a enfocarte.', 4000);
+                }
+                updatePomodoroUI();
+                return;
+            }
+            pomodoroState.timeLeft -= 1;
+            updatePomodoroUI();
+        }
+
+        function startPomodoro() {
+            if (pomodoroState.isRunning) return;
+            if (pomodoroState.timeLeft <= 0) {
+                pomodoroState.mode = 'focus';
+                pomodoroState.timeLeft = pomodoroState.focusTime;
+            }
+            pomodoroState.isRunning = true;
+            pomodoroState.timerId = setInterval(pomodoroTick, 1000);
+            updatePomodoroUI();
+        }
+
+        function pausePomodoro() {
+            if (!pomodoroState.isRunning) return;
+            pomodoroState.isRunning = false;
+            clearInterval(pomodoroState.timerId);
+            pomodoroState.timerId = null;
+            updatePomodoroUI();
+        }
+
+        function resetPomodoro() {
+            pausePomodoro();
+            pomodoroState.mode = 'focus';
+            pomodoroState.timeLeft = pomodoroState.focusTime;
+            updatePomodoroUI();
+        }
+
+        function openPomodoroModal() {
+            updatePomodoroUI();
+            pomodoroModal.classList.add('show');
+        }
+
+        function closePomodoroModal() {
+            pomodoroModal.classList.remove('show');
+        }
+
+        pomodoroFloatBtn.addEventListener('click', openPomodoroModal);
+        pomodoroStartBtn.addEventListener('click', startPomodoro);
+        pomodoroPauseBtn.addEventListener('click', pausePomodoro);
+        pomodoroResetBtn.addEventListener('click', resetPomodoro);
+        pomodoroCloseBtn.addEventListener('click', closePomodoroModal);
+        pomodoroModal.addEventListener('click', (e) => {
+            if (e.target === pomodoroModal) closePomodoroModal();
+        });
+        updatePomodoroUI();
+
+        // ============================================================
+        // 4. RENDERIZADO DEL ROADMAP
+        // ============================================================
+        const container = document.getElementById('phases-container');
+        const navSide = document.getElementById('phase-nav-side');
+        const navHoriz = document.getElementById('phase-nav-horizontal');
+
+        roadmapData.forEach((phase, index) => {
+            const aSide = document.createElement('a');
+            aSide.href = `#phase-${phase.id}`;
+            aSide.textContent = `F${phase.id}`;
+            aSide.dataset.index = index;
+            navSide.appendChild(aSide);
+
+            const aHoriz = document.createElement('a');
+            aHoriz.href = `#phase-${phase.id}`;
+            aHoriz.textContent = `F${phase.id}`;
+            aHoriz.dataset.index = index;
+            navHoriz.appendChild(aHoriz);
+        });
+
+        roadmapData.forEach((phase, index) => {
+            const card = document.createElement('div');
+            card.className = 'phase-card';
+            card.id = `phase-${phase.id}`;
+
+            const header = document.createElement('div');
+            header.className = 'phase-header';
+
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'phase-title';
+            const numberSpan = document.createElement('span');
+            numberSpan.className = 'phase-number';
+            numberSpan.textContent = phase.id;
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = phase.name;
+            titleDiv.appendChild(numberSpan);
+            titleDiv.appendChild(nameSpan);
+
+            const miniProgress = document.createElement('span');
+            miniProgress.className = 'phase-progress-mini';
+            miniProgress.id = `phase-progress-${phase.id}`;
+            miniProgress.textContent = '0/0';
+            titleDiv.appendChild(miniProgress);
+
+            const toggle = document.createElement('span');
+            toggle.className = 'phase-toggle';
+            toggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
+
+            header.appendChild(titleDiv);
+            header.appendChild(toggle);
+
+            const body = document.createElement('div');
+            body.className = 'phase-body';
+
+            const inner = document.createElement('div');
+            inner.className = 'phase-body-inner';
+
+            const desc = document.createElement('div');
+            desc.className = 'phase-description';
+            desc.innerHTML = `<strong>Objetivo:</strong> ${phase.objective}`;
+            inner.appendChild(desc);
+
+            phase.modules.forEach((mod, modIdx) => {
+                const modContainer = document.createElement('div');
+                modContainer.className = 'module-container';
+
+                const modTitle = document.createElement('div');
+                modTitle.className = 'module-title';
+                const icon = document.createElement('i');
+                const t = mod.title.toLowerCase();
+                if (t.includes('linux')) icon.className = 'fab fa-linux';
+                else if (t.includes('python')) icon.className = 'fab fa-python';
+                else if (t.includes('sql')) icon.className = 'fas fa-database';
+                else if (t.includes('docker')) icon.className = 'fab fa-docker';
+                else if (t.includes('git')) icon.className = 'fab fa-git-alt';
+                else if (t.includes('spark')) icon.className = 'fas fa-bolt';
+                else if (t.includes('aws')) icon.className = 'fab fa-aws';
+                else if (t.includes('kafka')) icon.className = 'fas fa-stream';
+                else if (t.includes('dbt')) icon.className = 'fas fa-cubes';
+                else if (t.includes('airflow')) icon.className = 'fas fa-wind';
+                else if (t.includes('pandas')) icon.className = 'fas fa-table';
+                else if (t.includes('modelado')) icon.className = 'fas fa-project-diagram';
+                else if (t.includes('etl')) icon.className = 'fas fa-exchange-alt';
+                else if (t.includes('lakehouse')) icon.className = 'fas fa-warehouse';
+                else icon.className = 'fas fa-cog';
+                modTitle.appendChild(icon);
+                modTitle.appendChild(document.createTextNode(mod.title));
+
+                const ul = document.createElement('ul');
+                ul.className = 'module-items';
+
+                mod.items.forEach((itemText, itemIdx) => {
+                    const li = document.createElement('li');
+                    const itemId = `p${phase.id}-m${modIdx}-i${itemIdx}`;
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = itemId;
+
+                    const checkedItems = loadCheckedItems();
+                    if (checkedItems.includes(itemId)) {
+                        checkbox.checked = true;
+                        li.classList.add('completed');
+                    }
+
+                    checkbox.addEventListener('change', function() {
+                        const isChecked = this.checked;
+                        const liParent = this.closest('li');
+                        if (isChecked) {
+                            liParent.classList.add('completed');
+                        } else {
+                            liParent.classList.remove('completed');
+                        }
+                        let current = loadCheckedItems();
+                        if (isChecked) {
+                            if (!current.includes(itemId)) {
+                                current.push(itemId);
+                            }
+                        } else {
+                            current = current.filter(id => id !== itemId);
+                        }
+                        saveCheckedItems(current);
+                        updateProgress();
+                        updateTimeline();
+                        updatePhaseProgress();
+                        checkAchievements();
+                    });
+
+                    const label = document.createElement('span');
+                    label.className = 'item-text';
+                    label.textContent = itemText;
+
+                    // Botón de duda
+                    const doubtBtn = document.createElement('button');
+                    doubtBtn.className = 'doubt-btn';
+                    doubtBtn.innerHTML = '❓';
+                    doubtBtn.title = 'Marcar como duda';
+                    doubtBtn.dataset.itemId = itemId;
+
+                    const doubts = loadDoubts();
+                    if (doubts.includes(itemId)) {
+                        doubtBtn.classList.add('active');
+                        li.classList.add('has-doubt');
+                    }
+
+                    doubtBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const id = this.dataset.itemId;
+                        let currentDoubts = loadDoubts();
+                        const liParent = this.closest('li');
+                        if (currentDoubts.includes(id)) {
+                            currentDoubts = currentDoubts.filter(d => d !== id);
+                            this.classList.remove('active');
+                            liParent.classList.remove('has-doubt');
+                        } else {
+                            currentDoubts.push(id);
+                            this.classList.add('active');
+                            liParent.classList.add('has-doubt');
+                        }
+                        saveDoubts(currentDoubts);
+                        updateDoubtCounter();
+                        if (document.body.classList.contains('show-doubts-only')) {
+                            applyDoubtFilter();
+                        }
+                        showToast(this.classList.contains('active') ?
+                            '❓ Marcado como duda' :
+                            '✅ Duda resuelta', 1500);
+                    });
+
+                    li.appendChild(checkbox);
+                    li.appendChild(label);
+                    li.appendChild(doubtBtn);
+                    ul.appendChild(li);
+                });
+
+                modContainer.appendChild(modTitle);
+                modContainer.appendChild(ul);
+                inner.appendChild(modContainer);
+            });
+
+            const project = document.createElement('div');
+            project.className = 'project-tag';
+            project.innerHTML = `<i class="fas fa-rocket"></i> ${phase.project}`;
+            inner.appendChild(project);
+
+            body.appendChild(inner);
+            card.appendChild(header);
+            card.appendChild(body);
+            container.appendChild(card);
+
+            header.addEventListener('click', () => {
+                body.classList.toggle('open');
+                toggle.classList.toggle('open');
+            });
+
+            if (index === 0) {
+                body.classList.add('open');
+                toggle.classList.add('open');
+            }
+        });
+
+        // ============================================================
+        // 5. PROGRESO Y TIMELINE
+        // ============================================================
+        function getPhaseProgress(phaseId) {
+            const items = document.querySelectorAll(`#phase-${phaseId} .module-items input[type="checkbox"]`);
+            const total = items.length;
+            const checked = document.querySelectorAll(`#phase-${phaseId} .module-items input[type="checkbox"]:checked`).length;
+            return { total, checked };
+        }
+
+        function updatePhaseProgress() {
+            roadmapData.forEach(phase => {
+                const { total, checked } = getPhaseProgress(phase.id);
+                const el = document.getElementById(`phase-progress-${phase.id}`);
+                if (el) el.textContent = `${checked}/${total}`;
+            });
+        }
+
+        function getTotalProgress() {
+            const all = document.querySelectorAll('.module-items input[type="checkbox"]');
+            const total = all.length;
+            const checked = document.querySelectorAll('.module-items input[type="checkbox"]:checked').length;
+            const percent = total === 0 ? 0 : Math.round((checked / total) * 100);
+            return { total, checked, percent };
+        }
+
+        function updateProgress() {
+            const { total, checked, percent } = getTotalProgress();
+            document.getElementById('progress-bar').style.width = percent + '%';
+            document.getElementById('progress-text').textContent = `${percent}% completado (${checked}/${total} ítems)`;
+            window.currentProgress = percent;
+            updatePhaseProgress();
+            updateTimeline();
+        }
+
+        function buildTimeline() {
+            const timeline = document.getElementById('timeline');
+            const existingPoints = timeline.querySelectorAll('.timeline-point');
+            existingPoints.forEach(el => el.remove());
+
+            roadmapData.forEach((phase, index) => {
+                const point = document.createElement('div');
+                point.className = 'timeline-point';
+                point.dataset.index = index;
+
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                dot.textContent = `F${phase.id}`;
+                point.appendChild(dot);
+
+                const label = document.createElement('div');
+                label.className = 'label';
+                label.textContent = `F${phase.id}`;
+                point.appendChild(label);
+
+                point.addEventListener('click', () => {
+                    const target = document.getElementById(`phase-${phase.id}`);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+
+                timeline.appendChild(point);
+            });
+
+            const line = timeline.querySelector('.timeline-line');
+            const progressLine = timeline.querySelector('.timeline-line-progress');
+            timeline.prepend(line);
+            timeline.prepend(progressLine);
+            updateTimeline();
+        }
+
+        function updateTimeline() {
+            const points = document.querySelectorAll('.timeline-point');
+            const totalPhases = roadmapData.length;
+            let completedPhases = 0;
+
+            points.forEach((point, index) => {
+                const phaseId = index;
+                const { total, checked } = getPhaseProgress(phaseId);
+                const dot = point.querySelector('.dot');
+                dot.classList.remove('completed', 'partial');
+
+                if (total > 0 && checked === total) {
+                    dot.classList.add('completed');
+                    completedPhases++;
+                } else if (checked > 0) {
+                    dot.classList.add('partial');
+                }
+            });
+
+            const progressLine = document.getElementById('timelineProgress');
+            if (progressLine) {
+                const percent = totalPhases > 0 ? (completedPhases / totalPhases) * 100 : 0;
+                progressLine.style.width = Math.min(percent, 100) + '%';
+            }
+        }
+
+        // ============================================================
+        // 6. NAVEGACIÓN ACTIVA
+        // ============================================================
+        const sideLinks = document.querySelectorAll('#phase-nav-side a');
+        const horizLinks = document.querySelectorAll('#phase-nav-horizontal a');
+        const allLinks = [...sideLinks, ...horizLinks];
+        const phaseCards = document.querySelectorAll('.phase-card');
+
+        function updateActiveNav() {
+            let current = 0;
+            phaseCards.forEach((card, idx) => {
+                const rect = card.getBoundingClientRect();
+                if (rect.top < window.innerHeight / 2 && rect.bottom > 0) {
+                    current = idx;
+                }
+            });
+            allLinks.forEach((link, idx) => {
+                link.classList.toggle('active', idx === current);
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+
+        allLinks.forEach((link, idx) => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.getElementById(`phase-${idx}`);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // ============================================================
+        // 7. COMPARTIR
+        // ============================================================
+        const shareModal = document.getElementById('shareModal');
+        const shareMessage = document.getElementById('shareMessage');
+        const twitterLink = document.getElementById('twitterShare');
+        const linkedinLink = document.getElementById('linkedinShare');
+        const shareBtn = document.getElementById('shareBtn');
+        const closeShareModal = document.getElementById('closeShareModal');
+        const copyBtn = document.getElementById('copyMessageBtn');
+        const toast = document.getElementById('toast');
+
+        function getShareData() {
+            const percent = window.currentProgress || 0;
+            const message = `¡He completado el ${percent}% del roadmap de Ingeniería de Datos! 🚀 ¿Y tú?`;
+            const url = window.location.href;
+            return { message, url };
+        }
+
+        function updateShareModal() {
+            const { message, url } = getShareData();
+            shareMessage.textContent = message;
+            twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${encodeURIComponent(url)}`;
+            linkedinLink.href =
+                `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent('DataPath · Roadmap Ingeniería de Datos')}`;
+        }
+
+        function showToast(text, duration = 3000) {
+            toast.textContent = text;
+            toast.classList.add('show');
+            clearTimeout(toast._hideTimer);
+            toast._hideTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                return navigator.clipboard.writeText(text);
+            } else {
+                return new Promise((resolve, reject) => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    try {
+                        document.execCommand('copy');
+                        resolve();
+                    } catch (e) {
+                        reject(e);
+                    }
+                    document.body.removeChild(textarea);
+                });
+            }
+        }
+
+        copyBtn.addEventListener('click', async function() {
+            const text = shareMessage.textContent;
+            try {
+                await copyToClipboard(text);
+                const original = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> ¡Copiado!';
+                setTimeout(() => { this.innerHTML = original; }, 2000);
+                showToast('📋 Mensaje copiado al portapapeles');
+            } catch (e) {
+                showToast('❌ No se pudo copiar, selecciona manualmente');
+            }
+        });
+
+        linkedinLink.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const { message } = getShareData();
+            try {
+                await copyToClipboard(message);
+                showToast('📋 Mensaje copiado. Pégalo en el campo de texto de LinkedIn', 4000);
+            } catch {
+                showToast('📋 Copia manualmente el mensaje de arriba', 4000);
+            }
+            window.open(this.href, '_blank');
+        });
+
+        shareBtn.addEventListener('click', function() {
+            updateShareModal();
+            shareModal.classList.add('show');
+        });
+
+        closeShareModal.addEventListener('click', function() {
+            shareModal.classList.remove('show');
+        });
+
+        shareModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+            }
+        });
+
+        // ============================================================
+        // 8. LOGROS / ACHIEVEMENTS + CONFETI
+        // ============================================================
+        const ACHIEVEMENTS_DEF = [{
+            id: 'first_step',
+            icon: '🚀',
+            name: 'Primer paso',
+            desc: 'Completar al menos 1 ítem',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => checkedItems >= 1
+        }, {
+            id: 'explorer',
+            icon: '🧭',
+            name: 'Explorador',
+            desc: 'Completar 10 ítems',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => checkedItems >= 10
+        }, {
+            id: 'climber',
+            icon: '🧗',
+            name: 'Escalador',
+            desc: 'Completar 25 ítems',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => checkedItems >= 25
+        }, {
+            id: 'halfway',
+            icon: '🚀',
+            name: 'Mitad del camino',
+            desc: 'Alcanzar 50% de progreso',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => percent >= 50
+        }, {
+            id: 'almost_there',
+            icon: '🌟',
+            name: 'Casi listo',
+            desc: 'Alcanzar 75% de progreso',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => percent >= 75
+        }, {
+            id: 'master',
+            icon: '👑',
+            name: 'Maestro',
+            desc: 'Completar el 100%',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => percent >= 100
+        }, {
+            id: 'phase_complete',
+            icon: '🏅',
+            name: 'Completador de fases',
+            desc: 'Completar todas las fases (cada fase al 100%)',
+            check: (totalItems, checkedItems, percent, phasesCompleted) => phasesCompleted === roadmapData.length
+        }, {
+            id: 'all_phases',
+            icon: '🎯',
+            name: 'Completista',
+            desc: 'Completar todas las fases (100% global y todas las fases)',
+            check: (totalItems, checkedItems, percent, phasesCompleted) =>
+                percent >= 100 && phasesCompleted === roadmapData.length
+        }];
+
+        function getAchievementStatus() {
+            const unlocked = loadAchievements();
+            const total = ACHIEVEMENTS_DEF.length;
+            return { unlocked, total };
+        }
+
+        function triggerConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#00f0ff', '#a855f7', '#ff00ff', '#ffd700', '#ff6b6b', '#48dbfb']
+            });
+            setTimeout(() => {
+                confetti({
+                    particleCount: 50,
+                    spread: 40,
+                    origin: { y: 0.4 },
+                    colors: ['#00f0ff', '#a855f7', '#ffd700']
+                });
+            }, 150);
+        }
+
+        function checkAchievements() {
+            const allCheckboxes = document.querySelectorAll('.module-items input[type="checkbox"]');
+            const totalItems = allCheckboxes.length;
+            const checkedItems = document.querySelectorAll('.module-items input[type="checkbox"]:checked').length;
+            const percent = totalItems === 0 ? 0 : Math.round((checkedItems / totalItems) * 100);
+
+            let phasesCompleted = 0;
+            roadmapData.forEach(phase => {
+                const { total, checked } = getPhaseProgress(phase.id);
+                if (total > 0 && checked === total) phasesCompleted++;
+            });
+
+            const unlocked = loadAchievements();
+            let newUnlocks = [];
+
+            ACHIEVEMENTS_DEF.forEach(def => {
+                if (!unlocked.includes(def.id) && def.check(totalItems, checkedItems, percent, phasesCompleted)) {
+                    unlocked.push(def.id);
+                    newUnlocks.push(def);
+                }
+            });
+
+            if (newUnlocks.length > 0) {
+                saveAchievements(unlocked);
+                newUnlocks.forEach(def => {
+                    showToast(`🏆 ¡Logro desbloqueado: ${def.icon} ${def.name}!`, 4000);
+                    triggerConfetti();
+                });
+                updateAchievementUI();
+            } else {
+                updateAchievementUI();
+            }
+        }
+
+        function updateAchievementUI() {
+            const { unlocked, total } = getAchievementStatus();
+            document.getElementById('achievementCount').textContent = unlocked.length;
+            document.getElementById('achievementTotal').textContent = total;
+        }
+
+        function renderAchievementsModal() {
+            const grid = document.getElementById('achievementsList');
+            grid.innerHTML = '';
+            const unlocked = loadAchievements();
+
+            ACHIEVEMENTS_DEF.forEach(def => {
+                const isUnlocked = unlocked.includes(def.id);
+                const item = document.createElement('div');
+                item.className = `achievement-item ${isUnlocked ? 'unlocked' : 'locked'}`;
+                item.innerHTML = `
+                    <span class="icon">${def.icon}</span>
+                    <div class="name">${def.name}</div>
+                    <div class="desc">${def.desc}</div>
+                    <div style="margin-top: 4px; font-size: 0.7rem; color: ${isUnlocked ? '#ffd700' : '#506080'};">
+                        ${isUnlocked ? '✅ Desbloqueado' : '🔒 Bloqueado'}
+                    </div>
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        const achievementsBtn = document.getElementById('achievementsBtn');
+        const achievementsModal = document.getElementById('achievementsModal');
+        const closeAchievementsModal = document.getElementById('closeAchievementsModal');
+        const achievementCounter = document.getElementById('achievementCounter');
+
+        function openAchievementsModal() {
+            renderAchievementsModal();
+            achievementsModal.classList.add('show');
+        }
+
+        achievementsBtn.addEventListener('click', openAchievementsModal);
+        achievementCounter.addEventListener('click', openAchievementsModal);
+
+        closeAchievementsModal.addEventListener('click', () => {
+            achievementsModal.classList.remove('show');
+        });
+
+        achievementsModal.addEventListener('click', (e) => {
+            if (e.target === achievementsModal) {
+                achievementsModal.classList.remove('show');
+            }
+        });
+
+        // ============================================================
+        // 9. MODO LECTURA
+        // ============================================================
+        const readModeToggle = document.getElementById('readModeToggle');
+        readModeToggle.addEventListener('change', function() {
+            document.body.classList.toggle('read-mode', this.checked);
+        });
+
+        // ============================================================
+        // 10. FILTRO DE DUDAS
+        // ============================================================
+        const doubtFilterBtn = document.getElementById('doubtFilterBtn');
+        let doubtFilterActive = false;
+
+        function applyDoubtFilter() {
+            if (doubtFilterActive) {
+                document.body.classList.add('show-doubts-only');
+                doubtFilterBtn.classList.add('active-filter');
+                showToast('🔍 Mostrando solo ítems con dudas', 2000);
+            } else {
+                document.body.classList.remove('show-doubts-only');
+                doubtFilterBtn.classList.remove('active-filter');
+                showToast('🔍 Mostrando todos los ítems', 1500);
+            }
+        }
+
+        doubtFilterBtn.addEventListener('click', function() {
+            doubtFilterActive = !doubtFilterActive;
+            applyDoubtFilter();
+        });
+
+        // ============================================================
+        // 11. CONTADOR DE DUDAS
+        // ============================================================
+        function updateDoubtCounter() {
+            const doubts = loadDoubts();
+            document.getElementById('doubtCount').textContent = doubts.length;
+        }
+
+        updateDoubtCounter();
+
+        // ============================================================
+        // 12. REINICIO DE PROGRESO
+        // ============================================================
+        const resetBtn = document.getElementById('resetBtn');
+        const resetModal = document.getElementById('resetModal');
+        const confirmResetBtn = document.getElementById('confirmResetBtn');
+        const cancelResetBtn = document.getElementById('cancelResetBtn');
+
+        function openResetModal() {
+            resetModal.classList.add('show');
+        }
+
+        function closeResetModal() {
+            resetModal.classList.remove('show');
+        }
+
+        resetBtn.addEventListener('click', openResetModal);
+
+        cancelResetBtn.addEventListener('click', closeResetModal);
+
+        resetModal.addEventListener('click', (e) => {
+            if (e.target === resetModal) {
+                closeResetModal();
+            }
+        });
+
+        confirmResetBtn.addEventListener('click', function() {
+            localStorage.removeItem(STORAGE_KEY);
+            localStorage.removeItem(ACHIEVEMENTS_KEY);
+            localStorage.removeItem(DOUBTS_KEY);
+            window.location.reload();
+        });
+
+        // ============================================================
+        // 13. INICIO
+        // ============================================================
+        window.addEventListener('load', function() {
+            updateActiveNav();
+            updateProgress();
+            buildTimeline();
+            updateTimeline();
+            updatePhaseProgress();
+            updateAchievementUI();
+            checkAchievements();
+            updatePomodoroUI();
+            updateDoubtCounter();
+            doubtFilterActive = false;
+        });
+    </script>
+
+</body>
+</html>
