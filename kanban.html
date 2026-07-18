@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataPath · Tablero Kanban</title>
+    <link rel="icon" type="image/png" href="roadmap.png">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0d0d1a;
+            --card-bg: rgba(20, 20, 45, 0.9);
+            --border: rgba(0, 240, 255, 0.2);
+            --glow: rgba(0, 240, 255, 0.5);
+            --text: #d0d8ff;
+            --text-muted: #7080a0;
+            --accent: #00f0ff;
+            --purple: #a855f7;
+            --pink: #ff00ff;
+            --gold: #ffd700;
+            --danger: #ff6b6b;
+            --success: #4ade80;
+            --warning: #fbbf24;
+
+            --col-pending: #6b7280;
+            --col-researching: #3b82f6;
+            --col-learned: #8b5cf6;
+            --col-documented: #f59e0b;
+            --col-published: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            color: var(--text);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== HEADER ===== */
+        .kanban-header {
+            text-align: center;
+            padding: 22px 20px 12px;
+            border-bottom: 2px solid rgba(0, 240, 255, 0.25);
+            background: rgba(10, 10, 30, 0.8);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .kanban-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00f0ff, #a855f7, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .kanban-header h1 i {
+            background: none;
+            -webkit-text-fill-color: #00f0ff;
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .kanban-header .subtitle {
+            font-size: 0.85rem;
+            color: #8090b0;
+            margin-top: 4px;
+            letter-spacing: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 16px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-back {
+            background: rgba(0, 240, 255, 0.08);
+            border-color: rgba(0, 240, 255, 0.3);
+            color: #c0d0ff;
+        }
+        .btn-back:hover {
+            background: rgba(0, 240, 255, 0.18);
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            color: #fff;
+            transform: scale(1.03);
+        }
+
+        .btn-add {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: rgba(168, 85, 247, 0.4);
+            color: #d0c0ff;
+        }
+        .btn-add:hover {
+            background: rgba(168, 85, 247, 0.3);
+            border-color: #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+            color: #fff;
+            transform: scale(1.03);
+        }
+
+        .btn-clear {
+            background: rgba(255, 100, 100, 0.08);
+            border-color: rgba(255, 100, 100, 0.3);
+            color: #ffaaaa;
+        }
+        .btn-clear:hover {
+            background: rgba(255, 100, 100, 0.2);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 20px rgba(255, 100, 100, 0.2);
+            color: #fff;
+            transform: scale(1.03);
+        }
+
+        .btn i {
+            font-size: 0.9rem;
+        }
+
+        /* ===== TABLERO ===== */
+        .board-container {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            max-width: 1500px;
+            margin: 0 auto;
+            min-height: calc(100vh - 180px);
+            align-items: flex-start;
+            overflow-x: auto;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 230px;
+            max-width: 340px;
+            background: rgba(15, 15, 35, 0.7);
+            backdrop-filter: blur(6px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .column.drag-over {
+            border-color: rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.15);
+            background: rgba(20, 20, 50, 0.85);
+        }
+
+        .column-header {
+            padding: 14px 16px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .column-header .col-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .col-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .col-dot.pending {
+            background: var(--col-pending);
+            box-shadow: 0 0 10px var(--col-pending);
+        }
+        .col-dot.researching {
+            background: var(--col-researching);
+            box-shadow: 0 0 10px var(--col-researching);
+        }
+        .col-dot.learned {
+            background: var(--col-learned);
+            box-shadow: 0 0 10px var(--col-learned);
+        }
+        .col-dot.documented {
+            background: var(--col-documented);
+            box-shadow: 0 0 10px var(--col-documented);
+        }
+        .col-dot.published {
+            background: var(--col-published);
+            box-shadow: 0 0 10px var(--col-published);
+        }
+
+        .col-count {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #8090b0;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        .column-body {
+            padding: 8px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-height: 80px;
+            overflow-y: auto;
+            max-height: 60vh;
+        }
+
+        .column-body::-webkit-scrollbar {
+            width: 4px;
+        }
+        .column-body::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .column-body::-webkit-scrollbar-thumb {
+            background: rgba(0, 240, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        /* ===== TARJETA ===== */
+        .task-card {
+            background: rgba(25, 25, 55, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px 12px;
+            cursor: grab;
+            transition: all 0.25s ease;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            user-select: none;
+        }
+
+        .task-card:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .task-card:active {
+            cursor: grabbing;
+        }
+
+        .task-card.dragging {
+            opacity: 0.5;
+            transform: rotate(1deg) scale(0.97);
+            border-style: dashed;
+        }
+
+        .task-card .task-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #e0e0ff;
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .task-card .task-desc {
+            font-size: 0.75rem;
+            color: #607080;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .task-card .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.65rem;
+            color: #506070;
+        }
+
+        .task-card .task-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .task-card .task-actions button {
+            background: transparent;
+            border: none;
+            color: #506080;
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .task-card .task-actions button:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .task-card .task-actions .btn-edit:hover {
+            color: #00f0ff;
+        }
+        .task-card .task-actions .btn-delete:hover {
+            color: #ff6b6b;
+        }
+
+        .task-card .task-date {
+            font-size: 0.6rem;
+            color: #405060;
+        }
+
+        /* ===== PLACEHOLDER ===== */
+        .column-placeholder {
+            text-align: center;
+            color: #3a4060;
+            font-size: 0.8rem;
+            padding: 20px 10px;
+            font-style: italic;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a2e;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 0 60px rgba(0, 240, 255, 0.15);
+        }
+
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #00f0ff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-content label {
+            display: block;
+            font-weight: 600;
+            color: #b0c0e0;
+            margin-bottom: 4px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-content input,
+        .modal-content textarea,
+        .modal-content select {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            background: rgba(10, 10, 30, 0.8);
+            color: #e0e0ff;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            margin-bottom: 14px;
+            transition: all 0.3s;
+            outline: none;
+            resize: vertical;
+        }
+
+        .modal-content input:focus,
+        .modal-content textarea:focus,
+        .modal-content select:focus {
+            border-color: #00f0ff;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+        }
+
+        .modal-content textarea {
+            min-height: 80px;
+        }
+
+        .modal-content select {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300f0ff' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+        }
+
+        .modal-content select option {
+            background: #1a1a2e;
+            color: #e0e0ff;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .modal-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-btn-save {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: rgba(0, 240, 255, 0.4);
+            color: #e0e0ff;
+        }
+        .modal-btn-save:hover {
+            background: rgba(0, 240, 255, 0.3);
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+            color: #fff;
+            transform: scale(1.03);
+        }
+
+        .modal-btn-cancel {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #8090b0;
+        }
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #c0d0ff;
+        }
+
+        .modal-btn-danger {
+            background: rgba(255, 60, 60, 0.15);
+            border-color: rgba(255, 60, 60, 0.4);
+            color: #ffaaaa;
+        }
+        .modal-btn-danger:hover {
+            background: rgba(255, 60, 60, 0.3);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 25px rgba(255, 60, 60, 0.2);
+            color: #fff;
+            transform: scale(1.03);
+        }
+
+        /* ===== CONFIRM DELETE MODAL ===== */
+        .confirm-modal .modal-content {
+            border-color: rgba(255, 60, 60, 0.4);
+            box-shadow: 0 0 60px rgba(255, 60, 60, 0.1);
+        }
+        .confirm-modal .modal-content h2 {
+            background: linear-gradient(135deg, #ff6b6b, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 240, 255, 0.12);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #e0e0ff;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            font-family: 'Rajdhani', sans-serif;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.08);
+            letter-spacing: 0.5px;
+        }
+        .toast.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1000px) {
+            .board-container {
+                flex-wrap: wrap;
+                gap: 12px;
+                padding: 12px;
+            }
+            .column {
+                min-width: 160px;
+                max-width: none;
+                flex: 1 1 45%;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .board-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .column {
+                min-width: auto;
+                max-width: none;
+                flex: 1 1 auto;
+            }
+            .column-body {
+                max-height: 40vh;
+            }
+            .kanban-header h1 {
+                font-size: 1.3rem;
+            }
+            .btn {
+                font-size: 0.75rem;
+                padding: 5px 12px;
+            }
+            .modal-content {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="kanban-header">
+        <h1>
+            <i class="fas fa-tasks"></i> DataPath · Tablero Kanban
+        </h1>
+        <div class="subtitle">
+            <i class="fas fa-arrow-right"></i> Arrastra tus tareas entre columnas <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="header-actions">
+            <a href="index.html" class="btn btn-back">
+                <i class="fas fa-arrow-left"></i> Volver al Roadmap
+            </a>
+            <button class="btn btn-add" id="btnAddTask">
+                <i class="fas fa-plus-circle"></i> Nueva tarea
+            </button>
+            <button class="btn btn-clear" id="btnClearAll">
+                <i class="fas fa-trash-alt"></i> Limpiar todo
+            </button>
+        </div>
+    </header>
+
+    <!-- ===== TABLERO ===== -->
+    <div class="board-container" id="boardContainer">
+        <!-- Columnas generadas por JS -->
+    </div>
+
+    <!-- ===== MODAL CREAR/EDITAR TAREA ===== -->
+    <div class="modal-overlay" id="taskModal">
+        <div class="modal-content">
+            <h2 id="modalTitle"><i class="fas fa-plus-circle"></i> Nueva tarea</h2>
+            <label for="taskTitle">Título</label>
+            <input type="text" id="taskTitle" placeholder="Ej: Aprender Apache Spark" maxlength="120">
+            <label for="taskDesc">Descripción (opcional)</label>
+            <textarea id="taskDesc" placeholder="Notas, enlaces, detalles..." maxlength="500"></textarea>
+            <label for="taskStatus">Estado</label>
+            <select id="taskStatus">
+                <option value="pending">🔵 Pendiente</option>
+                <option value="researching">🔍 Investigando</option>
+                <option value="learned">🧠 Aprendido</option>
+                <option value="documented">📝 Documentado</option>
+                <option value="published">🚀 Publicado</option>
+            </select>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="btnModalCancel">Cancelar</button>
+                <button class="modal-btn modal-btn-save" id="btnModalSave">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL CONFIRMAR ELIMINACIÓN ===== -->
+    <div class="modal-overlay confirm-modal" id="confirmModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-exclamation-triangle"></i> Eliminar tarea</h2>
+            <p style="color:#b0c0e0;margin-bottom:6px;">¿Estás seguro de que deseas eliminar esta tarea?</p>
+            <p style="color:#8090b0;font-size:0.85rem;margin-bottom:16px;" id="confirmTaskTitle"></p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="btnConfirmCancel">Cancelar</button>
+                <button class="modal-btn modal-btn-danger" id="btnConfirmDelete">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL CONFIRMAR LIMPIAR TODO ===== -->
+    <div class="modal-overlay confirm-modal" id="clearAllModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-exclamation-triangle"></i> Limpiar todo el tablero</h2>
+            <p style="color:#b0c0e0;margin-bottom:16px;">¿Estás seguro? Se eliminarán <strong>todas</strong> las tareas del tablero. Esta acción no se puede deshacer.</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="btnClearAllCancel">Cancelar</button>
+                <button class="modal-btn modal-btn-danger" id="btnClearAllConfirm">
+                    <i class="fas fa-trash-alt"></i> Eliminar todo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============================================================
+        // CONFIGURACIÓN DE COLUMNAS
+        // ============================================================
+        const COLUMNS = [
+            { id: 'pending', name: 'Pendiente', icon: '🔵', dotClass: 'pending', color: '#6b7280' },
+            { id: 'researching', name: 'Investigando', icon: '🔍', dotClass: 'researching', color: '#3b82f6' },
+            { id: 'learned', name: 'Aprendido', icon: '🧠', dotClass: 'learned', color: '#8b5cf6' },
+            { id: 'documented', name: 'Documentado', icon: '📝', dotClass: 'documented', color: '#f59e0b' },
+            { id: 'published', name: 'Publicado', icon: '🚀', dotClass: 'published', color: '#10b981' },
+        ];
+
+        const STORAGE_KEY_KANBAN = 'kanban_tasks';
+
+        // ============================================================
+        // CARGA Y GUARDADO EN LOCALSTORAGE
+        // ============================================================
+        function loadTasks() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY_KANBAN);
+                return data ? JSON.parse(data) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveTasks(tasks) {
+            localStorage.setItem(STORAGE_KEY_KANBAN, JSON.stringify(tasks));
+        }
+
+        function generateId() {
+            return 'task_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6);
+        }
+
+        // ============================================================
+        // RENDERIZADO DEL TABLERO
+        // ============================================================
+        const boardContainer = document.getElementById('boardContainer');
+
+        function renderBoard() {
+            const tasks = loadTasks();
+            boardContainer.innerHTML = '';
+
+            COLUMNS.forEach(col => {
+                const colEl = document.createElement('div');
+                colEl.className = 'column';
+                colEl.dataset.status = col.id;
+                colEl.addEventListener('dragover', handleDragOver);
+                colEl.addEventListener('dragleave', handleDragLeave);
+                colEl.addEventListener('drop', handleDrop);
+
+                // Cabecera
+                const header = document.createElement('div');
+                header.className = 'column-header';
+                header.innerHTML = `
+                    <span class="col-title">
+                        <span class="col-dot ${col.dotClass}"></span>
+                        ${col.icon} ${col.name}
+                    </span>
+                    <span class="col-count" id="count-${col.id}">0</span>
+                `;
+                colEl.appendChild(header);
+
+                // Cuerpo
+                const body = document.createElement('div');
+                body.className = 'column-body';
+                body.id = `body-${col.id}`;
+
+                const colTasks = tasks.filter(t => t.status === col.id);
+                if (colTasks.length === 0) {
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'column-placeholder';
+                    placeholder.textContent = 'Suelta tareas aquí';
+                    body.appendChild(placeholder);
+                } else {
+                    colTasks.forEach(task => {
+                        body.appendChild(createTaskCard(task));
+                    });
+                }
+
+                colEl.appendChild(body);
+                boardContainer.appendChild(colEl);
+            });
+
+            updateAllCounts();
+        }
+
+        function createTaskCard(task) {
+            const card = document.createElement('div');
+            card.className = 'task-card';
+            card.draggable = true;
+            card.dataset.taskId = task.id;
+            card.addEventListener('dragstart', handleDragStart);
+            card.addEventListener('dragend', handleDragEnd);
+
+            const dateStr = task.updatedAt ?
+                new Date(task.updatedAt).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) :
+                '';
+
+            card.innerHTML = `
+                <div class="task-title">${escapeHtml(task.title)}</div>
+                ${task.description ? `<div class="task-desc">${escapeHtml(task.description)}</div>` : ''}
+                <div class="task-meta">
+                    <span class="task-date">${dateStr}</span>
+                    <span class="task-actions">
+                        <button class="btn-edit" data-task-id="${task.id}" title="Editar">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                        <button class="btn-delete" data-task-id="${task.id}" title="Eliminar">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </span>
+                </div>
+            `;
+
+            // Eventos de botones
+            card.querySelector('.btn-edit').addEventListener('click', (e) => {
+                e.stopPropagation();
+                openEditModal(task.id);
+            });
+            card.querySelector('.btn-delete').addEventListener('click', (e) => {
+                e.stopPropagation();
+                openConfirmDelete(task.id);
+            });
+
+            return card;
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function updateAllCounts() {
+            const tasks = loadTasks();
+            COLUMNS.forEach(col => {
+                const count = tasks.filter(t => t.status === col.id).length;
+                const el = document.getElementById(`count-${col.id}`);
+                if (el) el.textContent = count;
+            });
+        }
+
+        function updateColumnBody(status) {
+            const tasks = loadTasks();
+            const body = document.getElementById(`body-${status}`);
+            if (!body) return;
+            const colTasks = tasks.filter(t => t.status === status);
+            body.innerHTML = '';
+            if (colTasks.length === 0) {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'column-placeholder';
+                placeholder.textContent = 'Suelta tareas aquí';
+                body.appendChild(placeholder);
+            } else {
+                colTasks.forEach(task => {
+                    body.appendChild(createTaskCard(task));
+                });
+            }
+            updateAllCounts();
+        }
+
+        function refreshColumn(status) {
+            updateColumnBody(status);
+        }
+
+        // ============================================================
+        // DRAG AND DROP
+        // ============================================================
+        let draggedTaskId = null;
+
+        function handleDragStart(e) {
+            draggedTaskId = this.dataset.taskId;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/plain', draggedTaskId);
+            // Pequeño retraso para que el navegador capture el estilo
+            setTimeout(() => {
+                if (this.classList.contains('dragging')) {
+                    // ok
+                }
+            }, 0);
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            draggedTaskId = null;
+            // Quitar drag-over de todas las columnas
+            document.querySelectorAll('.column').forEach(col => col.classList.remove('drag-over'));
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            this.classList.add('drag-over');
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            this.classList.remove('drag-over');
+            const newStatus = this.dataset.status;
+            if (!draggedTaskId || !newStatus) return;
+
+            const tasks = loadTasks();
+            const taskIndex = tasks.findIndex(t => t.id === draggedTaskId);
+            if (taskIndex === -1) return;
+
+            const oldStatus = tasks[taskIndex].status;
+            if (oldStatus === newStatus) return;
+
+            tasks[taskIndex].status = newStatus;
+            tasks[taskIndex].updatedAt = new Date().toISOString();
+            saveTasks(tasks);
+
+            refreshColumn(oldStatus);
+            refreshColumn(newStatus);
+            updateAllCounts();
+            showToast(`📌 Tarea movida a "${getColumnName(newStatus)}"`);
+        }
+
+        function getColumnName(status) {
+            const col = COLUMNS.find(c => c.id === status);
+            return col ? col.name : status;
+        }
+
+        // ============================================================
+        // MODAL: CREAR / EDITAR TAREA
+        // ============================================================
+        const taskModal = document.getElementById('taskModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const taskTitleInput = document.getElementById('taskTitle');
+        const taskDescInput = document.getElementById('taskDesc');
+        const taskStatusSelect = document.getElementById('taskStatus');
+        const btnModalSave = document.getElementById('btnModalSave');
+        const btnModalCancel = document.getElementById('btnModalCancel');
+
+        let editingTaskId = null;
+
+        function openCreateModal(preselectStatus = 'pending') {
+            editingTaskId = null;
+            modalTitle.innerHTML = '<i class="fas fa-plus-circle"></i> Nueva tarea';
+            taskTitleInput.value = '';
+            taskDescInput.value = '';
+            taskStatusSelect.value = preselectStatus;
+            taskModal.classList.add('show');
+            taskTitleInput.focus();
+        }
+
+        function openEditModal(taskId) {
+            const tasks = loadTasks();
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+
+            editingTaskId = taskId;
+            modalTitle.innerHTML = '<i class="fas fa-pen"></i> Editar tarea';
+            taskTitleInput.value = task.title;
+            taskDescInput.value = task.description || '';
+            taskStatusSelect.value = task.status;
+            taskModal.classList.add('show');
+            taskTitleInput.focus();
+        }
+
+        function closeTaskModal() {
+            taskModal.classList.remove('show');
+            editingTaskId = null;
+        }
+
+        btnModalSave.addEventListener('click', () => {
+            const title = taskTitleInput.value.trim();
+            if (!title) {
+                showToast('⚠️ El título es obligatorio', 2000);
+                taskTitleInput.focus();
+                return;
+            }
+
+            const description = taskDescInput.value.trim();
+            const status = taskStatusSelect.value;
+            const tasks = loadTasks();
+            const now = new Date().toISOString();
+
+            if (editingTaskId) {
+                // Editar
+                const idx = tasks.findIndex(t => t.id === editingTaskId);
+                if (idx !== -1) {
+                    const oldStatus = tasks[idx].status;
+                    tasks[idx].title = title;
+                    tasks[idx].description = description;
+                    tasks[idx].status = status;
+                    tasks[idx].updatedAt = now;
+                    saveTasks(tasks);
+
+                    if (oldStatus === status) {
+                        refreshColumn(status);
+                    } else {
+                        refreshColumn(oldStatus);
+                        refreshColumn(status);
+                    }
+                    showToast('✅ Tarea actualizada');
+                }
+            } else {
+                // Crear
+                const newTask = {
+                    id: generateId(),
+                    title: title,
+                    description: description,
+                    status: status,
+                    createdAt: now,
+                    updatedAt: now,
+                };
+                tasks.push(newTask);
+                saveTasks(tasks);
+                refreshColumn(status);
+                showToast('✅ Tarea creada');
+            }
+
+            updateAllCounts();
+            closeTaskModal();
+        });
+
+        btnModalCancel.addEventListener('click', closeTaskModal);
+        taskModal.addEventListener('click', (e) => {
+            if (e.target === taskModal) closeTaskModal();
+        });
+
+        // Botón "Nueva tarea" del header
+        document.getElementById('btnAddTask').addEventListener('click', () => {
+            openCreateModal('pending');
+        });
+
+        // ============================================================
+        // MODAL: CONFIRMAR ELIMINACIÓN DE UNA TAREA
+        // ============================================================
+        const confirmModal = document.getElementById('confirmModal');
+        const confirmTaskTitle = document.getElementById('confirmTaskTitle');
+        const btnConfirmDelete = document.getElementById('btnConfirmDelete');
+        const btnConfirmCancel = document.getElementById('btnConfirmCancel');
+        let taskToDelete = null;
+
+        function openConfirmDelete(taskId) {
+            const tasks = loadTasks();
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+            taskToDelete = taskId;
+            confirmTaskTitle.textContent = `"${task.title}"`;
+            confirmModal.classList.add('show');
+        }
+
+        function closeConfirmModal() {
+            confirmModal.classList.remove('show');
+            taskToDelete = null;
+        }
+
+        btnConfirmDelete.addEventListener('click', () => {
+            if (!taskToDelete) return;
+            const tasks = loadTasks();
+            const task = tasks.find(t => t.id === taskToDelete);
+            const status = task ? task.status : null;
+            const newTasks = tasks.filter(t => t.id !== taskToDelete);
+            saveTasks(newTasks);
+            if (status) refreshColumn(status);
+            updateAllCounts();
+            showToast('🗑️ Tarea eliminada');
+            closeConfirmModal();
+        });
+
+        btnConfirmCancel.addEventListener('click', closeConfirmModal);
+        confirmModal.addEventListener('click', (e) => {
+            if (e.target === confirmModal) closeConfirmModal();
+        });
+
+        // ============================================================
+        // MODAL: CONFIRMAR LIMPIAR TODO
+        // ============================================================
+        const clearAllModal = document.getElementById('clearAllModal');
+        const btnClearAllConfirm = document.getElementById('btnClearAllConfirm');
+        const btnClearAllCancel = document.getElementById('btnClearAllCancel');
+
+        document.getElementById('btnClearAll').addEventListener('click', () => {
+            const tasks = loadTasks();
+            if (tasks.length === 0) {
+                showToast('📭 El tablero ya está vacío', 2000);
+                return;
+            }
+            clearAllModal.classList.add('show');
+        });
+
+        btnClearAllConfirm.addEventListener('click', () => {
+            saveTasks([]);
+            COLUMNS.forEach(col => refreshColumn(col.id));
+            updateAllCounts();
+            showToast('🧹 Todas las tareas han sido eliminadas');
+            clearAllModal.classList.remove('show');
+        });
+
+        btnClearAllCancel.addEventListener('click', () => {
+            clearAllModal.classList.remove('show');
+        });
+        clearAllModal.addEventListener('click', (e) => {
+            if (e.target === clearAllModal) clearAllModal.classList.remove('show');
+        });
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        const toast = document.getElementById('toast');
+        let toastTimer;
+
+        function showToast(message, duration = 2500) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // ============================================================
+        // ATAJOS DE TECLADO
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            // Esc para cerrar modales
+            if (e.key === 'Escape') {
+                if (taskModal.classList.contains('show')) closeTaskModal();
+                if (confirmModal.classList.contains('show')) closeConfirmModal();
+                if (clearAllModal.classList.contains('show')) clearAllModal.classList.remove('show');
+            }
+            // Ctrl+N o Alt+N para nueva tarea
+            if ((e.ctrlKey || e.altKey) && e.key === 'n') {
+                e.preventDefault();
+                openCreateModal('pending');
+            }
+        });
+
+        // ============================================================
+        // INICIALIZACIÓN
+        // ============================================================
+        function init() {
+            renderBoard();
+            updateAllCounts();
+            // Verificar si hay tareas huérfanas (con estado inválido)
+            const tasks = loadTasks();
+            const validStatuses = COLUMNS.map(c => c.id);
+            let needsFix = false;
+            tasks.forEach(t => {
+                if (!validStatuses.includes(t.status)) {
+                    t.status = 'pending';
+                    needsFix = true;
+                }
+            });
+            if (needsFix) saveTasks(tasks);
+        }
+
+        init();
+    </script>
+</body>
+</html>
