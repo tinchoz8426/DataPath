@@ -203,6 +203,13 @@
             color: #ffd700;
         }
 
+        .tools-row .action-tool:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
         /* Switch modo lectura */
         .switch-label {
             display: flex;
@@ -318,108 +325,7 @@
             letter-spacing: 1px;
         }
 
-        /* ===== TIMELINE ===== */
-        .timeline-container {
-            max-width: 700px;
-            margin: 16px auto 25px;
-            padding: 10px 10px 5px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 20px;
-            border: 1px solid rgba(0, 240, 255, 0.08);
-            overflow-x: auto;
-        }
-
-        .timeline {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            min-width: 600px;
-            padding: 10px 0;
-            position: relative;
-        }
-
-        .timeline-line {
-            position: absolute;
-            top: 50%;
-            left: 30px;
-            right: 30px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-50%);
-            z-index: 0;
-        }
-
-        .timeline-line-progress {
-            position: absolute;
-            top: 50%;
-            left: 30px;
-            height: 3px;
-            background: linear-gradient(90deg, #00f0ff, #a855f7);
-            transform: translateY(-50%);
-            z-index: 1;
-            transition: width 0.8s ease;
-            width: 0%;
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-        }
-
-        .timeline-point {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            z-index: 2;
-            transition: transform 0.3s ease;
-            position: relative;
-            flex: 1;
-        }
-
-        .timeline-point:hover {
-            transform: scale(1.15);
-        }
-
-        .timeline-point .dot {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #2a2a4a;
-            border: 2px solid #4a4a6a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.5rem;
-            color: #6a6a8a;
-            transition: all 0.5s ease;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .timeline-point .dot.completed {
-            background: linear-gradient(135deg, #00f0ff, #a855f7);
-            border-color: #00f0ff;
-            color: #0a0a1a;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
-        }
-
-        .timeline-point .dot.partial {
-            border-color: #a855f7;
-            background: rgba(168, 85, 247, 0.2);
-            color: #a855f7;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
-        }
-
-        .timeline-point .label {
-            font-size: 0.55rem;
-            color: #506080;
-            margin-top: 4px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .timeline-point .dot.completed+.label {
-            color: #00f0ff;
-        }
+        /* ===== EL BLOQUE timeline-container HA SIDO ELIMINADO ===== */
 
         /* ===== NAV HORIZONTAL (móviles) ===== */
         .phase-nav-horizontal {
@@ -1479,28 +1385,6 @@
             .modal-content .modal-note {
                 font-size: 0.75rem;
             }
-            .timeline-container {
-                padding: 5px 5px;
-            }
-            .timeline {
-                min-width: 400px;
-                padding: 6px 0;
-            }
-            .timeline-point .dot {
-                width: 22px;
-                height: 22px;
-                font-size: 0.4rem;
-            }
-            .timeline-point .label {
-                font-size: 0.45rem;
-            }
-            .timeline-line {
-                left: 20px;
-                right: 20px;
-            }
-            .timeline-line-progress {
-                left: 20px;
-            }
             .achievement-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
@@ -1543,17 +1427,6 @@
             .tools-row .action-tool {
                 font-size: 0.7rem;
                 padding: 3px 10px;
-            }
-            .timeline {
-                min-width: 300px;
-            }
-            .timeline-point .dot {
-                width: 18px;
-                height: 18px;
-                font-size: 0.35rem;
-            }
-            .timeline-point .label {
-                font-size: 0.4rem;
             }
             .achievement-grid {
                 grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
@@ -1611,6 +1484,11 @@
                     <input type="checkbox" id="readModeToggle">
                     <span>Modo lectura</span>
                 </label>
+
+                <!-- Botón colapsar/expandir todo (NUEVO) -->
+                <button class="action-tool" id="toggleAllBtn" title="Colapsar o expandir todas las fases">
+                    <i class="fas fa-compress-alt"></i> <span id="toggleAllText">Colapsar todo</span>
+                </button>
             </div>
 
             <!-- Contadores -->
@@ -1628,12 +1506,7 @@
             </div>
             <div class="progress-text" id="progress-text">0% completado</div>
 
-            <div class="timeline-container">
-                <div class="timeline" id="timeline">
-                    <div class="timeline-line"></div>
-                    <div class="timeline-line-progress" id="timelineProgress"></div>
-                </div>
-            </div>
+            <!-- EL BLOQUE TIMELINE HA SIDO ELIMINADO -->
 
             <div class="roadmap-notice">
                 <i class="fas fa-sync-alt fa-fw"></i> Este roadmap es una guía viva y en evolución. Los contenidos, el orden y las herramientas pueden ajustarse según las necesidades del mercado y la retroalimentación de los estudiantes.
@@ -1728,7 +1601,7 @@
         </div>
     </div>
 
-    <!-- MODAL DE CONFIRMACIÓN PARA REINICIAR -->
+    <!-- MODAL DE CONFIRMACÓN PARA REINICIAR -->
     <div class="modal-overlay reset-modal" id="resetModal">
         <div class="modal-content">
             <div class="reset-warning">⚠️</div>
@@ -2411,7 +2284,6 @@
                         }
                         saveCheckedItems(current);
                         updateProgress();
-                        updateTimeline();
                         updatePhaseProgress();
                         checkAchievements();
                     });
@@ -2481,6 +2353,7 @@
             header.addEventListener('click', () => {
                 body.classList.toggle('open');
                 toggle.classList.toggle('open');
+                updateToggleAllButton();
             });
 
             if (index === 0) {
@@ -2490,7 +2363,7 @@
         });
 
         // ============================================================
-        // 5. PROGRESO Y TIMELINE
+        // 5. PROGRESO Y TIMELINE (la parte de timeline ya no se usa visualmente)
         // ============================================================
         function getPhaseProgress(phaseId) {
             const items = document.querySelectorAll(`#phase-${phaseId} .module-items input[type="checkbox"]`);
@@ -2521,71 +2394,11 @@
             document.getElementById('progress-text').textContent = `${percent}% completado (${checked}/${total} ítems)`;
             window.currentProgress = percent;
             updatePhaseProgress();
-            updateTimeline();
         }
 
-        function buildTimeline() {
-            const timeline = document.getElementById('timeline');
-            const existingPoints = timeline.querySelectorAll('.timeline-point');
-            existingPoints.forEach(el => el.remove());
-
-            roadmapData.forEach((phase, index) => {
-                const point = document.createElement('div');
-                point.className = 'timeline-point';
-                point.dataset.index = index;
-
-                const dot = document.createElement('div');
-                dot.className = 'dot';
-                dot.textContent = `F${phase.id}`;
-                point.appendChild(dot);
-
-                const label = document.createElement('div');
-                label.className = 'label';
-                label.textContent = `F${phase.id}`;
-                point.appendChild(label);
-
-                point.addEventListener('click', () => {
-                    const target = document.getElementById(`phase-${phase.id}`);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-
-                timeline.appendChild(point);
-            });
-
-            const line = timeline.querySelector('.timeline-line');
-            const progressLine = timeline.querySelector('.timeline-line-progress');
-            timeline.prepend(line);
-            timeline.prepend(progressLine);
-            updateTimeline();
-        }
-
-        function updateTimeline() {
-            const points = document.querySelectorAll('.timeline-point');
-            const totalPhases = roadmapData.length;
-            let completedPhases = 0;
-
-            points.forEach((point, index) => {
-                const phaseId = index;
-                const { total, checked } = getPhaseProgress(phaseId);
-                const dot = point.querySelector('.dot');
-                dot.classList.remove('completed', 'partial');
-
-                if (total > 0 && checked === total) {
-                    dot.classList.add('completed');
-                    completedPhases++;
-                } else if (checked > 0) {
-                    dot.classList.add('partial');
-                }
-            });
-
-            const progressLine = document.getElementById('timelineProgress');
-            if (progressLine) {
-                const percent = totalPhases > 0 ? (completedPhases / totalPhases) * 100 : 0;
-                progressLine.style.width = Math.min(percent, 100) + '%';
-            }
-        }
+        // Las funciones de timeline se mantienen pero no se usan porque el contenedor fue eliminado.
+        function buildTimeline() {}
+        function updateTimeline() {}
 
         // ============================================================
         // 6. NAVEGACIÓN ACTIVA
@@ -2883,8 +2696,24 @@
         // 9. MODO LECTURA
         // ============================================================
         const readModeToggle = document.getElementById('readModeToggle');
+        const toggleAllBtn = document.getElementById('toggleAllBtn');
+
         readModeToggle.addEventListener('change', function() {
             document.body.classList.toggle('read-mode', this.checked);
+            toggleAllBtn.disabled = this.checked;
+            if (this.checked) {
+                // En modo lectura, forzamos todas las fases abiertas
+                document.querySelectorAll('.phase-body').forEach(body => {
+                    body.classList.add('open');
+                });
+                document.querySelectorAll('.phase-toggle').forEach(toggle => {
+                    toggle.classList.add('open');
+                });
+                updateToggleAllButton();
+            } else {
+                // Al salir, no forzamos nada, el botón se actualizará según el estado actual
+                updateToggleAllButton();
+            }
         });
 
         // ============================================================
@@ -2954,13 +2783,61 @@
         });
 
         // ============================================================
-        // 13. INICIO
+        // 13. BOTÓN COLAPSAR/EXPANDIR TODO (NUEVO)
         // ============================================================
+        const toggleAllText = document.getElementById('toggleAllText');
+
+        function updateToggleAllButton() {
+            const bodies = document.querySelectorAll('.phase-body');
+            let anyOpen = false;
+            bodies.forEach(body => {
+                if (body.classList.contains('open')) {
+                    anyOpen = true;
+                }
+            });
+            if (anyOpen) {
+                toggleAllText.textContent = 'Colapsar todo';
+                toggleAllBtn.querySelector('i').className = 'fas fa-compress-alt';
+            } else {
+                toggleAllText.textContent = 'Expandir todo';
+                toggleAllBtn.querySelector('i').className = 'fas fa-expand-alt';
+            }
+        }
+
+        function toggleAllPhases() {
+            if (toggleAllBtn.disabled) return;
+            const bodies = document.querySelectorAll('.phase-body');
+            const toggles = document.querySelectorAll('.phase-toggle');
+            // Si alguna está abierta, las colapsamos todas; si ninguna, las expandimos todas
+            let anyOpen = false;
+            bodies.forEach(body => {
+                if (body.classList.contains('open')) {
+                    anyOpen = true;
+                }
+            });
+
+            if (anyOpen) {
+                // Colapsar todas
+                bodies.forEach(body => body.classList.remove('open'));
+                toggles.forEach(toggle => toggle.classList.remove('open'));
+                showToast('📂 Todas las fases colapsadas', 1500);
+            } else {
+                // Expandir todas
+                bodies.forEach(body => body.classList.add('open'));
+                toggles.forEach(toggle => toggle.classList.add('open'));
+                showToast('📂 Todas las fases expandidas', 1500);
+            }
+            updateToggleAllButton();
+        }
+
+        toggleAllBtn.addEventListener('click', toggleAllPhases);
+
+        // Llamar a updateToggleAllButton después de cargar para sincronizar el estado inicial
+        // (ya que la primera fase está abierta por defecto)
         window.addEventListener('load', function() {
+            updateToggleAllButton();
             updateActiveNav();
             updateProgress();
-            buildTimeline();
-            updateTimeline();
             updatePhaseProgress();
             updateAchievementUI();
             checkAchievements();
