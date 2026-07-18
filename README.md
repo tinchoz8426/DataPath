@@ -107,7 +107,7 @@ Este proyecto está bajo la licencia **MIT**. Siéntete libre de usarlo, modific
 
 ## 🤖 Créditos y atribución
 
-Este proyecto fue desarrollado con la asistencia de **Inteligencia Artificial (IA)** para la generación de código base, diseño conceptual, redacción y estructuración del contenido, siendo posteriormente adaptado, revisado y curado exhaustivamente por un ingeniero de datos humano para garantizar la máxima calidad técnica y relevancia educativa.
+Este proyecto fue desarrollado con la asistencia de **Inteligencia Artificial (IA)** para la generación de código base, diseño conceptual, redacción y estructuración del contenido, siendo posteriormente adaptado, revisado y curado.
 
 ---
 
