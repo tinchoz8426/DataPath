@@ -1173,6 +1173,53 @@
             box-shadow: 0 0 15px rgba(255, 60, 60, 0.3);
         }
 
+        /* ===== BOTÓN SUBIR ARRIBA (SCROLL TO TOP) ===== */
+        .scroll-top-float {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 500;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+        }
+
+        .scroll-top-float.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(20, 20, 40, 0.85);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(0, 240, 255, 0.3);
+            color: #00f0ff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.12);
+            border-color: #00f0ff;
+            box-shadow: 0 0 45px rgba(0, 240, 255, 0.4);
+            background: rgba(0, 240, 255, 0.12);
+            color: #fff;
+        }
+
+        .scroll-top-btn:active {
+            transform: scale(0.95);
+        }
+
         /* ===== MODAL POMODORO ===== */
         .pomodoro-modal .modal-content {
             max-width: 400px;
@@ -1405,6 +1452,15 @@
             .counters-row {
                 gap: 8px;
             }
+            .scroll-top-float {
+                bottom: 20px;
+                left: 20px;
+            }
+            .scroll-top-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1448,6 +1504,15 @@
             .doubt-btn {
                 font-size: 0.8rem;
             }
+            .scroll-top-float {
+                bottom: 15px;
+                left: 15px;
+            }
+            .scroll-top-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -1483,7 +1548,7 @@
                     <span>Modo lectura</span>
                 </label>
 
-                <!-- Botón colapsar/expandir todo (NUEVO) -->
+                <!-- Botón colapsar/expandir todo -->
                 <button class="action-tool" id="toggleAllBtn" title="Colapsar o expandir todas las fases">
                     <i class="fas fa-compress-alt"></i> <span id="toggleAllText">Colapsar todo</span>
                 </button>
@@ -1493,7 +1558,7 @@
                     <i class="fas fa-tasks"></i> Kanban
                 </a>
 
-                <!-- Acceso al tablero Kanban -->
+                <!-- Acceso a proyectos -->
                 <a href="proyectos.html" class="action-tool" title="Ir al tablero Kanban" style="text-decoration: none;">
                     <i class="fas fa-tasks"></i> Proyectos
                 </a>
@@ -1513,8 +1578,6 @@
                 <div class="progress-bar" id="progress-bar" style="width: 0%;"></div>
             </div>
             <div class="progress-text" id="progress-text">0% completado</div>
-
-            <!-- EL BLOQUE TIMELINE HA SIDO ELIMINADO -->
 
             <div class="roadmap-notice">
                 <i class="fas fa-sync-alt fa-fw"></i> Este roadmap es una guía viva y en evolución. Los contenidos, el orden y las herramientas pueden ajustarse según las necesidades del mercado y la retroalimentación de los estudiantes.
@@ -1558,6 +1621,13 @@
             <i class="fas fa-clock"></i>
         </button>
         <span class="pomodoro-float-badge" id="pomodoroBadge">0</span>
+    </div>
+
+    <!-- ===== BOTÓN FLOTANTE SUBIR ARRIBA ===== -->
+    <div class="scroll-top-float" id="scrollTopFloat">
+        <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Subir arriba" title="Volver al inicio">
+            <i class="fas fa-arrow-up"></i>
+        </button>
     </div>
 
     <!-- ===== MODAL POMODORO ===== -->
@@ -2228,13 +2298,13 @@
         roadmapData.forEach((phase, index) => {
             const aSide = document.createElement('a');
             aSide.href = `#phase-${phase.id}`;
-            aSide.textContent = `M${phase.id}`;  // Cambiado de F a M
+            aSide.textContent = `M${phase.id}`;
             aSide.dataset.index = index;
             navSide.appendChild(aSide);
 
             const aHoriz = document.createElement('a');
             aHoriz.href = `#phase-${phase.id}`;
-            aHoriz.textContent = `M${phase.id}`; // Cambiado de F a M
+            aHoriz.textContent = `M${phase.id}`;
             aHoriz.dataset.index = index;
             navHoriz.appendChild(aHoriz);
         });
@@ -2422,7 +2492,7 @@
         });
 
         // ============================================================
-        // 5. PROGRESO Y TIMELINE (la parte de timeline ya no se usa visualmente)
+        // 5. PROGRESO Y TIMELINE
         // ============================================================
         function getPhaseProgress(phaseId) {
             const items = document.querySelectorAll(`#phase-${phaseId} .module-items input[type="checkbox"]`);
@@ -2454,10 +2524,6 @@
             window.currentProgress = percent;
             updatePhaseProgress();
         }
-
-        // Las funciones de timeline se mantienen pero no se usan porque el contenedor fue eliminado.
-        function buildTimeline() {}
-        function updateTimeline() {}
 
         // ============================================================
         // 6. NAVEGACIÓN ACTIVA
@@ -2761,7 +2827,6 @@
             document.body.classList.toggle('read-mode', this.checked);
             toggleAllBtn.disabled = this.checked;
             if (this.checked) {
-                // En modo lectura, forzamos todas las fases abiertas
                 document.querySelectorAll('.phase-body').forEach(body => {
                     body.classList.add('open');
                 });
@@ -2770,7 +2835,6 @@
                 });
                 updateToggleAllButton();
             } else {
-                // Al salir, no forzamos nada, el botón se actualizará según el estado actual
                 updateToggleAllButton();
             }
         });
@@ -2842,7 +2906,7 @@
         });
 
         // ============================================================
-        // 13. BOTÓN COLAPSAR/EXPANDIR TODO (NUEVO)
+        // 13. BOTÓN COLAPSAR/EXPANDIR TODO
         // ============================================================
         const toggleAllText = document.getElementById('toggleAllText');
 
@@ -2867,7 +2931,6 @@
             if (toggleAllBtn.disabled) return;
             const bodies = document.querySelectorAll('.phase-body');
             const toggles = document.querySelectorAll('.phase-toggle');
-            // Si alguna está abierta, las colapsamos todas; si ninguna, las expandimos todas
             let anyOpen = false;
             bodies.forEach(body => {
                 if (body.classList.contains('open')) {
@@ -2876,12 +2939,10 @@
             });
 
             if (anyOpen) {
-                // Colapsar todas
                 bodies.forEach(body => body.classList.remove('open'));
                 toggles.forEach(toggle => toggle.classList.remove('open'));
                 showToast('📂 Todas las fases colapsadas', 1500);
             } else {
-                // Expandir todas
                 bodies.forEach(body => body.classList.add('open'));
                 toggles.forEach(toggle => toggle.classList.add('open'));
                 showToast('📂 Todas las fases expandidas', 1500);
@@ -2891,8 +2952,29 @@
 
         toggleAllBtn.addEventListener('click', toggleAllPhases);
 
-        // Llamar a updateToggleAllButton después de cargar para sincronizar el estado inicial
-        // (ya que la primera fase está abierta por defecto)
+        // ============================================================
+        // 14. BOTÓN SUBIR ARRIBA (SCROLL TO TOP)
+        // ============================================================
+        const scrollTopFloat = document.getElementById('scrollTopFloat');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+        function handleScrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        scrollTopBtn.addEventListener('click', handleScrollToTop);
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 200) {
+                scrollTopFloat.classList.add('visible');
+            } else {
+                scrollTopFloat.classList.remove('visible');
+            }
+        });
+
+        // ============================================================
+        // INICIALIZACIÓN FINAL
+        // ============================================================
         window.addEventListener('load', function() {
             updateToggleAllButton();
             updateActiveNav();
@@ -2903,6 +2985,10 @@
             updatePomodoroUI();
             updateDoubtCounter();
             doubtFilterActive = false;
+            // Ocultar el botón de scroll si ya está arriba
+            if (window.scrollY <= 200) {
+                scrollTopFloat.classList.remove('visible');
+            }
         });
     </script>
 
