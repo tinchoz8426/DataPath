@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataPath · Roadmap Ingeniería de Datos</title>
+    <title>DataPath · Proyectos</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="roadmap.png">
     <!-- Google Fonts -->
@@ -469,57 +469,43 @@
             border: 1px solid rgba(0, 240, 255, 0.1);
         }
 
-        .module-container {
-            margin: 10px 0 6px;
-        }
-
-        .module-title {
-            font-weight: 600;
-            color: #c0ccff;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 2px;
-        }
-
-        .module-title i {
-            color: #a855f7;
-            width: 18px;
-            text-align: center;
-        }
-
-        .module-items {
+        /* ===== LISTA DE PROYECTOS ===== */
+        .project-list {
             list-style: none;
-            padding-left: 24px;
+            padding: 0;
+            margin: 10px 0 6px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 2px 16px;
-            margin: 2px 0 6px;
+            grid-template-columns: 1fr;
+            gap: 14px;
         }
 
-        .module-items li {
+        .project-list li {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 240, 255, 0.06);
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .project-list li:hover {
+            border-color: rgba(0, 240, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-list li .project-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 2px 0;
-            font-weight: 300;
-            color: #b0c0e0;
-            font-size: 0.85rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            transition: color 0.2s;
-            cursor: default;
+            gap: 12px;
         }
 
-        .module-items li:hover {
-            color: #ffffff;
-        }
-
-        .module-items li input[type="checkbox"] {
+        .project-list li .project-header input[type="checkbox"] {
             appearance: none;
             -webkit-appearance: none;
-            width: 17px;
-            height: 17px;
+            width: 20px;
+            height: 20px;
             border: 2px solid rgba(0, 240, 255, 0.4);
             border-radius: 4px;
             background: transparent;
@@ -529,13 +515,13 @@
             transition: all 0.2s ease;
         }
 
-        .module-items li input[type="checkbox"]:checked {
+        .project-list li .project-header input[type="checkbox"]:checked {
             background: #00f0ff;
             border-color: #00f0ff;
             box-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
         }
 
-        .module-items li input[type="checkbox"]:checked::after {
+        .project-list li .project-header input[type="checkbox"]:checked::after {
             content: "✓";
             position: absolute;
             top: 50%;
@@ -543,24 +529,16 @@
             transform: translate(-50%, -50%);
             color: #0a0a1a;
             font-weight: 900;
-            font-size: 13px;
+            font-size: 15px;
         }
 
-        .module-items li input[type="checkbox"]:hover {
-            border-color: #00f0ff;
+        .project-list li .project-header .project-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #d0d8ff;
         }
 
-        .module-items li .item-text {
-            flex: 1;
-        }
-
-        .module-items li.completed .item-text {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
-
-        /* ===== BOTÓN DE DUDA ===== */
-        .doubt-btn {
+        .project-list li .project-header .doubt-btn {
             background: transparent;
             border: none;
             color: #506080;
@@ -573,88 +551,95 @@
             text-align: center;
         }
 
-        .doubt-btn:hover {
+        .project-list li .project-header .doubt-btn:hover {
             color: #a0b0d0;
             transform: scale(1.2);
         }
 
-        .doubt-btn.active {
+        .project-list li .project-header .doubt-btn.active {
             color: #ff6b6b;
-            /* Sin sombra para no intensificar */
             text-shadow: none;
         }
 
-        .doubt-btn.active:hover {
+        .project-list li .project-header .doubt-btn.active:hover {
             color: #ff4444;
         }
 
-        /* ===== RESALTADO DE DUDAS (NUEVO) ===== */
-        .module-items li.has-doubt {
+        .project-list li .project-description {
+            color: #b0c0e0;
+            font-size: 0.9rem;
+            margin-left: 32px;
+        }
+
+        .project-list li .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-left: 32px;
+        }
+
+        .project-list li .project-tech .tech-tag {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            border-radius: 20px;
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: #a0c0e0;
+        }
+
+        .project-list li .project-link {
+            margin-left: 32px;
+            font-size: 0.85rem;
+        }
+
+        .project-list li .project-link a {
+            color: #a855f7;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .project-list li .project-link a:hover {
+            color: #c084fc;
+            text-decoration: underline;
+        }
+
+        .project-list li.completed .project-name {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .project-list li.has-doubt {
             background: rgba(255, 60, 60, 0.12);
             border-left: 4px solid #ff6b6b;
-            padding-left: 6px;
             border-radius: 4px;
-            transition: background 0.2s, border-color 0.2s;
         }
 
-        .module-items li.has-doubt .item-text {
+        .project-list li.has-doubt .project-name {
             color: #ff6b6b;
             font-weight: 600;
         }
 
-        /* El botón de duda mantiene el mismo color que el texto, sin fondo extra */
-        .module-items li.has-doubt .doubt-btn.active {
-            color: #ff6b6b;
-            background: transparent;
-            /* Sin fondo adicional */
-            text-shadow: none;
-        }
-
-        /* ===== FILTRO DE DUDAS ===== */
-        body.show-doubts-only .module-items li:not(.has-doubt) {
+        /* ===== FILTRO DE DUDAS (proyectos) ===== */
+        body.show-doubts-only .project-list li:not(.has-doubt) {
             display: none;
         }
 
-        body.show-doubts-only .module-items li.has-doubt {
+        body.show-doubts-only .project-list li.has-doubt {
             display: flex;
-        }
-
-        body.show-doubts-only .module-container:empty,
-        body.show-doubts-only .phase-body-inner:has(.module-container:empty) {
-            display: none;
-        }
-
-        /* ===== PROYECTO ===== */
-        .project-tag {
-            display: inline-block;
-            background: rgba(255, 0, 255, 0.15);
-            border: 1px solid rgba(255, 0, 255, 0.3);
-            border-radius: 20px;
-            padding: 2px 14px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #ff66ff;
-            letter-spacing: 0.5px;
-            margin-top: 14px;
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
-        }
-
-        .project-tag i {
-            margin-right: 6px;
+            flex-direction: column;
         }
 
         /* ===== MODO LECTURA ===== */
-        body.read-mode .module-items li input[type="checkbox"] {
+        body.read-mode .project-list li input[type="checkbox"] {
             display: none;
         }
 
-        body.read-mode .module-items li.completed .item-text {
+        body.read-mode .project-list li.completed .project-name {
             text-decoration: none;
             opacity: 1;
-        }
-
-        body.read-mode .module-items li .item-text {
-            cursor: default;
         }
 
         body.read-mode .phase-progress-mini {
@@ -664,15 +649,6 @@
         body.read-mode .progress-wrapper,
         body.read-mode .progress-text,
         body.read-mode .achievement-counter {
-            display: none;
-        }
-
-        body.read-mode .timeline-container {
-            opacity: 0.4;
-            pointer-events: none;
-        }
-
-        body.read-mode .project-tag {
             display: none;
         }
 
@@ -697,7 +673,7 @@
             display: none;
         }
 
-        /* ===== FOOTER Y BOTONES DE ACCIÓN ===== */
+        /* ===== FOOTER Y BOTONES ===== */
         footer {
             text-align: center;
             margin-top: 50px;
@@ -1035,7 +1011,7 @@
             border-radius: 10px;
         }
 
-        /* ===== LOGROS / ACHIEVEMENTS ===== */
+        /* ===== LOGROS ===== */
         .achievement-badge {
             display: inline-block;
             background: rgba(255, 215, 0, 0.1);
@@ -1288,22 +1264,6 @@
             color: #a0b0d0;
         }
 
-        /* ===== RESALTADO DE ÍTEM ALEATORIO (ya no se usa pero mantenemos por si acaso) ===== */
-        .item-highlight {
-            animation: highlightPulse 1.5s ease 3;
-            border-radius: 4px;
-            background: rgba(0, 240, 255, 0.08);
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
-            padding: 2px 0;
-            border-left: 3px solid #00f0ff;
-        }
-
-        @keyframes highlightPulse {
-            0% { background: rgba(0, 240, 255, 0.05); }
-            50% { background: rgba(0, 240, 255, 0.2); }
-            100% { background: rgba(0, 240, 255, 0.05); }
-        }
-
         /* ===== RESPONSIVE ===== */
         @media (max-width: 900px) {
             body {
@@ -1354,10 +1314,6 @@
             .phase-body.open {
                 padding: 6px 16px 16px;
             }
-            .module-items {
-                grid-template-columns: 1fr;
-                padding-left: 14px;
-            }
             .phase-nav-horizontal a {
                 font-size: 0.7rem;
                 padding: 2px 8px;
@@ -1405,6 +1361,14 @@
             .counters-row {
                 gap: 8px;
             }
+            .project-list li .project-description,
+            .project-list li .project-tech,
+            .project-list li .project-link {
+                margin-left: 0;
+            }
+            .project-list li .project-header {
+                flex-wrap: wrap;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1445,9 +1409,6 @@
             .pomodoro-timer {
                 font-size: 2.5rem;
             }
-            .doubt-btn {
-                font-size: 0.8rem;
-            }
         }
     </style>
 </head>
@@ -1463,16 +1424,16 @@
         <header>
             <h1>
                 <img src="roadmap.png" alt="DataPath" class="title-icon">
-                DataPath · Roadmap Ingeniería de Datos
+                DataPath · Proyectos
             </h1>
             <div class="subtitle">
-                <i class="fas fa-code"></i> DataPath · De Cero a Profesional
+                <i class="fas fa-code"></i> Proyectos prácticos para cada módulo
             </div>
 
             <!-- ===== HERRAMIENTAS ===== -->
             <div class="tools-row">
                 <!-- Filtro de dudas -->
-                <button class="action-tool" id="doubtFilterBtn" title="Mostrar solo ítems con dudas">
+                <button class="action-tool" id="doubtFilterBtn" title="Mostrar solo proyectos con dudas">
                     <i class="fas fa-filter"></i> Dudas
                 </button>
 
@@ -1483,19 +1444,18 @@
                     <span>Modo lectura</span>
                 </label>
 
-                <!-- Botón colapsar/expandir todo (NUEVO) -->
-                <button class="action-tool" id="toggleAllBtn" title="Colapsar o expandir todas las fases">
+                <!-- Botón colapsar/expandir todo -->
+                <button class="action-tool" id="toggleAllBtn" title="Colapsar o expandir todos los módulos">
                     <i class="fas fa-compress-alt"></i> <span id="toggleAllText">Colapsar todo</span>
                 </button>
 
-                <!-- Acceso al tablero Kanban -->
+                <!-- Enlace al roadmap principal -->
+                <a href="index.html" class="action-tool" title="Ir al roadmap" style="text-decoration: none;">
+                    <i class="fas fa-road"></i> Roadmap
+                </a>
+                <!-- Enlace a Kanban -->
                 <a href="kanban.html" class="action-tool" title="Ir al tablero Kanban" style="text-decoration: none;">
                     <i class="fas fa-tasks"></i> Kanban
-                </a>
-
-                <!-- Acceso al tablero Kanban -->
-                <a href="proyectos.html" class="action-tool" title="Ir al tablero Kanban" style="text-decoration: none;">
-                    <i class="fas fa-tasks"></i> Proyectos
                 </a>
             </div>
 
@@ -1504,7 +1464,7 @@
                 <span class="achievement-counter" id="achievementCounter" title="Ver logros desbloqueados">
                     <i class="fas fa-trophy"></i> <span id="achievementCount">0</span> / <span id="achievementTotal">0</span>
                 </span>
-                <span class="badge-counter doubt" id="doubtCounter" title="Ítems con dudas">
+                <span class="badge-counter doubt" id="doubtCounter" title="Proyectos con dudas">
                     <i class="fas fa-question-circle"></i> <span id="doubtCount">0</span> dudas
                 </span>
             </div>
@@ -1514,10 +1474,8 @@
             </div>
             <div class="progress-text" id="progress-text">0% completado</div>
 
-            <!-- EL BLOQUE TIMELINE HA SIDO ELIMINADO -->
-
             <div class="roadmap-notice">
-                <i class="fas fa-sync-alt fa-fw"></i> Este roadmap es una guía viva y en evolución. Los contenidos, el orden y las herramientas pueden ajustarse según las necesidades del mercado y la retroalimentación de los estudiantes.
+                <i class="fas fa-sync-alt fa-fw"></i> Los proyectos son sugerencias para aplicar lo aprendido. Siéntete libre de adaptarlos o crear los tuyos propios.
             </div>
         </header>
 
@@ -1541,7 +1499,7 @@
                 </a>
             </div>
             <div style="margin-top: 14px;" class="footer-text-light">
-                <span class="brand-footer">DataPath</span> · Roadmap Ingeniería de Datos · Marca tu progreso · Guardado automático · Hecho con <span class="heart">❤️</span> por Tincho
+                <span class="brand-footer">DataPath</span> · Proyectos · Marca tu progreso · Guardado automático · Hecho con <span class="heart">❤️</span> por Tincho
             </div>
             <div style="margin-top: 4px; font-size: 0.65rem; letter-spacing: 0.5px;" class="footer-text-ai">
                 🤖 Potenciado con inteligencia artificial · En constante evolución
@@ -1585,7 +1543,7 @@
     <div class="modal-overlay" id="shareModal">
         <div class="modal-content">
             <h2>Comparte tu progreso</h2>
-            <div class="modal-message" id="shareMessage">¡He completado el 0% del roadmap de Ingeniería de Datos! 🚀 ¿Y tú?</div>
+            <div class="modal-message" id="shareMessage">¡He completado el 0% de los proyectos del roadmap de Ingeniería de Datos! 🚀 ¿Y tú?</div>
             <div class="modal-note">
                 <i class="fas fa-info-circle"></i> LinkedIn no permite prellenar el texto automáticamente. Copia el mensaje y pégalo en tu publicación.
             </div>
@@ -1603,7 +1561,7 @@
     <!-- MODAL PARA LOGROS -->
     <div class="modal-overlay" id="achievementsModal">
         <div class="modal-content" style="max-width: 700px;">
-            <h2><i class="fas fa-trophy" style="color: #ffd700;"></i> Tus Logros</h2>
+            <h2><i class="fas fa-trophy" style="color: #ffd700;"></i> Tus Logros (Proyectos)</h2>
             <div id="achievementsList" class="achievement-grid"></div>
             <button class="modal-close" id="closeAchievementsModal">Cerrar</button>
         </div>
@@ -1615,7 +1573,7 @@
             <div class="reset-warning">⚠️</div>
             <h2>Reiniciar progreso</h2>
             <p style="color: #b0c0e0; margin: 10px 0 20px; font-size: 1.05rem;">
-                ¿Estás seguro? Se borrarán <strong>todos</strong> los ítems marcados, tus logros y tus dudas.<br>
+                ¿Estás seguro? Se borrarán <strong>todos</strong> los proyectos marcados, tus logros y tus dudas.<br>
                 Esta acción <strong>no se puede deshacer</strong>.
             </p>
             <div class="modal-buttons">
@@ -1632,435 +1590,310 @@
 
     <script>
         // ============================================================
-        // 1. DATOS DEL ROADMAP (ACTUALIZADO)
+        // 1. DATOS DE PROYECTOS
         // ============================================================
-        const roadmapData = [
-            {
-                id: 0,
-                name: "Módulo 0 — Introducción a la Ingeniería de Datos",
-                objective: "Comprender el ecosistema de la Ingeniería de Datos y preparar el entorno de trabajo.",
-                modules: [
-                    {
-                        title: "Módulo 0.1 — ¿Qué es la Ingeniería de Datos?",
-                        items: [
-                            "¿Qué es un dato?",
-                            "Tipos de datos: Estructurados, Semi-estructurados y No estructurados",
-                            "Formatos comunes en datos: CSV, JSON y la revolución de Parquet",
-                            "Ciclo de vida de un dato.",
-                            "¿Qué hace un Data Engineer?",
-                            "Data Engineer vs. Data Analyst.",
-                            "Data Engineer vs. Data Scientist.",
-                            "¿Qué es un pipeline de datos?",
-                            "Arquitectura general de un sistema de datos (Ingesta, Almacenamiento, Procesamiento, Consumo).",
-                            "Introducción a ETL y ELT.",
-                            "Introducción a Data Warehouse y Data Lake.",
-                            "Roadmap del curso."
-                        ]
-                    },
-                    {
-                        title: "Módulo 0.2 — Herramientas y Entorno de Trabajo",
-                        items: [
-                            "VS Code + Extensiones clave para Datos",
-                            "Git & GitHub (Instalación y conceptos iniciales).",
-                            "Python (Instalación de la versión correcta).",
-                            "Aislamiento de entorno: Tu primer entorno virtual (venv/virtualenv)",
-                            "PostgreSQL",
-                            "DBeaver",
-                            "Configurar Git (user.name, user.email, llaves SSH/Tokens).",
-                            "Primer repositorio local y remoto.",
-                            "El flujo inicial: git add, git commit, git push."
-                        ]
-                    }
-                ],
-                project: "Preparar completamente el entorno de desarrollo."
-            },
-            {
-                id: 1,
-                name: "Módulo 1 — Linux",
-                objective: "Poder trabajar en servidores Linux.",
-                modules: [
-                    {
-                        title: "1.1 Introducción",
-                        items: ["Linux", "Distribuciones", "WSL", "Terminal", "Shell", "Bash"]
-                    },
-                    {
-                        title: "1.2 Navegación",
-                        items: ["pwd", "ls", "cd", "mkdir", "touch", "cp", "mv", "rm"]
-                    },
-                    {
-                        title: "1.3 Archivos",
-                        items: ["cat", "less", "head", "tail", "wc"]
-                    },
-                    {
-                        title: "1.4 Búsquedas",
-                        items: ["grep", "find", "locate", "which"]
-                    },
-                    {
-                        title: "1.5 Procesamiento de texto",
-                        items: ["cut", "sort", "uniq", "tr", "sed", "awk"]
-                    },
-                    {
-                        title: "1.6 Usuarios y permisos",
-                        items: ["usuarios", "grupos", "chmod", "chown"]
-                    },
-                    {
-                        title: "1.7 Procesos",
-                        items: ["ps", "top", "kill", "jobs", "bg", "fg"]
-                    },
-                    {
-                        title: "1.8 Entorno",
-                        items: ["PATH", "export", "alias", ".bashrc"]
-                    },
-                    {
-                        title: "1.9 Bash Scripting",
-                        items: ["variables", "if", "while", "for", "funciones", "parámetros"]
-                    }
-                ],
-                project: "Automatizar la descarga y organización de archivos CSV."
-            },
-            {
-                id: 2,
-                name: "Módulo 2 — Git",
-                objective: "Controlar versiones de todos los proyectos.",
-                modules: [
-                    {
-                        title: "2.1 Fundamentos",
-                        items: ["Git", "Repositorio", "Commit", "Branch", "Merge"]
-                    },
-                    {
-                        title: "2.2 Flujo diario",
-                        items: ["init", "clone", "add", "commit", "push", "pull", "fetch"]
-                    },
-                    {
-                        title: "2.3 Trabajo colaborativo",
-                        items: ["branch", "merge", "rebase", "stash", "tags"]
-                    }
-                ],
-                project: "Gestionar todos los proyectos del curso con Git."
-            },
-            {
-                id: 3,
-                name: "Módulo 3 — Python",
-                objective: "Programar pipelines y herramientas.",
-                modules: [
-                    {
-                        title: "3.1 Fundamentos",
-                        items: ["variables", "tipos", "operadores", "condicionales", "loops", "funciones"]
-                    },
-                    {
-                        title: "3.2 Colecciones",
-                        items: ["listas", "tuplas", "diccionarios", "conjuntos"]
-                    },
-                    {
-                        title: "3.3 Archivos",
-                        items: ["txt", "csv", "json", "excel"]
-                    },
-                    {
-                        title: "3.4 Módulos",
-                        items: ["import", "pip", "virtualenv", "requirements.txt"]
-                    },
-                    {
-                        title: "3.5 Excepciones",
-                        items: ["try", "except", "finally", "raise"]
-                    },
-                    {
-                        title: "3.6 Programación Orientada a Objetos",
-                        items: ["clases", "objetos", "atributos", "métodos"]
-                    },
-                    {
-                        title: "3.7 Logging",
-                        items: ["logging", "niveles", "handlers", "formato"]
-                    },
-                    {
-                        title: "3.8 APIs",
-                        items: ["HTTP", "REST", "requests", "autenticación", "paginación", "rate limit"]
-                    }
-                ],
-                project: "Consumir una API y almacenar los datos en PostgreSQL."
-            },
-            {
-                id: 4,
-                name: "Módulo 4 — SQL",
-                objective: "Dominar SQL para análisis y transformación.",
-                modules: [
-                    {
-                        title: "4.1 Bases de datos",
-                        items: ["tablas", "filas", "columnas", "claves"]
-                    },
-                    {
-                        title: "4.2 Consultas",
-                        items: ["SELECT", "WHERE", "ORDER BY", "LIMIT"]
-                    },
-                    {
-                        title: "4.3 Funciones",
-                        items: ["COUNT", "SUM", "AVG", "MIN", "MAX"]
-                    },
-                    {
-                        title: "4.4 Agrupaciones",
-                        items: ["GROUP BY", "HAVING"]
-                    },
-                    {
-                        title: "4.5 JOIN",
-                        items: ["INNER", "LEFT", "RIGHT", "FULL"]
-                    },
-                    {
-                        title: "4.6 Subconsultas",
-                        items: ["subqueries"]
-                    },
-                    {
-                        title: "4.7 CTE",
-                        items: ["WITH"]
-                    },
-                    {
-                        title: "4.8 Funciones ventana",
-                        items: ["ROW_NUMBER", "RANK", "LAG", "LEAD"]
-                    },
-                    {
-                        title: "4.9 Optimización",
-                        items: ["índices", "EXPLAIN", "planes de ejecución"]
-                    }
-                ],
-                project: "Sistema de consultas para una base de ventas."
-            },
-            {
-                id: 5,
-                name: "Módulo 5 — Modelado de Datos",
-                objective: "Diseñar modelos eficientes.",
-                modules: [
-                    {
-                        title: "Modelado de Datos",
-                        items: [
-                            "Normalización",
-                            "Desnormalización",
-                            "Claves primarias",
-                            "Claves foráneas",
-                            "Modelo Entidad-Relación",
-                            "Modelo dimensional",
-                            "Star Schema",
-                            "Snowflake",
-                            "Fact Tables",
-                            "Dimension Tables",
-                            "Slowly Changing Dimensions"
-                        ]
-                    }
-                ],
-                project: "Diseñar un Data Warehouse."
-            },
-            {
-                id: 6,
-                name: "Módulo 6 — Ingeniería de Software para Data Engineers",
-                objective: "Aprender a construir proyectos mantenibles y profesionales.",
-                modules: [
-                    {
-                        title: "6.1 Estructura profesional",
-                        items: ["estructura src/", "estructura tests/", "estructura docs/", "estructura config/", "scripts/", "assets/"]
-                    },
-                    {
-                        title: "6.2 Configuración",
-                        items: ["variables de entorno", "archivo .env", "config.py", "config.yaml", "archivo .gitignore"]
-                    },
-                    {
-                        title: "6.3 Gestión de dependencias",
-                        items: ["requirements.txt", "pyproject.toml", "pip freeze", "entornos virtuales"]
-                    },
-                    {
-                        title: "6.4 Calidad de código",
-                        items: ["PEP8", "Black", "Ruff", "isort", "Docstrings", "Type Hints"]
-                    },
-                    {
-                        title: "6.5 Logging profesional",
-                        items: ["configuración", "archivos de log", "rotación", "niveles"]
-                    },
-                    {
-                        title: "6.6 Testing",
-                        items: ["pytest", "assert", "fixtures", "mocks", "unit testing", "integration testing", "cobertura (coverage)"]
-                    }
-                ],
-                project: "Refactorizar el proyecto de Python con una estructura profesional, configuración externa, logging y tests automatizados."
-            },
-            {
-                id: 7,
-                name: "Módulo 7 — Pandas",
-                objective: "Manipular y limpiar datos.",
-                modules: [
-                    {
-                        title: "Pandas",
-                        items: ["Series", "DataFrames", "Lectura", "Limpieza", "Joins", "GroupBy", "Fechas", "Valores nulos", "Exportación"]
-                    }
-                ],
-                project: "Limpiar un dataset real."
-            },
-            {
-                id: 8,
-                name: "Módulo 8 — ETL y ELT",
-                objective: "Construir pipelines.",
-                modules: [
-                    {
-                        title: "ETL y ELT",
-                        items: ["ETL", "ELT", "Extracción", "Transformación", "Carga", "Calidad de datos", "Validaciones", "Idempotencia", "Incrementales"]
-                    }
-                ],
-                project: "Primer pipeline completo."
-            },
-            {
-                id: 9,
-                name: "Módulo 9 — Docker",
-                objective: "Contenerizar aplicaciones.",
-                modules: [
-                    {
-                        title: "Docker",
-                        items: ["imágenes", "contenedores", "Dockerfile", "volúmenes", "redes", "Docker Compose"]
-                    }
-                ],
-                project: "Levantar PostgreSQL + Airflow + MinIO."
-            },
-            {
-                id: 10,
-                name: "Módulo 10 — Airflow",
-                objective: "Orquestar pipelines.",
-                modules: [
-                    {
-                        title: "Airflow",
-                        items: ["DAG", "Operators", "Scheduling", "Variables", "XCom", "Connections", "Sensors"]
-                    }
-                ],
-                project: "Automatizar el ETL."
-            },
-            {
-                id: 11,
-                name: "Módulo 11 — Spark",
-                objective: "Procesamiento distribuido.",
-                modules: [
-                    {
-                        title: "Spark",
-                        items: ["Arquitectura", "SparkSession", "DataFrames", "Lectura", "Escritura", "Transformaciones", "Acciones", "Spark SQL", "Particiones", "Optimización"]
-                    }
-                ],
-                project: "Procesar datos masivos."
-            },
-            {
-                id: 12,
-                name: "Módulo 12 — AWS",
-                objective: "Desplegar soluciones de datos.",
-                modules: [
-                    {
-                        title: "AWS",
-                        items: ["IAM", "S3", "EC2", "RDS", "Glue", "Athena", "EMR"]
-                    }
-                ],
-                project: "Migrar el pipeline a AWS."
-            },
-            {
-                id: 13,
-                name: "Módulo 13 — dbt",
-                objective: "Gestionar transformaciones analíticas.",
-                modules: [
-                    {
-                        title: "dbt",
-                        items: ["Models", "Sources", "Seeds", "Tests", "Snapshots", "Macros", "Documentation"]
-                    }
-                ],
-                project: "Construir la capa analítica."
-            },
-            {
-                id: 14,
-                name: "Módulo 14 — Kafka",
-                objective: "Procesar datos en tiempo real.",
-                modules: [
-                    {
-                        title: "Kafka",
-                        items: ["Brokers", "Topics", "Producers", "Consumers", "Particiones", "Consumer Groups"]
-                    }
-                ],
-                project: "Pipeline en streaming."
-            },
-            {
-                id: 15,
-                name: "Módulo 15 — Data Lakehouse",
-                objective: "Construir una arquitectura moderna de datos.",
-                modules: [
-                    {
-                        title: "Data Lakehouse",
-                        items: ["Data Lake", "Data Warehouse", "Lakehouse", "Arquitectura Medallion", "Bronze", "Silver", "Gold", "Delta Lake", "Apache Iceberg"]
-                    }
-                ],
-                project: "Construir un Lakehouse completo."
-            },
-            {
-                id: 16,
-                name: "Módulo 16 — CI/CD para Ingeniería de Datos",
-                objective: "Automatizar la calidad y el despliegue de proyectos.",
-                modules: [
-                    {
-                        title: "16.1 Integración continua",
-                        items: ["¿Qué es CI/CD?", "GitHub Actions", "Workflows", "Runners", "Secrets"]
-                    },
-                    {
-                        title: "16.2 Automatización de calidad",
-                        items: ["Ejecutar tests automáticamente", "Ejecutar Ruff", "Ejecutar Black", "Ejecutar isort", "Coverage"]
-                    },
-                    {
-                        title: "16.3 Automatización de documentación",
-                        items: ["Build de MKDocs", "Deploy automático a GitHub Pages", "Versionado de documentación"]
-                    },
-                    {
-                        title: "16.4 Automatización de Docker",
-                        items: ["Build de imágenes", "Publicación en Docker Hub o GitHub Container Registry"]
-                    }
-                ],
-                project: "Crear un pipeline de CI/CD que, en cada push: ejecute tests, verifique la calidad del código, construya la documentación, genere la imagen Docker, publique automáticamente la documentación."
-            }
-        ];
+        const projectsData = [{
+            id: 0,
+            name: "Módulo 0 — Introducción",
+            objective: "Preparar el entorno de desarrollo y entender los fundamentos.",
+            projects: [{
+                name: "Configuración del entorno",
+                description: "Instala VS Code, Git, Python, Docker, PostgreSQL y DBeaver. Crea un repositorio en GitHub y haz tu primer commit.",
+                tech: ["VS Code", "Git", "Python", "Docker", "PostgreSQL"],
+                link: "#"
+            }, {
+                name: "Primer script en Python",
+                description: "Escribe un script que lea un archivo CSV y muestre las primeras 5 filas. Asegúrate de tener el entorno virtual activo.",
+                tech: ["Python", "CSV"],
+                link: "#"
+            }]
+        }, {
+            id: 1,
+            name: "Módulo 1 — Linux",
+            objective: "Dominar la línea de comandos y scripting en Bash.",
+            projects: [{
+                name: "Automatización de descargas",
+                description: "Crea un script Bash que descargue archivos CSV desde una URL, los organice por fecha y los mueva a una carpeta 'datos'.",
+                tech: ["Bash", "wget", "cron"],
+                link: "#"
+            }, {
+                name: "Procesamiento de logs",
+                description: "Escribe un script que analice un archivo de log, extraiga las líneas con error y cuente las ocurrencias por tipo.",
+                tech: ["Bash", "grep", "awk", "sed"],
+                link: "#"
+            }]
+        }, {
+            id: 2,
+            name: "Módulo 2 — Git",
+            objective: "Controlar versiones de proyectos de datos.",
+            projects: [{
+                name: "Flujo de trabajo con Git",
+                description: "Crea un repositorio, añade archivos, haz commits, crea una rama 'develop' y haz un merge. Sube todo a GitHub.",
+                tech: ["Git", "GitHub"],
+                link: "#"
+            }, {
+                name: "Resolución de conflictos",
+                description: "Simula un conflicto de merge y resuélvelo usando Git. Documenta el proceso.",
+                tech: ["Git"],
+                link: "#"
+            }]
+        }, {
+            id: 3,
+            name: "Módulo 3 — Python",
+            objective: "Programar pipelines y herramientas.",
+            projects: [{
+                name: "Consumir una API REST",
+                description: "Usa la biblioteca 'requests' para obtener datos de una API pública (ej. JSONPlaceholder) y guárdalos en un archivo CSV.",
+                tech: ["Python", "requests", "CSV"],
+                link: "#"
+            }, {
+                name: "Pipeline ETL simple",
+                description: "Extrae datos de un CSV, transforma (limpieza básica, filtrado) y carga en una base de datos SQLite.",
+                tech: ["Python", "pandas", "sqlite3"],
+                link: "#"
+            }]
+        }, {
+            id: 4,
+            name: "Módulo 4 — SQL",
+            objective: "Dominar consultas SQL complejas.",
+            projects: [{
+                name: "Análisis de ventas",
+                description: "Diseña un esquema de base de datos para ventas y escribe consultas que obtengan totales por producto, cliente y mes.",
+                tech: ["SQL", "PostgreSQL"],
+                link: "#"
+            }, {
+                name: "Optimización de consultas",
+                description: "Toma una consulta lenta y añade índices, usa EXPLAIN y mejora el rendimiento.",
+                tech: ["SQL", "PostgreSQL", "EXPLAIN"],
+                link: "#"
+            }]
+        }, {
+            id: 5,
+            name: "Módulo 5 — Modelado de Datos",
+            objective: "Diseñar modelos dimensionales.",
+            projects: [{
+                name: "Diseño de un Data Warehouse",
+                description: "Modela un esquema estrella para un negocio de ventas, incluyendo tablas de hechos y dimensiones.",
+                tech: ["SQL", "Modelado", "Star Schema"],
+                link: "#"
+            }, {
+                name: "SCD tipo 2",
+                description: "Implementa una dimensión de cliente que maneje cambios históricos (Slowly Changing Dimension tipo 2).",
+                tech: ["SQL", "SCD", "PostgreSQL"],
+                link: "#"
+            }]
+        }, {
+            id: 6,
+            name: "Módulo 6 — Ingeniería de Software",
+            objective: "Estructurar proyectos profesionales.",
+            projects: [{
+                name: "Refactorización de un pipeline",
+                description: "Toma un script desordenado y reorganízalo con una estructura src/, tests/, config/, y añade logging y tests con pytest.",
+                tech: ["Python", "pytest", "logging", "estructura"],
+                link: "#"
+            }, {
+                name: "Configuración con .env",
+                description: "Externaliza credenciales y configuraciones usando variables de entorno y un archivo .env.",
+                tech: ["Python", "python-dotenv", "config"],
+                link: "#"
+            }]
+        }, {
+            id: 7,
+            name: "Módulo 7 — Pandas",
+            objective: "Manipular y limpiar datos.",
+            projects: [{
+                name: "Limpieza de un dataset real",
+                description: "Descarga un dataset de Kaggle (ej. Titanic) y realiza limpieza: nulos, duplicados, normalización y exporta a CSV limpio.",
+                tech: ["Python", "pandas", "Kaggle"],
+                link: "#"
+            }, {
+                name: "Análisis exploratorio",
+                description: "Usa Pandas para hacer un análisis exploratorio de datos (EDA) y genera estadísticas descriptivas y visualizaciones básicas con matplotlib.",
+                tech: ["Python", "pandas", "matplotlib"],
+                link: "#"
+            }]
+        }, {
+            id: 8,
+            name: "Módulo 8 — ETL y ELT",
+            objective: "Construir pipelines robustos.",
+            projects: [{
+                name: "Pipeline ETL con validación",
+                description: "Crea un pipeline que extraiga datos de múltiples fuentes (CSV, API), aplique validaciones (calidad) y cargue en PostgreSQL.",
+                tech: ["Python", "PostgreSQL", "pandas", "logging"],
+                link: "#"
+            }, {
+                name: "Pipeline ELT con dbt (simulado)",
+                description: "Simula un proceso ELT donde los datos se cargan primero en una base de datos y luego se transforman con consultas SQL (usando dbt en modo local).",
+                tech: ["SQL", "dbt", "PostgreSQL"],
+                link: "#"
+            }]
+        }, {
+            id: 9,
+            name: "Módulo 9 — Docker",
+            objective: "Contenerizar servicios.",
+            projects: [{
+                name: "Entorno con Docker Compose",
+                description: "Levanta un stack con PostgreSQL, Adminer y un script Python que ejecute un ETL, todo en contenedores.",
+                tech: ["Docker", "Docker Compose", "PostgreSQL", "Python"],
+                link: "#"
+            }, {
+                name: "Imagen personalizada para un pipeline",
+                description: "Crea un Dockerfile para tu pipeline ETL y publícalo en Docker Hub.",
+                tech: ["Docker", "Python", "Docker Hub"],
+                link: "#"
+            }]
+        }, {
+            id: 10,
+            name: "Módulo 10 — Airflow",
+            objective: "Orquestar pipelines.",
+            projects: [{
+                name: "DAG de ETL diario",
+                description: "Crea un DAG en Airflow que ejecute un pipeline ETL cada día a las 8:00 a.m. con tareas de extracción, transformación y carga.",
+                tech: ["Airflow", "Python", "PostgreSQL"],
+                link: "#"
+            }, {
+                name: "Monitoreo y alertas",
+                description: "Configura variables y conexiones en Airflow, añade sensores y envía alertas por correo en caso de fallo.",
+                tech: ["Airflow", "sensors", "email"],
+                link: "#"
+            }]
+        }, {
+            id: 11,
+            name: "Módulo 11 — Spark",
+            objective: "Procesamiento distribuido.",
+            projects: [{
+                name: "Procesamiento de logs masivos",
+                description: "Usa PySpark para leer archivos de log (varios GB), filtrar, agregar y guardar resultados en Parquet.",
+                tech: ["PySpark", "Parquet", "HDFS (local)"],
+                link: "#"
+            }, {
+                name: "Análisis de datos con Spark SQL",
+                description: "Carga un DataFrame, registra como vista temporal y ejecuta consultas SQL para obtener métricas.",
+                tech: ["PySpark", "Spark SQL"],
+                link: "#"
+            }]
+        }, {
+            id: 12,
+            name: "Módulo 12 — AWS",
+            objective: "Desplegar soluciones en la nube.",
+            projects: [{
+                name: "Pipeline en AWS con Glue",
+                description: "Crea un bucket S3, usa AWS Glue para catalogar datos, y escribe un job que transforme datos y los guarde en S3.",
+                tech: ["AWS", "S3", "Glue", "Athena"],
+                link: "#"
+            }, {
+                name: "Despliegue de un ETL en EC2",
+                description: "Lanza una instancia EC2, instala Docker y ejecuta tu pipeline ETL contenerizado.",
+                tech: ["AWS", "EC2", "Docker"],
+                link: "#"
+            }]
+        }, {
+            id: 13,
+            name: "Módulo 13 — dbt",
+            objective: "Gestionar transformaciones analíticas.",
+            projects: [{
+                name: "Proyecto dbt para análisis de ventas",
+                description: "Crea un proyecto dbt que genere modelos de capas staging, intermediate y mart para un negocio de ventas.",
+                tech: ["dbt", "SQL", "PostgreSQL"],
+                link: "#"
+            }, {
+                name: "Pruebas y documentación en dbt",
+                description: "Añade tests de singularidad, no nulos y relaciones. Genera la documentación del proyecto.",
+                tech: ["dbt", "tests", "documentación"],
+                link: "#"
+            }]
+        }, {
+            id: 14,
+            name: "Módulo 14 — Kafka",
+            objective: "Procesamiento en tiempo real.",
+            projects: [{
+                name: "Productor y consumidor en Python",
+                description: "Escribe un productor que envíe mensajes a un tópico Kafka y un consumidor que los procese y los guarde en una base de datos.",
+                tech: ["Kafka", "Python", "kafka-python"],
+                link: "#"
+            }, {
+                name: "Procesamiento de streaming con Spark Structured Streaming",
+                description: "Usa Spark Structured Streaming para leer desde Kafka, hacer ventanas de tiempo y guardar resultados en parquet.",
+                tech: ["Kafka", "Spark", "Structured Streaming"],
+                link: "#"
+            }]
+        }, {
+            id: 15,
+            name: "Módulo 15 — Data Lakehouse",
+            objective: "Construir una arquitectura moderna.",
+            projects: [{
+                name: "Implementación de Delta Lake",
+                description: "Usa Delta Lake para crear una tabla que soporte ACID, time travel y upserts. Carga datos y realiza actualizaciones.",
+                tech: ["Delta Lake", "Spark", "Parquet"],
+                link: "#"
+            }, {
+                name: "Arquitectura Medallion",
+                description: "Implementa las capas Bronze, Silver y Gold usando Delta Lake y dbt para las transformaciones finales.",
+                tech: ["Delta Lake", "dbt", "Spark"],
+                link: "#"
+            }]
+        }, {
+            id: 16,
+            name: "Módulo 16 — CI/CD",
+            objective: "Automatizar la calidad y el despliegue.",
+            projects: [{
+                name: "Pipeline CI/CD con GitHub Actions",
+                description: "Configura un workflow que ejecute tests, ruff, black, y construya la imagen Docker en cada push a main.",
+                tech: ["GitHub Actions", "Python", "Docker", "CI/CD"],
+                link: "#"
+            }, {
+                name: "Despliegue automático de documentación",
+                description: "Usa MKDocs y GitHub Pages para publicar la documentación de tu proyecto automáticamente en cada release.",
+                tech: ["MKDocs", "GitHub Actions", "GitHub Pages"],
+                link: "#"
+            }]
+        }];
 
         // ============================================================
-        // 2. LOCALSTORAGE
+        // 2. LOCALSTORAGE (clave separada)
         // ============================================================
-        const STORAGE_KEY = 'roadmap_checked_items';
-        const ACHIEVEMENTS_KEY = 'roadmap_achievements';
+        const PROJECTS_STORAGE_KEY = 'roadmap_projects_checked';
+        const PROJECTS_DOUBTS_KEY = 'roadmap_projects_doubts';
+        const PROJECTS_ACHIEVEMENTS_KEY = 'roadmap_projects_achievements';
+
+        function loadCheckedProjects() {
+            try {
+                const data = localStorage.getItem(PROJECTS_STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function saveCheckedProjects(items) {
+            localStorage.setItem(PROJECTS_STORAGE_KEY, JSON.stringify(items));
+        }
+
+        function loadProjectDoubts() {
+            try {
+                const data = localStorage.getItem(PROJECTS_DOUBTS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function saveProjectDoubts(doubts) {
+            localStorage.setItem(PROJECTS_DOUBTS_KEY, JSON.stringify(doubts));
+        }
+
+        function loadProjectAchievements() {
+            try {
+                const data = localStorage.getItem(PROJECTS_ACHIEVEMENTS_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch { return []; }
+        }
+
+        function saveProjectAchievements(achievements) {
+            localStorage.setItem(PROJECTS_ACHIEVEMENTS_KEY, JSON.stringify(achievements));
+        }
+
+        // ============================================================
+        // 3. POMODORO (reutilizado)
+        // ============================================================
         const POMODORO_KEY = 'pomodoro_data';
-        const DOUBTS_KEY = 'roadmap_doubts';
-
-        function loadCheckedItems() {
-            try {
-                const data = localStorage.getItem(STORAGE_KEY);
-                return data ? JSON.parse(data) : [];
-            } catch { return []; }
-        }
-
-        function saveCheckedItems(items) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-        }
-
-        function loadAchievements() {
-            try {
-                const data = localStorage.getItem(ACHIEVEMENTS_KEY);
-                return data ? JSON.parse(data) : [];
-            } catch { return []; }
-        }
-
-        function saveAchievements(achievements) {
-            localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(achievements));
-        }
-
-        function loadDoubts() {
-            try {
-                const data = localStorage.getItem(DOUBTS_KEY);
-                return data ? JSON.parse(data) : [];
-            } catch { return []; }
-        }
-
-        function saveDoubts(doubts) {
-            localStorage.setItem(DOUBTS_KEY, JSON.stringify(doubts));
-        }
-
-        // ============================================================
-        // 3. POMODORO
-        // ============================================================
-        const POMODORO_DEFAULTS = {
-            count: 0,
-            lastDate: null,
-            cycle: 0
-        };
+        const POMODORO_DEFAULTS = { count: 0, lastDate: null, cycle: 0 };
 
         function loadPomodoroData() {
             try {
@@ -2219,27 +2052,27 @@
         updatePomodoroUI();
 
         // ============================================================
-        // 4. RENDERIZADO DEL ROADMAP
+        // 4. RENDERIZADO DE PROYECTOS
         // ============================================================
         const container = document.getElementById('phases-container');
         const navSide = document.getElementById('phase-nav-side');
         const navHoriz = document.getElementById('phase-nav-horizontal');
 
-        roadmapData.forEach((phase, index) => {
+        projectsData.forEach((phase, index) => {
             const aSide = document.createElement('a');
             aSide.href = `#phase-${phase.id}`;
-            aSide.textContent = `M${phase.id}`;  // Cambiado de F a M
+            aSide.textContent = `M${phase.id}`;
             aSide.dataset.index = index;
             navSide.appendChild(aSide);
 
             const aHoriz = document.createElement('a');
             aHoriz.href = `#phase-${phase.id}`;
-            aHoriz.textContent = `M${phase.id}`; // Cambiado de F a M
+            aHoriz.textContent = `M${phase.id}`;
             aHoriz.dataset.index = index;
             navHoriz.appendChild(aHoriz);
         });
 
-        roadmapData.forEach((phase, index) => {
+        projectsData.forEach((phase, index) => {
             const card = document.createElement('div');
             card.className = 'phase-card';
             card.id = `phase-${phase.id}`;
@@ -2281,129 +2114,128 @@
             desc.innerHTML = `<strong>Objetivo:</strong> ${phase.objective}`;
             inner.appendChild(desc);
 
-            phase.modules.forEach((mod, modIdx) => {
-                const modContainer = document.createElement('div');
-                modContainer.className = 'module-container';
+            // Lista de proyectos
+            const ul = document.createElement('ul');
+            ul.className = 'project-list';
 
-                const modTitle = document.createElement('div');
-                modTitle.className = 'module-title';
-                const icon = document.createElement('i');
-                const t = mod.title.toLowerCase();
-                if (t.includes('linux')) icon.className = 'fab fa-linux';
-                else if (t.includes('python')) icon.className = 'fab fa-python';
-                else if (t.includes('sql')) icon.className = 'fas fa-database';
-                else if (t.includes('docker')) icon.className = 'fab fa-docker';
-                else if (t.includes('git')) icon.className = 'fab fa-git-alt';
-                else if (t.includes('spark')) icon.className = 'fas fa-bolt';
-                else if (t.includes('aws')) icon.className = 'fab fa-aws';
-                else if (t.includes('kafka')) icon.className = 'fas fa-stream';
-                else if (t.includes('dbt')) icon.className = 'fas fa-cubes';
-                else if (t.includes('airflow')) icon.className = 'fas fa-wind';
-                else if (t.includes('pandas')) icon.className = 'fas fa-table';
-                else if (t.includes('modelado')) icon.className = 'fas fa-project-diagram';
-                else if (t.includes('etl')) icon.className = 'fas fa-exchange-alt';
-                else if (t.includes('lakehouse')) icon.className = 'fas fa-warehouse';
-                else if (t.includes('ci/cd')) icon.className = 'fas fa-sync-alt';
-                else icon.className = 'fas fa-cog';
-                modTitle.appendChild(icon);
-                modTitle.appendChild(document.createTextNode(mod.title));
+            phase.projects.forEach((proj, projIdx) => {
+                const li = document.createElement('li');
+                const itemId = `p${phase.id}-proj${projIdx}`;
 
-                const ul = document.createElement('ul');
-                ul.className = 'module-items';
+                const headerProj = document.createElement('div');
+                headerProj.className = 'project-header';
 
-                mod.items.forEach((itemText, itemIdx) => {
-                    const li = document.createElement('li');
-                    const itemId = `p${phase.id}-m${modIdx}-i${itemIdx}`;
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = itemId;
 
-                    const checkbox = document.createElement('input');
-                    checkbox.type = 'checkbox';
-                    checkbox.id = itemId;
+                const checkedItems = loadCheckedProjects();
+                if (checkedItems.includes(itemId)) {
+                    checkbox.checked = true;
+                    li.classList.add('completed');
+                }
 
-                    const checkedItems = loadCheckedItems();
-                    if (checkedItems.includes(itemId)) {
-                        checkbox.checked = true;
-                        li.classList.add('completed');
+                checkbox.addEventListener('change', function() {
+                    const isChecked = this.checked;
+                    const liParent = this.closest('li');
+                    if (isChecked) {
+                        liParent.classList.add('completed');
+                    } else {
+                        liParent.classList.remove('completed');
                     }
-
-                    checkbox.addEventListener('change', function() {
-                        const isChecked = this.checked;
-                        const liParent = this.closest('li');
-                        if (isChecked) {
-                            liParent.classList.add('completed');
-                        } else {
-                            liParent.classList.remove('completed');
+                    let current = loadCheckedProjects();
+                    if (isChecked) {
+                        if (!current.includes(itemId)) {
+                            current.push(itemId);
                         }
-                        let current = loadCheckedItems();
-                        if (isChecked) {
-                            if (!current.includes(itemId)) {
-                                current.push(itemId);
-                            }
-                        } else {
-                            current = current.filter(id => id !== itemId);
-                        }
-                        saveCheckedItems(current);
-                        updateProgress();
-                        updatePhaseProgress();
-                        checkAchievements();
-                    });
-
-                    const label = document.createElement('span');
-                    label.className = 'item-text';
-                    label.textContent = itemText;
-
-                    // Botón de duda
-                    const doubtBtn = document.createElement('button');
-                    doubtBtn.className = 'doubt-btn';
-                    doubtBtn.innerHTML = '❓';
-                    doubtBtn.title = 'Marcar como duda';
-                    doubtBtn.dataset.itemId = itemId;
-
-                    const doubts = loadDoubts();
-                    if (doubts.includes(itemId)) {
-                        doubtBtn.classList.add('active');
-                        li.classList.add('has-doubt');
+                    } else {
+                        current = current.filter(id => id !== itemId);
                     }
-
-                    doubtBtn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const id = this.dataset.itemId;
-                        let currentDoubts = loadDoubts();
-                        const liParent = this.closest('li');
-                        if (currentDoubts.includes(id)) {
-                            currentDoubts = currentDoubts.filter(d => d !== id);
-                            this.classList.remove('active');
-                            liParent.classList.remove('has-doubt');
-                        } else {
-                            currentDoubts.push(id);
-                            this.classList.add('active');
-                            liParent.classList.add('has-doubt');
-                        }
-                        saveDoubts(currentDoubts);
-                        updateDoubtCounter();
-                        if (document.body.classList.contains('show-doubts-only')) {
-                            applyDoubtFilter();
-                        }
-                        showToast(this.classList.contains('active') ?
-                            '❓ Marcado como duda' :
-                            '✅ Duda resuelta', 1500);
-                    });
-
-                    li.appendChild(checkbox);
-                    li.appendChild(label);
-                    li.appendChild(doubtBtn);
-                    ul.appendChild(li);
+                    saveCheckedProjects(current);
+                    updateProgress();
+                    updatePhaseProgress();
+                    checkAchievements();
                 });
 
-                modContainer.appendChild(modTitle);
-                modContainer.appendChild(ul);
-                inner.appendChild(modContainer);
+                const nameSpanProj = document.createElement('span');
+                nameSpanProj.className = 'project-name';
+                nameSpanProj.textContent = proj.name;
+
+                // Botón de duda
+                const doubtBtn = document.createElement('button');
+                doubtBtn.className = 'doubt-btn';
+                doubtBtn.innerHTML = '❓';
+                doubtBtn.title = 'Marcar como duda';
+                doubtBtn.dataset.itemId = itemId;
+
+                const doubts = loadProjectDoubts();
+                if (doubts.includes(itemId)) {
+                    doubtBtn.classList.add('active');
+                    li.classList.add('has-doubt');
+                }
+
+                doubtBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const id = this.dataset.itemId;
+                    let currentDoubts = loadProjectDoubts();
+                    const liParent = this.closest('li');
+                    if (currentDoubts.includes(id)) {
+                        currentDoubts = currentDoubts.filter(d => d !== id);
+                        this.classList.remove('active');
+                        liParent.classList.remove('has-doubt');
+                    } else {
+                        currentDoubts.push(id);
+                        this.classList.add('active');
+                        liParent.classList.add('has-doubt');
+                    }
+                    saveProjectDoubts(currentDoubts);
+                    updateDoubtCounter();
+                    if (document.body.classList.contains('show-doubts-only')) {
+                        applyDoubtFilter();
+                    }
+                    showToast(this.classList.contains('active') ?
+                        '❓ Marcado como duda' :
+                        '✅ Duda resuelta', 1500);
+                });
+
+                headerProj.appendChild(checkbox);
+                headerProj.appendChild(nameSpanProj);
+                headerProj.appendChild(doubtBtn);
+
+                const descProj = document.createElement('div');
+                descProj.className = 'project-description';
+                descProj.textContent = proj.description;
+
+                const techDiv = document.createElement('div');
+                techDiv.className = 'project-tech';
+                proj.tech.forEach(tag => {
+                    const span = document.createElement('span');
+                    span.className = 'tech-tag';
+                    span.textContent = tag;
+                    techDiv.appendChild(span);
+                });
+
+                const linkDiv = document.createElement('div');
+                linkDiv.className = 'project-link';
+                const aLink = document.createElement('a');
+                aLink.href = proj.link || '#';
+                aLink.target = '_blank';
+                aLink.innerHTML = '<i class="fas fa-external-link-alt"></i> Ver repositorio';
+                if (proj.link === '#') {
+                    aLink.style.opacity = '0.5';
+                    aLink.style.cursor = 'default';
+                    aLink.addEventListener('click', (e) => e.preventDefault());
+                }
+                linkDiv.appendChild(aLink);
+
+                li.appendChild(headerProj);
+                li.appendChild(descProj);
+                li.appendChild(techDiv);
+                li.appendChild(linkDiv);
+                ul.appendChild(li);
             });
 
-            const project = document.createElement('div');
-            project.className = 'project-tag';
-            project.innerHTML = `<i class="fas fa-rocket"></i> ${phase.project}`;
-            inner.appendChild(project);
-
+            inner.appendChild(ul);
             body.appendChild(inner);
             card.appendChild(header);
             card.appendChild(body);
@@ -2422,17 +2254,17 @@
         });
 
         // ============================================================
-        // 5. PROGRESO Y TIMELINE (la parte de timeline ya no se usa visualmente)
+        // 5. PROGRESO
         // ============================================================
         function getPhaseProgress(phaseId) {
-            const items = document.querySelectorAll(`#phase-${phaseId} .module-items input[type="checkbox"]`);
+            const items = document.querySelectorAll(`#phase-${phaseId} .project-list input[type="checkbox"]`);
             const total = items.length;
-            const checked = document.querySelectorAll(`#phase-${phaseId} .module-items input[type="checkbox"]:checked`).length;
+            const checked = document.querySelectorAll(`#phase-${phaseId} .project-list input[type="checkbox"]:checked`).length;
             return { total, checked };
         }
 
         function updatePhaseProgress() {
-            roadmapData.forEach(phase => {
+            projectsData.forEach(phase => {
                 const { total, checked } = getPhaseProgress(phase.id);
                 const el = document.getElementById(`phase-progress-${phase.id}`);
                 if (el) el.textContent = `${checked}/${total}`;
@@ -2440,9 +2272,9 @@
         }
 
         function getTotalProgress() {
-            const all = document.querySelectorAll('.module-items input[type="checkbox"]');
+            const all = document.querySelectorAll('.project-list input[type="checkbox"]');
             const total = all.length;
-            const checked = document.querySelectorAll('.module-items input[type="checkbox"]:checked').length;
+            const checked = document.querySelectorAll('.project-list input[type="checkbox"]:checked').length;
             const percent = total === 0 ? 0 : Math.round((checked / total) * 100);
             return { total, checked, percent };
         }
@@ -2450,14 +2282,10 @@
         function updateProgress() {
             const { total, checked, percent } = getTotalProgress();
             document.getElementById('progress-bar').style.width = percent + '%';
-            document.getElementById('progress-text').textContent = `${percent}% completado (${checked}/${total} ítems)`;
+            document.getElementById('progress-text').textContent = `${percent}% completado (${checked}/${total} proyectos)`;
             window.currentProgress = percent;
             updatePhaseProgress();
         }
-
-        // Las funciones de timeline se mantienen pero no se usan porque el contenedor fue eliminado.
-        function buildTimeline() {}
-        function updateTimeline() {}
 
         // ============================================================
         // 6. NAVEGACIÓN ACTIVA
@@ -2493,7 +2321,7 @@
         });
 
         // ============================================================
-        // 7. COMPARTIR
+        // 7. COMPARTIR (adaptado)
         // ============================================================
         const shareModal = document.getElementById('shareModal');
         const shareMessage = document.getElementById('shareMessage');
@@ -2506,7 +2334,7 @@
 
         function getShareData() {
             const percent = window.currentProgress || 0;
-            const message = `¡He completado el ${percent}% del roadmap de Ingeniería de Datos! 🚀 ¿Y tú?`;
+            const message = `¡He completado el ${percent}% de los proyectos del roadmap de Ingeniería de Datos! 🚀 ¿Y tú?`;
             const url = window.location.href;
             return { message, url };
         }
@@ -2516,7 +2344,7 @@
             shareMessage.textContent = message;
             twitterLink.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${encodeURIComponent(url)}`;
             linkedinLink.href =
-                `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent('DataPath · Roadmap Ingeniería de Datos')}`;
+                `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}&summary=${encodeURIComponent('DataPath · Proyectos de Ingeniería de Datos')}`;
         }
 
         function showToast(text, duration = 3000) {
@@ -2591,61 +2419,61 @@
         });
 
         // ============================================================
-        // 8. LOGROS / ACHIEVEMENTS + CONFETI
+        // 8. LOGROS (adaptados a proyectos)
         // ============================================================
         const ACHIEVEMENTS_DEF = [{
-            id: 'first_step',
+            id: 'first_project',
             icon: '🚀',
-            name: 'Primer paso',
-            desc: 'Completar al menos 1 ítem',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => checkedItems >= 1
+            name: 'Primer proyecto',
+            desc: 'Completar al menos 1 proyecto',
+            check: (total, checked, percent, phasesCompleted) => checked >= 1
         }, {
-            id: 'explorer',
+            id: 'project_explorer',
             icon: '🧭',
-            name: 'Explorador',
-            desc: 'Completar 10 ítems',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => checkedItems >= 10
+            name: 'Explorador de proyectos',
+            desc: 'Completar 5 proyectos',
+            check: (total, checked, percent, phasesCompleted) => checked >= 5
         }, {
-            id: 'climber',
+            id: 'project_climber',
             icon: '🧗',
-            name: 'Escalador',
-            desc: 'Completar 25 ítems',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => checkedItems >= 25
+            name: 'Escalador de proyectos',
+            desc: 'Completar 10 proyectos',
+            check: (total, checked, percent, phasesCompleted) => checked >= 10
         }, {
-            id: 'halfway',
+            id: 'project_halfway',
             icon: '🚀',
-            name: 'Mitad del camino',
-            desc: 'Alcanzar 50% de progreso',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => percent >= 50
+            name: 'Mitad de los proyectos',
+            desc: 'Alcanzar 50% de proyectos completados',
+            check: (total, checked, percent, phasesCompleted) => percent >= 50
         }, {
-            id: 'almost_there',
+            id: 'project_almost',
             icon: '🌟',
-            name: 'Casi listo',
-            desc: 'Alcanzar 75% de progreso',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => percent >= 75
+            name: 'Casi todos los proyectos',
+            desc: 'Alcanzar 75% de proyectos completados',
+            check: (total, checked, percent, phasesCompleted) => percent >= 75
         }, {
-            id: 'master',
+            id: 'project_master',
             icon: '👑',
-            name: 'Maestro',
-            desc: 'Completar el 100%',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => percent >= 100
+            name: 'Maestro de proyectos',
+            desc: 'Completar el 100% de los proyectos',
+            check: (total, checked, percent, phasesCompleted) => percent >= 100
         }, {
-            id: 'phase_complete',
+            id: 'project_phase_master',
             icon: '🏅',
-            name: 'Completador de fases',
-            desc: 'Completar todas las fases (cada fase al 100%)',
-            check: (totalItems, checkedItems, percent, phasesCompleted) => phasesCompleted === roadmapData.length
+            name: 'Completador de módulos',
+            desc: 'Completar todos los proyectos de cada módulo (todos los módulos al 100%)',
+            check: (total, checked, percent, phasesCompleted) => phasesCompleted === projectsData.length
         }, {
-            id: 'all_phases',
+            id: 'project_all',
             icon: '🎯',
-            name: 'Completista',
-            desc: 'Completar todas las fases (100% global y todas las fases)',
-            check: (totalItems, checkedItems, percent, phasesCompleted) =>
-                percent >= 100 && phasesCompleted === roadmapData.length
+            name: 'Completista total',
+            desc: '100% de proyectos y todos los módulos completos',
+            check: (total, checked, percent, phasesCompleted) =>
+                percent >= 100 && phasesCompleted === projectsData.length
         }];
 
         function getAchievementStatus() {
-            const unlocked = loadAchievements();
+            const unlocked = loadProjectAchievements();
             const total = ACHIEVEMENTS_DEF.length;
             return { unlocked, total };
         }
@@ -2668,18 +2496,18 @@
         }
 
         function checkAchievements() {
-            const allCheckboxes = document.querySelectorAll('.module-items input[type="checkbox"]');
+            const allCheckboxes = document.querySelectorAll('.project-list input[type="checkbox"]');
             const totalItems = allCheckboxes.length;
-            const checkedItems = document.querySelectorAll('.module-items input[type="checkbox"]:checked').length;
+            const checkedItems = document.querySelectorAll('.project-list input[type="checkbox"]:checked').length;
             const percent = totalItems === 0 ? 0 : Math.round((checkedItems / totalItems) * 100);
 
             let phasesCompleted = 0;
-            roadmapData.forEach(phase => {
+            projectsData.forEach(phase => {
                 const { total, checked } = getPhaseProgress(phase.id);
                 if (total > 0 && checked === total) phasesCompleted++;
             });
 
-            const unlocked = loadAchievements();
+            const unlocked = loadProjectAchievements();
             let newUnlocks = [];
 
             ACHIEVEMENTS_DEF.forEach(def => {
@@ -2690,7 +2518,7 @@
             });
 
             if (newUnlocks.length > 0) {
-                saveAchievements(unlocked);
+                saveProjectAchievements(unlocked);
                 newUnlocks.forEach(def => {
                     showToast(`🏆 ¡Logro desbloqueado: ${def.icon} ${def.name}!`, 4000);
                     triggerConfetti();
@@ -2710,7 +2538,7 @@
         function renderAchievementsModal() {
             const grid = document.getElementById('achievementsList');
             grid.innerHTML = '';
-            const unlocked = loadAchievements();
+            const unlocked = loadProjectAchievements();
 
             ACHIEVEMENTS_DEF.forEach(def => {
                 const isUnlocked = unlocked.includes(def.id);
@@ -2761,7 +2589,6 @@
             document.body.classList.toggle('read-mode', this.checked);
             toggleAllBtn.disabled = this.checked;
             if (this.checked) {
-                // En modo lectura, forzamos todas las fases abiertas
                 document.querySelectorAll('.phase-body').forEach(body => {
                     body.classList.add('open');
                 });
@@ -2770,13 +2597,12 @@
                 });
                 updateToggleAllButton();
             } else {
-                // Al salir, no forzamos nada, el botón se actualizará según el estado actual
                 updateToggleAllButton();
             }
         });
 
         // ============================================================
-        // 10. FILTRO DE DUDAS
+        // 10. FILTRO DE DUDAS (proyectos)
         // ============================================================
         const doubtFilterBtn = document.getElementById('doubtFilterBtn');
         let doubtFilterActive = false;
@@ -2785,11 +2611,11 @@
             if (doubtFilterActive) {
                 document.body.classList.add('show-doubts-only');
                 doubtFilterBtn.classList.add('active-filter');
-                showToast('🔍 Mostrando solo ítems con dudas', 2000);
+                showToast('🔍 Mostrando solo proyectos con dudas', 2000);
             } else {
                 document.body.classList.remove('show-doubts-only');
                 doubtFilterBtn.classList.remove('active-filter');
-                showToast('🔍 Mostrando todos los ítems', 1500);
+                showToast('🔍 Mostrando todos los proyectos', 1500);
             }
         }
 
@@ -2799,17 +2625,16 @@
         });
 
         // ============================================================
-        // 11. CONTADOR DE DUDAS
+        // 11. CONTADOR DE DUDAS (proyectos)
         // ============================================================
         function updateDoubtCounter() {
-            const doubts = loadDoubts();
+            const doubts = loadProjectDoubts();
             document.getElementById('doubtCount').textContent = doubts.length;
         }
-
         updateDoubtCounter();
 
         // ============================================================
-        // 12. REINICIO DE PROGRESO
+        // 12. REINICIO
         // ============================================================
         const resetBtn = document.getElementById('resetBtn');
         const resetModal = document.getElementById('resetModal');
@@ -2825,24 +2650,20 @@
         }
 
         resetBtn.addEventListener('click', openResetModal);
-
         cancelResetBtn.addEventListener('click', closeResetModal);
-
         resetModal.addEventListener('click', (e) => {
-            if (e.target === resetModal) {
-                closeResetModal();
-            }
+            if (e.target === resetModal) closeResetModal();
         });
 
         confirmResetBtn.addEventListener('click', function() {
-            localStorage.removeItem(STORAGE_KEY);
-            localStorage.removeItem(ACHIEVEMENTS_KEY);
-            localStorage.removeItem(DOUBTS_KEY);
+            localStorage.removeItem(PROJECTS_STORAGE_KEY);
+            localStorage.removeItem(PROJECTS_DOUBTS_KEY);
+            localStorage.removeItem(PROJECTS_ACHIEVEMENTS_KEY);
             window.location.reload();
         });
 
         // ============================================================
-        // 13. BOTÓN COLAPSAR/EXPANDIR TODO (NUEVO)
+        // 13. COLAPSAR/EXPANDIR TODO
         // ============================================================
         const toggleAllText = document.getElementById('toggleAllText');
 
@@ -2850,9 +2671,7 @@
             const bodies = document.querySelectorAll('.phase-body');
             let anyOpen = false;
             bodies.forEach(body => {
-                if (body.classList.contains('open')) {
-                    anyOpen = true;
-                }
+                if (body.classList.contains('open')) anyOpen = true;
             });
             if (anyOpen) {
                 toggleAllText.textContent = 'Colapsar todo';
@@ -2867,32 +2686,28 @@
             if (toggleAllBtn.disabled) return;
             const bodies = document.querySelectorAll('.phase-body');
             const toggles = document.querySelectorAll('.phase-toggle');
-            // Si alguna está abierta, las colapsamos todas; si ninguna, las expandimos todas
             let anyOpen = false;
             bodies.forEach(body => {
-                if (body.classList.contains('open')) {
-                    anyOpen = true;
-                }
+                if (body.classList.contains('open')) anyOpen = true;
             });
 
             if (anyOpen) {
-                // Colapsar todas
                 bodies.forEach(body => body.classList.remove('open'));
                 toggles.forEach(toggle => toggle.classList.remove('open'));
-                showToast('📂 Todas las fases colapsadas', 1500);
+                showToast('📂 Todos los módulos colapsados', 1500);
             } else {
-                // Expandir todas
                 bodies.forEach(body => body.classList.add('open'));
                 toggles.forEach(toggle => toggle.classList.add('open'));
-                showToast('📂 Todas las fases expandidas', 1500);
+                showToast('📂 Todos los módulos expandidos', 1500);
             }
             updateToggleAllButton();
         }
 
         toggleAllBtn.addEventListener('click', toggleAllPhases);
 
-        // Llamar a updateToggleAllButton después de cargar para sincronizar el estado inicial
-        // (ya que la primera fase está abierta por defecto)
+        // ============================================================
+        // INIT
+        // ============================================================
         window.addEventListener('load', function() {
             updateToggleAllButton();
             updateActiveNav();

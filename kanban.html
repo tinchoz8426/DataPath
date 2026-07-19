@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* ===== RESET Y BASE (mismo que index.html) ===== */
         :root {
             --bg: #0d0d1a;
             --card-bg: rgba(20, 20, 45, 0.9);
@@ -37,125 +38,135 @@
         }
 
         body {
-            background-color: var(--bg);
+            background-color: #1a1a2e;
             background-image:
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            color: var(--text);
+                linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #e0e0ff;
             font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
             min-height: 100vh;
             overflow-x: hidden;
-            letter-spacing: 0.3px;
+            padding: 0;
         }
 
-        /* ===== HEADER ===== */
-        .kanban-header {
+        /* ===== HEADER (mismo estilo que index.html) ===== */
+        header {
             text-align: center;
-            padding: 22px 20px 12px;
-            border-bottom: 2px solid rgba(0, 240, 255, 0.25);
-            background: rgba(10, 10, 30, 0.8);
+            padding: 30px 20px 25px;
+            border-bottom: 2px solid rgba(0, 240, 255, 0.3);
+            background: rgba(10, 10, 30, 0.85);
             backdrop-filter: blur(8px);
             position: sticky;
             top: 0;
             z-index: 50;
         }
 
-        .kanban-header h1 {
+        header h1 {
             font-family: 'Orbitron', sans-serif;
             font-weight: 900;
-            font-size: 1.8rem;
+            font-size: 2.6rem;
             background: linear-gradient(135deg, #00f0ff, #a855f7, #ff00ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
             letter-spacing: 2px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .kanban-header h1 i {
-            background: none;
-            -webkit-text-fill-color: #00f0ff;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-        }
-
-        .kanban-header .subtitle {
-            font-size: 0.85rem;
-            color: #8090b0;
-            margin-top: 4px;
-            letter-spacing: 2px;
-        }
-
-        .header-actions {
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 10px;
-            flex-wrap: wrap;
+            gap: 14px;
         }
 
-        .btn {
+        header h1 .title-icon {
+            height: 2.6rem;
+            width: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.4));
+        }
+
+        header .subtitle {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: #c8d8ff;
+            margin-top: 6px;
+            letter-spacing: 3px;
+        }
+
+        header .subtitle i {
+            color: #00f0ff;
+            margin: 0 8px;
+        }
+
+        /* ===== HERRAMIENTAS (mismo estilo que index.html) ===== */
+        .tools-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 16px 24px;
+            margin: 16px 0 10px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(0, 240, 255, 0.08);
+        }
+
+        .tools-row .action-tool {
+            background: rgba(0, 240, 255, 0.06);
+            border: 1px solid rgba(0, 240, 255, 0.15);
+            color: #c0d0ff;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 7px 16px;
-            border-radius: 30px;
-            font-family: 'Rajdhani', sans-serif;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
-            border: 1px solid transparent;
-            letter-spacing: 0.5px;
         }
 
-        .btn-back {
-            background: rgba(0, 240, 255, 0.08);
-            border-color: rgba(0, 240, 255, 0.3);
-            color: #c0d0ff;
-        }
-        .btn-back:hover {
-            background: rgba(0, 240, 255, 0.18);
+        .tools-row .action-tool:hover {
+            background: rgba(0, 240, 255, 0.15);
             border-color: #00f0ff;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.1);
+            transform: scale(1.05);
             color: #fff;
-            transform: scale(1.03);
         }
 
-        .btn-add {
-            background: rgba(168, 85, 247, 0.15);
-            border-color: rgba(168, 85, 247, 0.4);
-            color: #d0c0ff;
-        }
-        .btn-add:hover {
-            background: rgba(168, 85, 247, 0.3);
-            border-color: #a855f7;
-            box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
-            color: #fff;
-            transform: scale(1.03);
+        .tools-row .action-tool i {
+            color: #a855f7;
         }
 
-        .btn-clear {
-            background: rgba(255, 100, 100, 0.08);
-            border-color: rgba(255, 100, 100, 0.3);
-            color: #ffaaaa;
+        .tools-row .action-tool.danger {
+            background: rgba(255, 60, 60, 0.08);
+            border-color: rgba(255, 60, 60, 0.25);
         }
-        .btn-clear:hover {
-            background: rgba(255, 100, 100, 0.2);
+        .tools-row .action-tool.danger i {
+            color: #ff6b6b;
+        }
+        .tools-row .action-tool.danger:hover {
+            background: rgba(255, 60, 60, 0.2);
             border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(255, 100, 100, 0.2);
-            color: #fff;
-            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(255, 60, 60, 0.15);
         }
 
-        .btn i {
-            font-size: 0.9rem;
+        .tools-row .action-tool.add {
+            background: rgba(168, 85, 247, 0.1);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+        .tools-row .action-tool.add i {
+            color: #a855f7;
+        }
+        .tools-row .action-tool.add:hover {
+            background: rgba(168, 85, 247, 0.2);
+            border-color: #a855f7;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.15);
         }
 
-        /* ===== TABLERO ===== */
+        /* ===== TABLERO (sin cambios) ===== */
         .board-container {
             display: flex;
             gap: 16px;
@@ -370,7 +381,7 @@
             justify-content: center;
         }
 
-        /* ===== MODAL ===== */
+        /* ===== MODALES (sin cambios) ===== */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -519,7 +530,6 @@
             transform: scale(1.03);
         }
 
-        /* ===== CONFIRM DELETE MODAL ===== */
         .confirm-modal .modal-content {
             border-color: rgba(255, 60, 60, 0.4);
             box-shadow: 0 0 60px rgba(255, 60, 60, 0.1);
@@ -557,7 +567,7 @@
             pointer-events: auto;
         }
 
-        /* ===== RESPONSIVE ===== */
+        /* ===== RESPONSIVE (mantener) ===== */
         @media (max-width: 1000px) {
             .board-container {
                 flex-wrap: wrap;
@@ -584,37 +594,66 @@
             .column-body {
                 max-height: 40vh;
             }
-            .kanban-header h1 {
-                font-size: 1.3rem;
+            header h1 {
+                font-size: 1.8rem;
             }
-            .btn {
+            header h1 .title-icon {
+                height: 1.8rem;
+            }
+            header .subtitle {
+                font-size: 0.9rem;
+            }
+            .tools-row {
+                gap: 10px;
+                padding: 10px 14px;
+            }
+            .tools-row .action-tool {
                 font-size: 0.75rem;
-                padding: 5px 12px;
+                padding: 3px 12px;
             }
             .modal-content {
                 padding: 20px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.4rem;
+            }
+            header h1 .title-icon {
+                height: 1.4rem;
+            }
+            header .subtitle {
+                font-size: 0.75rem;
+                letter-spacing: 1px;
+            }
+            .tools-row .action-tool {
+                font-size: 0.7rem;
+                padding: 3px 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== HEADER ===== -->
-    <header class="kanban-header">
+    <!-- ===== HEADER (nuevo estilo, misma funcionalidad) ===== -->
+    <header>
         <h1>
-            <i class="fas fa-tasks"></i> DataPath · Tablero Kanban
+            <img src="roadmap.png" alt="DataPath" class="title-icon">
+            DataPath · Tablero Kanban
         </h1>
         <div class="subtitle">
             <i class="fas fa-arrow-right"></i> Arrastra tus tareas entre columnas <i class="fas fa-arrow-left"></i>
         </div>
-        <div class="header-actions">
-            <a href="index.html" class="btn btn-back">
+        <!-- Barra de herramientas -->
+        <div class="tools-row">
+            <a href="index.html" class="action-tool">
                 <i class="fas fa-arrow-left"></i> Volver al Roadmap
             </a>
-            <button class="btn btn-add" id="btnAddTask">
+            <button class="action-tool add" id="btnAddTask">
                 <i class="fas fa-plus-circle"></i> Nueva tarea
             </button>
-            <button class="btn btn-clear" id="btnClearAll">
+            <button class="action-tool danger" id="btnClearAll">
                 <i class="fas fa-trash-alt"></i> Limpiar todo
             </button>
         </div>
@@ -858,18 +897,11 @@
             this.classList.add('dragging');
             e.dataTransfer.effectAllowed = 'move';
             e.dataTransfer.setData('text/plain', draggedTaskId);
-            // Pequeño retraso para que el navegador capture el estilo
-            setTimeout(() => {
-                if (this.classList.contains('dragging')) {
-                    // ok
-                }
-            }, 0);
         }
 
         function handleDragEnd(e) {
             this.classList.remove('dragging');
             draggedTaskId = null;
-            // Quitar drag-over de todas las columnas
             document.querySelectorAll('.column').forEach(col => col.classList.remove('drag-over'));
         }
 
@@ -1106,13 +1138,11 @@
         // ATAJOS DE TECLADO
         // ============================================================
         document.addEventListener('keydown', (e) => {
-            // Esc para cerrar modales
             if (e.key === 'Escape') {
                 if (taskModal.classList.contains('show')) closeTaskModal();
                 if (confirmModal.classList.contains('show')) closeConfirmModal();
                 if (clearAllModal.classList.contains('show')) clearAllModal.classList.remove('show');
             }
-            // Ctrl+N o Alt+N para nueva tarea
             if ((e.ctrlKey || e.altKey) && e.key === 'n') {
                 e.preventDefault();
                 openCreateModal('pending');
@@ -1125,7 +1155,7 @@
         function init() {
             renderBoard();
             updateAllCounts();
-            // Verificar si hay tareas huérfanas (con estado inválido)
+            // Verificar tareas huérfanas
             const tasks = loadTasks();
             const validStatuses = COLUMNS.map(c => c.id);
             let needsFix = false;
